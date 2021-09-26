@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-#nullable disable
-
 namespace SimpleCrud.Storage.Models
 {
-    public partial class Position
+    public class Position
     {
         [Key]
         [Column("PositionId")]
