@@ -13,7 +13,7 @@ namespace SimpleCrud.Infrastructure.Configuration
                 T actualVal = (T)Convert.ChangeType(valFromFile, typeof(T));
                 return actualVal;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return defaultValue;
             }

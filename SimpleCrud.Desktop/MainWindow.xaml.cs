@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using MahApps.Metro.Controls;
 
 namespace SimpleCrud.Desktop
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void HamburgerMenu_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
+        {
+            this.HamburgerMenu.Content = e.InvokedItem;
+
+            if (!e.IsItemOptions && this.HamburgerMenu.IsPaneOpen)
+            {
+                // You can close the menu if an item was selected
+                // this.HamburgerMenu.SetCurrentValue(HamburgerMenuControl.IsPaneOpenProperty, false);
+            }
         }
     }
 }
