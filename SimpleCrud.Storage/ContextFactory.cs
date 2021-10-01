@@ -5,6 +5,9 @@ namespace SimpleCrud.Storage
 {
     public static class ContextFactory
     {
-        public static EascahireDbContext Create() => new EascahireDbContext(ConfigProvider.ConnectionString);
+        public static EascahireDbContext Create()
+        {
+            return new EascahireDbContext(ConfigProvider.ConnectionString);
+        }
     }
 }
