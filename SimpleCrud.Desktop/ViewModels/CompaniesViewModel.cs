@@ -1,5 +1,6 @@
 ﻿using SimpleCrud.Storage.Models;
 using System.Collections.ObjectModel;
+using SimpleCrud.MVVM.ViewModels;
 
 namespace SimpleCrud.Desktop.ViewModels
 {

@@ -1,4 +1,4 @@
-﻿namespace SimpleCrud.Desktop.ViewModels
+﻿namespace SimpleCrud.MVVM.ViewModels
 {
     public class TaskExecutionViewModel : ViewModel
     {

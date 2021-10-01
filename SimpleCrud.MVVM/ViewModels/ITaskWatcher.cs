@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace SimpleCrud.Desktop.ViewModels
+namespace SimpleCrud.MVVM.ViewModels
 {
     public interface ITaskWatcher : INotifyPropertyChanged, IDisposable
     {

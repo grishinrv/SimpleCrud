@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SimpleCrud.Desktop.ViewModels
+namespace SimpleCrud.MVVM.ViewModels
 {
     public abstract class ViewModel : INotifyPropertyChanged
     {

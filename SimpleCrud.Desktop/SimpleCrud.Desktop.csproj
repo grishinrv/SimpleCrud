@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SimpleCrud.MVVM\SimpleCrud.MVVM.csproj" />
     <ProjectReference Include="..\SimpleCrud.Storage\SimpleCrud.Storage.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace SimpleCrud.Desktop.ViewModels
+namespace SimpleCrud.MVVM.ViewModels
 {
     public sealed class TaskWatcher<TResult> : ViewModel, ITaskWatcher
     {

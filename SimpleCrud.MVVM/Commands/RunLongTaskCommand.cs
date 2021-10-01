@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SimpleCrud.Desktop.ViewModels;
 
-namespace SimpleCrud.Desktop.Commands
+namespace SimpleCrud.MVVM.Commands
 {
     public class RunLongTaskCommand : ICommand
     {
