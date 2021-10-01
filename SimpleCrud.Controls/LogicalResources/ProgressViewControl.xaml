@@ -14,14 +14,30 @@
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
 
     <ControlTemplate x:Key="SimpleCrud.Controls.ProgressViewControl" TargetType="{x:Type local:ProgressViewControl}">
-        <Grid Background="{TemplateBinding Background}"
-              LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
-              RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}"
-              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-              UseLayoutRounding="True">
-                       
-
-        </Grid>
+        <DockPanel Background="{TemplateBinding Background}"
+                   LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
+                   RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}"
+                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                   UseLayoutRounding="True"
+                   LastChildFill="True">
+            <TextBlock DockPanel.Dock="Top" Text="{Binding Operation, RelativeSource={RelativeSource TemplatedParent}}" />
+            <Grid DockPanel.Dock="Bottom" >
+                <Button x:Name="PART_CloseButton"
+                        Margin="0 0 5 0"
+                        Content="Close"
+                        FontSize="{Binding DialogButtonFontSize, RelativeSource={RelativeSource AncestorType=dialogs:MessageDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{DynamicResource MahApps.Styles.Button.Dialogs}" />
+            </Grid>
+            <TextBlock DockPanel.Dock="Bottom" 
+                       Visibility="{Binding CompletedWithError, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       Text="{Binding Error, RelativeSource={RelativeSource TemplatedParent}}" />
+            <Grid>
+                <mah:ProgressRing 
+                    Width="40"
+                    Height="40"
+                    IsActive="{Binding IsInProgress, RelativeSource={RelativeSource TemplatedParent}}"/>
+            </Grid>
+        </DockPanel>
 
         <ControlTemplate.Triggers>
         </ControlTemplate.Triggers>
