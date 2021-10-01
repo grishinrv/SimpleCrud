@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using SimpleCrud.MVVM.Commands.Parameters;
 using SimpleCrud.MVVM.ViewModels;
 
 namespace SimpleCrud.MVVM.Commands
@@ -18,9 +18,9 @@ namespace SimpleCrud.MVVM.Commands
 
         public void Execute(object parameter)
         {
-            if (CanExecute(null) && parameter is Func<Task> job)
+            if (CanExecute(null) && parameter is AsyncFunctionContainer container)
             {
-                var watcher = new TaskWatcher(job.Invoke());
+                var watcher = new TaskWatcher(container.Job?.Invoke());
                 watcher.OnTaskCompleted += () => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
                 _vewModel.CurrentTask = watcher;
             }
