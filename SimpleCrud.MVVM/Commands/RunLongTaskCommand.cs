@@ -22,6 +22,7 @@ namespace SimpleCrud.MVVM.Commands
             {
                 var watcher = new TaskWatcher(container.Job?.Invoke());
                 watcher.OnTaskCompleted += () => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                _vewModel.CurrentOperation = container.Operation;
                 _vewModel.CurrentTask = watcher;
             }
         }

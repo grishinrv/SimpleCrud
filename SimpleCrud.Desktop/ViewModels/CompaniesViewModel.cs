@@ -13,7 +13,7 @@ namespace SimpleCrud.Desktop.ViewModels
         public CompaniesViewModel() : base()
         {
             Rows = new ObservableCollection<Company>();
-            ResultParam = new AsyncFunctionContainer { Job = GetResultAsync };
+            ResultParam = new AsyncFunctionContainer { Job = GetResultAsync, Operation = "Calculating result" };
         }
 
         public ObservableCollection<Company> Rows { get; }
