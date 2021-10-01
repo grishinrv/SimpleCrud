@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SimpleCrud.Desktop.ViewModels
 {
-    public interface ITaskWatcher : INotifyPropertyChanged
+    public interface ITaskWatcher : INotifyPropertyChanged, IDisposable
     {
         TaskStatus Status { get; }
         bool IsCompleted { get; }
@@ -15,5 +15,6 @@ namespace SimpleCrud.Desktop.ViewModels
         AggregateException Exception { get; }
         Exception InnerException { get; }
         string ErrorMessage { get; }
+        event Action OnTaskCompleted;
     }
 }

@@ -6,6 +6,7 @@ namespace SimpleCrud.Desktop.ViewModels
     public sealed class TaskWatcher<TResult> : ViewModel, ITaskWatcher
     {
         public Task<TResult> Task { get; }
+        public event Action OnTaskCompleted;
 
         public TaskWatcher(Task<TResult> task)
         {
@@ -13,6 +14,15 @@ namespace SimpleCrud.Desktop.ViewModels
             if (!task.IsCompleted)
             {
                 var _ = WatchTaskAsync(task);
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var subscriber in OnTaskCompleted?.GetInvocationList() ?? Array.Empty<Delegate>())
+            {
+                if (subscriber is Action action)
+                    OnTaskCompleted -= action;
             }
         }
 
@@ -44,6 +54,7 @@ namespace SimpleCrud.Desktop.ViewModels
                 OnPropertyChanged(nameof(IsSuccessfullyCompleted));
                 OnPropertyChanged(nameof(Result));
             }
+            OnTaskCompleted?.Invoke();
         }
 
         public TResult Result => (Task.Status == TaskStatus.RanToCompletion) ? Task.Result : default(TResult);
@@ -61,6 +72,7 @@ namespace SimpleCrud.Desktop.ViewModels
     public sealed class TaskWatcher : ViewModel, ITaskWatcher
     {
         public Task Task { get; }
+        public event Action OnTaskCompleted;
 
         public TaskWatcher(Task task)
         {
@@ -68,6 +80,15 @@ namespace SimpleCrud.Desktop.ViewModels
             if (!task.IsCompleted)
             {
                 var _ = WatchTaskAsync(task);
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var subscriber in OnTaskCompleted?.GetInvocationList() ?? Array.Empty<Delegate>())
+            {
+                if (subscriber is Action action)
+                    OnTaskCompleted -= action;
             }
         }
 
@@ -98,6 +119,7 @@ namespace SimpleCrud.Desktop.ViewModels
             {
                 OnPropertyChanged(nameof(IsSuccessfullyCompleted));
             }
+            OnTaskCompleted?.Invoke();
         }
 
         public TaskStatus Status => Task.Status;
