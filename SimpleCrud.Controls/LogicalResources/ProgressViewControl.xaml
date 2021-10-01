@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                    xmlns:converters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
+                    xmlns:local="clr-namespace:SimpleCrud.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <converters:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
+    <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+
+    <ControlTemplate x:Key="SimpleCrud.Controls.ProgressViewControl" TargetType="{x:Type local:ProgressViewControl}">
+        <Grid Background="{TemplateBinding Background}"
+              LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
+              RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}"
+              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+              UseLayoutRounding="True">
+                       
+
+        </Grid>
+
+        <ControlTemplate.Triggers>
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+
+</ResourceDictionary>
