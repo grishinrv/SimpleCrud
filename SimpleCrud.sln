@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleCrud.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCrud.MVVM", "SimpleCrud.MVVM\SimpleCrud.MVVM.csproj", "{AA10D5B2-CF18-4034-BAA1-FDACF5C62B6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCrud.Controls", "SimpleCrud.Controls\SimpleCrud.Controls.csproj", "{691ABCF9-C3A6-45BC-8B6C-9735B71F8225}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{AA10D5B2-CF18-4034-BAA1-FDACF5C62B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA10D5B2-CF18-4034-BAA1-FDACF5C62B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA10D5B2-CF18-4034-BAA1-FDACF5C62B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691ABCF9-C3A6-45BC-8B6C-9735B71F8225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691ABCF9-C3A6-45BC-8B6C-9735B71F8225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691ABCF9-C3A6-45BC-8B6C-9735B71F8225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691ABCF9-C3A6-45BC-8B6C-9735B71F8225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
