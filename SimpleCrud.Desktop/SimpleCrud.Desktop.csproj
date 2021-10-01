@@ -15,4 +15,8 @@
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleCrud.Storage\SimpleCrud.Storage.csproj" />
+  </ItemGroup>
+
 </Project>
