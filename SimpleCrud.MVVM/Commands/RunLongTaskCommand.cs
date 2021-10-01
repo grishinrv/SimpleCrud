@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using SimpleCrud.Desktop.ViewModels;
+using SimpleCrud.MVVM.ViewModels;
 
 namespace SimpleCrud.MVVM.Commands
 {
-    public class RunLongTaskCommand : ICommand
+    public sealed class RunLongTaskCommand : ICommand
     {
         private readonly TaskExecutionViewModel _vewModel;
 
@@ -20,7 +20,9 @@ namespace SimpleCrud.MVVM.Commands
         {
             if (CanExecute(null) && parameter is Func<Task> job)
             {
-                _vewModel.CurrentTask = new TaskWatcher(job.Invoke());
+                var watcher = new TaskWatcher(job.Invoke());
+                watcher.OnTaskCompleted += () => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                _vewModel.CurrentTask = watcher;
             }
         }
 
