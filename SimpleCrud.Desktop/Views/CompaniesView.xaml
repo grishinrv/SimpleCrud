@@ -7,14 +7,23 @@
              xmlns:controls="clr-namespace:SimpleCrud.Controls;assembly=SimpleCrud.Controls"
              xmlns:viewModels="clr-namespace:SimpleCrud.Desktop.ViewModels"
              xmlns:views="clr-namespace:SimpleCrud.Controls.Views;assembly=SimpleCrud.Controls"
+             xmlns:mvvm="clr-namespace:SimpleCrud.MVVM.ViewModels;assembly=SimpleCrud.MVVM"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <viewModels:CompaniesViewModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type mvvm:TaskWatcher}">
+                <views:ProgressView Width="200" Height="100" />
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <StackPanel Orientation="Vertical">
         <Button Command="{Binding AsyncCommand, Mode=OneTime}"
                 CommandParameter="{Binding ResultParam, Mode=OneTime}"> TEST </Button>
-        <views:ProgressView DataContext="{Binding CurrentTask, Mode=OneWay}"/>
+        <ContentControl Content="{Binding CurrentTask, Mode=OneWay}"/>
     </StackPanel>
 </UserControl>
