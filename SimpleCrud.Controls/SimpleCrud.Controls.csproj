@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="LogicalResources\ProgressViewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="LogicalResources\ActivityControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
