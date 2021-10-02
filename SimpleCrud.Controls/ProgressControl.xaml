@@ -1,4 +1,4 @@
-﻿<Control x:Class="SimpleCrud.Controls.ProgressViewControl"
+﻿<Control x:Class="SimpleCrud.Controls.ProgressControl"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -32,7 +32,7 @@
                     Margin="0 0 5 0"
                     Content="Close"
                     Visibility="{Binding CompletedWithError, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
-                    FontSize="{Binding DialogButtonFontSize, RelativeSource={RelativeSource AncestorType=local:ProgressViewControl, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+                    FontSize="{Binding DialogButtonFontSize, RelativeSource={RelativeSource AncestorType=local:ProgressControl, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
                     Style="{DynamicResource MahApps.Styles.Button.Dialogs}" />
         </Grid>
 

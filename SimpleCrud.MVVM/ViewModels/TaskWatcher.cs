@@ -6,10 +6,11 @@ namespace SimpleCrud.MVVM.ViewModels
     public sealed class TaskWatcher<TResult> : ViewModel, ITaskWatcher
     {
         public Task<TResult> Task { get; }
+        public string Operation { get; }
         public event Action OnTaskCompleted;
-
-        public TaskWatcher(Task<TResult> task)
+        public TaskWatcher(Task<TResult> task,  string operation)
         {
+            Operation = operation;
             Task = task;
             if (!task.IsCompleted)
             {
@@ -72,10 +73,12 @@ namespace SimpleCrud.MVVM.ViewModels
     public sealed class TaskWatcher : ViewModel, ITaskWatcher
     {
         public Task Task { get; }
+        public string Operation { get; }
         public event Action OnTaskCompleted;
 
-        public TaskWatcher(Task task)
+        public TaskWatcher(Task task, string operation)
         {
+            Operation = operation;
             Task = task;
             if (!task.IsCompleted)
             {

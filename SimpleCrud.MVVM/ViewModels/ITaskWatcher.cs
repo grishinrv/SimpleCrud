@@ -6,6 +6,7 @@ namespace SimpleCrud.MVVM.ViewModels
 {
     public interface ITaskWatcher : INotifyPropertyChanged, IDisposable
     {
+        string Operation { get; }
         TaskStatus Status { get; }
         bool IsCompleted { get; }
         bool IsNotCompleted { get; }

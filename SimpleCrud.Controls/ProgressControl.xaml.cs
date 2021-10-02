@@ -6,7 +6,7 @@ namespace SimpleCrud.Controls
 {
     [TemplatePart(Name = PART_CLOSE_BUTTON, Type = typeof(Button))]
     [TemplatePart(Name = PART_ERROR_TEXT_BLOCK, Type = typeof(TextBlock))]
-    public sealed partial class ProgressViewControl
+    public sealed partial class ProgressControl
     {
         #region Constants
         private const string PART_CLOSE_BUTTON = "PART_CloseButton";
@@ -19,27 +19,27 @@ namespace SimpleCrud.Controls
         public static readonly DependencyProperty DialogButtonFontSizeProperty
             = DependencyProperty.Register(nameof(DialogButtonFontSize),
                 typeof(double),
-                typeof(ProgressViewControl),
+                typeof(ProgressControl),
                 new PropertyMetadata(SystemFonts.MessageFontSize));
 
         public static readonly DependencyProperty OperationProperty =
-            DependencyProperty.Register(nameof(Operation), typeof(string), typeof(ProgressViewControl),
+            DependencyProperty.Register(nameof(Operation), typeof(string), typeof(ProgressControl),
                 new PropertyMetadata("Operation"));
 
         public static readonly DependencyProperty ErrorProperty =
-            DependencyProperty.Register(nameof(Error), typeof(string), typeof(ProgressViewControl),
+            DependencyProperty.Register(nameof(Error), typeof(string), typeof(ProgressControl),
                 new PropertyMetadata(string.Empty));
 
         public static readonly DependencyProperty IsInProgressProperty =
-            DependencyProperty.Register(nameof(IsInProgress), typeof(bool), typeof(ProgressViewControl),
+            DependencyProperty.Register(nameof(IsInProgress), typeof(bool), typeof(ProgressControl),
                 new PropertyMetadata(BooleanBoxes.TrueBox));
 
         public static readonly DependencyProperty IsCompletedProperty =
-            DependencyProperty.Register(nameof(IsCompleted), typeof(bool), typeof(ProgressViewControl),
+            DependencyProperty.Register(nameof(IsCompleted), typeof(bool), typeof(ProgressControl),
                 new PropertyMetadata(BooleanBoxes.FalseBox));
 
         public static readonly DependencyProperty CompletedWithErrorProperty =
-            DependencyProperty.Register(nameof(CompletedWithError), typeof(bool), typeof(ProgressViewControl),
+            DependencyProperty.Register(nameof(CompletedWithError), typeof(bool), typeof(ProgressControl),
                 new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
