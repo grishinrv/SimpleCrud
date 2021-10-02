@@ -5,6 +5,8 @@ namespace SimpleCrud.MVVM.ViewModels
 {
     public sealed class TaskWatcher<TResult> : ViewModel, ITaskWatcher
     {
+        public static ITaskWatcher NullObject { get; } =
+            new TaskWatcher<TResult>(Task<TResult>.FromResult(default(TResult)), string.Empty);
         public Task<TResult> Task { get; }
         public string Operation { get; }
         public event Action OnTaskCompleted;
@@ -72,6 +74,8 @@ namespace SimpleCrud.MVVM.ViewModels
 
     public sealed class TaskWatcher : ViewModel, ITaskWatcher
     {
+        public static ITaskWatcher NullObject { get; } =
+            new TaskWatcher(Task.FromResult(0), string.Empty);
         public Task Task { get; }
         public string Operation { get; }
         public event Action OnTaskCompleted;

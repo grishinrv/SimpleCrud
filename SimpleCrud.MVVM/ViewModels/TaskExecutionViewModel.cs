@@ -7,6 +7,7 @@ namespace SimpleCrud.MVVM.ViewModels
         protected TaskExecutionViewModel()
         {
             AsyncCommand = new RunLongTaskCommand(this);
+            _currentTask = TaskWatcher.NullObject;
         }
         public RunLongTaskCommand AsyncCommand { get; }
         private ITaskWatcher _currentTask;
