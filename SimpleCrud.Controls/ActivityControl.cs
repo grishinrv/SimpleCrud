@@ -22,6 +22,12 @@ namespace SimpleCrud.Controls
 
         #endregion
 
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            // Parts initialization
+        }
+
         #region  Dependency properties accessors
 
         public object JobDataContext

@@ -4,8 +4,8 @@ using MahApps.Metro.ValueBoxes;
 
 namespace SimpleCrud.Controls
 {
-    [TemplatePart(Name = PART_CLOSE_BUTTON, Type = typeof(Button))]
-    [TemplatePart(Name = PART_ERROR_TEXT_BLOCK, Type = typeof(TextBlock))]
+    [TemplatePart(Name = PART_CloseButton, Type = typeof(Button))]
+    [TemplatePart(Name = PART_ErrorTextBlock, Type = typeof(TextBlock))]
     public sealed class ProgressControl : Control
     {
         static ProgressControl()
@@ -14,9 +14,15 @@ namespace SimpleCrud.Controls
         }
 
         #region Constants
-        private const string PART_CLOSE_BUTTON = "PART_CloseButton";
-        private const string PART_ERROR_TEXT_BLOCK = "PART_ErrorTextBlock";
+        private const string PART_CloseButton = "PART_CloseButton";
+        private const string PART_ErrorTextBlock = "PART_ErrorTextBlock";
         #endregion
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            // Parts initialization
+        }
 
         #region Dependency props define
 
