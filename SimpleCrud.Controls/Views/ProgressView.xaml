@@ -10,5 +10,6 @@
     <controls:ProgressControl Operation="{Binding Operation, Mode=OneTime}"
                               IsCompleted="{Binding IsCompleted, Mode=OneWay}"
                               IsInProgress="{Binding IsNotCompleted, Mode=OneWay}"
-                              CompletedWithError="{Binding IsFaulted, Mode=OneWay}"/>
+                              CompletedWithError="{Binding IsFaulted, Mode=OneWay}"
+                              Error="{Binding ErrorMessage, Mode=OneWay}"/>
 </UserControl>
