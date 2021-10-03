@@ -6,8 +6,13 @@ namespace SimpleCrud.Controls
 {
     [TemplatePart(Name = PART_CLOSE_BUTTON, Type = typeof(Button))]
     [TemplatePart(Name = PART_ERROR_TEXT_BLOCK, Type = typeof(TextBlock))]
-    public sealed partial class ProgressControl
+    public sealed class ProgressControl : Control
     {
+        static ProgressControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ProgressControl), new FrameworkPropertyMetadata(typeof(ProgressControl)));
+        }
+
         #region Constants
         private const string PART_CLOSE_BUTTON = "PART_CloseButton";
         private const string PART_ERROR_TEXT_BLOCK = "PART_ErrorTextBlock";
@@ -54,7 +59,7 @@ namespace SimpleCrud.Controls
             get => (double)this.GetValue(DialogButtonFontSizeProperty);
             set => this.SetValue(DialogButtonFontSizeProperty, value);
         }
-        
+
         public string Operation
         {
             get { return (string)GetValue(OperationProperty); }
