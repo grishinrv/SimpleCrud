@@ -13,112 +13,117 @@
     <converters:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
 
-    <ControlTemplate x:Key="SimpleCrud.Controls.ActivityControl" TargetType="{x:Type local:ActivityControl}">
-        <Grid Background="{TemplateBinding Background}"
-              LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
-              RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}"
-              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-              UseLayoutRounding="True">
+    <Style TargetType="{x:Type local:ActivityControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}"
+                          LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
+                          RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}"
+                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                          UseLayoutRounding="True">
 
-            <Grid UseLayoutRounding="False">
-                <Grid.ColumnDefinitions>
-                    <!-- three central columns will be used for dialogs -->
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                        <Grid UseLayoutRounding="False">
+                            <Grid.ColumnDefinitions>
+                                <!-- three central columns will be used for dialogs -->
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                <!--  the main tab content  -->
-                <ContentControl x:Name="PART_Content"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="5"
-                                FocusVisualStyle="{x:Null}"
-                                IsTabStop="False"
-                                UseLayoutRounding="True">
-                </ContentControl>
+                            <!--  the main tab content  -->
+                            <ContentControl x:Name="PART_Content"
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="5"
+                                            FocusVisualStyle="{x:Null}"
+                                            IsTabStop="False"
+                                            UseLayoutRounding="True">
+                            </ContentControl>
 
-                <!--  disables the main content when a modal flyout is shown  -->
-                <Rectangle Name="PART_FlyoutModal"
-                           Grid.Row="1"
-                           Grid.RowSpan="2"
-                           Grid.Column="1"
-                           Grid.ColumnSpan="3"
-                           Fill="{TemplateBinding FlyoutOverlayBrush}"
-                           Visibility="Hidden" />
+                            <!--  disables the main content when a modal flyout is shown  -->
+                            <Rectangle Name="PART_FlyoutModal"
+                                       Grid.Row="1"
+                                       Grid.RowSpan="2"
+                                       Grid.Column="1"
+                                       Grid.ColumnSpan="3"
+                                       Fill="{TemplateBinding FlyoutOverlayBrush}"
+                                       Visibility="Hidden" />
 
-                <mah:MetroThumb x:Name="PART_FlyoutModalDragMoveThumb"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="5"
-                                Style="{StaticResource MahApps.Styles.Thumb.WindowTitle}"
-                                Visibility="{Binding ElementName=PART_FlyoutModal, Path=Visibility, Mode=OneWay}" />
+                            <mah:MetroThumb x:Name="PART_FlyoutModalDragMoveThumb"
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="5"
+                                            Style="{StaticResource MahApps.Styles.Thumb.WindowTitle}"
+                                            Visibility="{Binding ElementName=PART_FlyoutModal, Path=Visibility, Mode=OneWay}" />
 
-                <!--  flyouts  -->
-                <ContentControl Grid.Row="1"
-                                Grid.RowSpan="2"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="3"
-                                VerticalAlignment="Stretch"
-                                Panel.ZIndex="2"
-                                Content="{Binding Flyouts, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                Focusable="False"
-                                KeyboardNavigation.TabNavigation="None" />
+                            <!--  flyouts  -->
+                            <ContentControl Grid.Row="1"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="3"
+                                            VerticalAlignment="Stretch"
+                                            Panel.ZIndex="2"
+                                            Content="{Binding Flyouts, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                            Focusable="False"
+                                            KeyboardNavigation.TabNavigation="None" />
 
-                <!--  inactive dialog container  -->
-                <Grid x:Name="PART_InactiveDialogsContainer"
-                      Grid.Row="1"
-                      Grid.RowSpan="2"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="3"
-                      Panel.ZIndex="3"
-                      FocusVisualStyle="{x:Null}" />
+                            <!--  inactive dialog container  -->
+                            <Grid x:Name="PART_InactiveDialogsContainer"
+                                  Grid.Row="1"
+                                  Grid.RowSpan="2"
+                                  Grid.Column="1"
+                                  Grid.ColumnSpan="3"
+                                  Panel.ZIndex="3"
+                                  FocusVisualStyle="{x:Null}" />
 
-                <!--  overlay effect container  -->
-                <Grid x:Name="PART_OverlayBox"
-                      Grid.Row="1"
-                      Grid.RowSpan="2"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="3"
-                      Panel.ZIndex="4"
-                      Background="{TemplateBinding OverlayBrush}"
-                      FocusVisualStyle="{x:Null}"
-                      Focusable="False"
-                      Opacity="0"
-                      Visibility="Hidden" />
+                            <!--  overlay effect container  -->
+                            <Grid x:Name="PART_OverlayBox"
+                                  Grid.Row="1"
+                                  Grid.RowSpan="2"
+                                  Grid.Column="1"
+                                  Grid.ColumnSpan="3"
+                                  Panel.ZIndex="4"
+                                  Background="{TemplateBinding OverlayBrush}"
+                                  FocusVisualStyle="{x:Null}"
+                                  Focusable="False"
+                                  Opacity="0"
+                                  Visibility="Hidden" />
 
-                <!--  active dialog container  -->
-                <Grid x:Name="PART_ActiveDialogContainer"
-                      Grid.Row="1"
-                      Grid.RowSpan="2"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="3"
-                      Panel.ZIndex="5"
-                      FocusVisualStyle="{x:Null}" />
+                            <!--  active dialog container  -->
+                            <Grid x:Name="PART_ActiveDialogContainer"
+                                  Grid.Row="1"
+                                  Grid.RowSpan="2"
+                                  Grid.Column="1"
+                                  Grid.ColumnSpan="3"
+                                  Panel.ZIndex="5"
+                                  FocusVisualStyle="{x:Null}" />
 
-                <!--  progress view container  -->
-                <Grid x:Name="PART_ProgressViewContainer"
-                      Grid.Row="1"
-                      Grid.RowSpan="2"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="3"
-                      Panel.ZIndex="6"
-                      FocusVisualStyle="{x:Null}" />
-            </Grid>
+                            <!--  progress view container  -->
+                            <Grid x:Name="PART_ProgressViewContainer"
+                                  Grid.Row="1"
+                                  Grid.RowSpan="2"
+                                  Grid.Column="1"
+                                  Grid.ColumnSpan="3"
+                                  Panel.ZIndex="6"
+                                  FocusVisualStyle="{x:Null}" />
+                        </Grid>
 
-        </Grid>
+                    </Grid>
 
-        <ControlTemplate.Triggers>
-        </ControlTemplate.Triggers>
-
-    </ControlTemplate>
+                    <ControlTemplate.Triggers>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>
