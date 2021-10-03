@@ -6,12 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Page Remove="LogicalResources\ActivityControl.xaml" />
-    <Page Remove="LogicalResources\ProgressViewControl.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="LogicalResources\ActivityControl.xaml">
+    <None Include="Themes\ActivityControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
