@@ -20,42 +20,41 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
 
-                        <DockPanel Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"
-                                   LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
+                        <DockPanel LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
                                    RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}"
                                    UseLayoutRounding="True"
                                    LastChildFill="True">
 
                             <TextBlock DockPanel.Dock="Top"
-                                       Text="{Binding Operation, RelativeSource={RelativeSource TemplatedParent}}" />
+                                       Text="{TemplateBinding Operation}" />
 
                             <Grid DockPanel.Dock="Bottom">
                                 <Button x:Name="PART_CloseButton"
                                         Margin="0 0 5 0"
                                         Content="Close"
-                                        Visibility="{Binding CompletedWithError, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
-                                        FontSize="{Binding DialogButtonFontSize, RelativeSource={RelativeSource AncestorType=local:ProgressControl, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+                                        Visibility="{TemplateBinding CompletedWithError, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        FontSize="{TemplateBinding DialogButtonFontSize}"
                                         Style="{DynamicResource MahApps.Styles.Button.Dialogs}" />
                             </Grid>
 
                             <StackPanel DockPanel.Dock="Bottom"
                                         FlowDirection="LeftToRight">
                                 <Label Target="{Binding ElementName=PART_ErrorTextBlock}" HorizontalAlignment="Left"
-                                       Visibility="{Binding CompletedWithError, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                       Visibility="{TemplateBinding CompletedWithError, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <AccessText TextWrapping="WrapWithOverflow">
                                         Failed to perform the operation:
                                     </AccessText>
                                 </Label>
                                 <TextBlock x:Name="PART_ErrorTextBlock"
-                                           Visibility="{Binding CompletedWithError, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                           Text="{Binding Error, RelativeSource={RelativeSource TemplatedParent}}" />
+                                           Visibility="{TemplateBinding CompletedWithError, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                           Text="{TemplateBinding Error}" />
                             </StackPanel>
 
                             <Grid>
                                 <mah:ProgressRing
                                     Width="40"
                                     Height="40"
-                                    IsActive="{Binding IsInProgress, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
+                                    IsActive="{TemplateBinding IsInProgress}" />
                             </Grid>
 
                         </DockPanel>
