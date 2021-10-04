@@ -32,8 +32,8 @@ namespace SimpleCrud.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.ActiveDialogContainer = this.GetTemplateChild(PART_ActiveDialogContainer) as Grid;
-            this.InActiveDialogsContainer = this.GetTemplateChild(PART_InactiveDialogsContainer) as Grid;
+            ActiveDialogContainer = GetTemplateChild(PART_ActiveDialogContainer) as Grid;
+            InActiveDialogsContainer = GetTemplateChild(PART_InactiveDialogsContainer) as Grid;
         }
 
         public Grid ActiveDialogContainer;
