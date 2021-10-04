@@ -13,19 +13,28 @@ namespace SimpleCrud.Controls
     /// </summary>
     [TemplatePart(Name = PART_ActiveDialogContainer, Type = typeof(Grid))]
     [TemplatePart(Name = PART_InactiveDialogsContainer, Type = typeof(Grid))]
+    [TemplatePart(Name = PART_InactiveProgressViewContainer, Type = typeof(Grid))]
     public sealed class ActivityControl : ContentControl
     {
         #region Constants
         private const string PART_ActiveDialogContainer = "PART_ActiveDialogContainer";
         private const string PART_InactiveDialogsContainer = "PART_InactiveDialogsContainer";
+        private const string PART_InactiveProgressViewContainer = "PART_InactiveProgressViewContainer";
         #endregion
 
         #region Dependency properties declarations
 
         public static readonly DependencyProperty JobDataContextProperty =
-            DependencyProperty.Register(nameof(JobDataContext), typeof(object), typeof(ActivityControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(JobDataContext), typeof(object), typeof(ActivityControl), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnJobDataContextChanged), null));
 
+        #endregion
 
+        #region CallBacks
+
+        private static void OnJobDataContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // AddDialog todo
+        }
 
         #endregion
 

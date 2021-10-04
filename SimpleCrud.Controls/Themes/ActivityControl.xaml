@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                     xmlns:converters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
-                    xmlns:local="clr-namespace:SimpleCrud.Controls">
+                    xmlns:local="clr-namespace:SimpleCrud.Controls"
+                    xmlns:views="clr-namespace:SimpleCrud.Controls.Views"
+                    xmlns:mvvm="clr-namespace:SimpleCrud.MVVM.ViewModels;assembly=SimpleCrud.MVVM">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
@@ -12,6 +14,10 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+
+    <DataTemplate DataType="{x:Type mvvm:TaskWatcher}">
+        <views:ProgressView />
+    </DataTemplate>
 
     <Style TargetType="{x:Type local:ActivityControl}">
         <Setter Property="Template">
@@ -64,6 +70,18 @@
                                             Grid.ColumnSpan="5"
                                             Style="{StaticResource MahApps.Styles.Thumb.WindowTitle}"
                                             Visibility="{Binding ElementName=PART_FlyoutModal, Path=Visibility, Mode=OneWay}" />
+
+
+                            <!--  inactive dialog container  -->
+                            <Grid x:Name="PART_InactiveProgressViewContainer"
+                                  Grid.Row="1"
+                                  Grid.RowSpan="2"
+                                  Grid.Column="1"
+                                  Grid.ColumnSpan="3"
+                                  Panel.ZIndex="1"
+                                  FocusVisualStyle="{x:Null}" >
+                                <ContentControl Content="{TemplateBinding JobDataContext}"/>
+                            </Grid>
 
                             <!--  flyouts  -->
                             <ContentControl Grid.Row="1"
