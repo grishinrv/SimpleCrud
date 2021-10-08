@@ -16,6 +16,11 @@ namespace SimpleCrud.Controls
     [TemplatePart(Name = PART_InactiveProgressViewContainer, Type = typeof(Grid))]
     public sealed class ActivityControl : ContentControl
     {
+        static ActivityControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ActivityControl), new FrameworkPropertyMetadata(typeof(ActivityControl)));
+        }
+        
         #region Constants
         private const string PART_ActiveDialogContainer = "PART_ActiveDialogContainer";
         private const string PART_InactiveDialogsContainer = "PART_InactiveDialogsContainer";
@@ -28,6 +33,7 @@ namespace SimpleCrud.Controls
             DependencyProperty.Register(nameof(JobDataContext), typeof(object), typeof(ActivityControl), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnJobDataContextChanged), null));
 
         #endregion
+
 
         #region CallBacks
 

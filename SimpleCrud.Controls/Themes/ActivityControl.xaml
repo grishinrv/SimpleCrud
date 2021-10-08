@@ -56,13 +56,13 @@
                             </ContentControl>
 
                             <!--  disables the main content when a modal flyout is shown  -->
-                            <Rectangle Name="PART_FlyoutModal"
+                            <!--Rectangle Name="PART_FlyoutModal"
                                        Grid.Row="1"
                                        Grid.RowSpan="2"
                                        Grid.Column="1"
                                        Grid.ColumnSpan="3"
                                        Fill="{TemplateBinding FlyoutOverlayBrush}"
-                                       Visibility="Hidden" />
+                                       Visibility="Hidden" /-->
 
                             <mah:MetroThumb x:Name="PART_FlyoutModalDragMoveThumb"
                                             Grid.Row="1"
@@ -80,19 +80,19 @@
                                   Grid.ColumnSpan="3"
                                   Panel.ZIndex="1"
                                   FocusVisualStyle="{x:Null}" >
-                                <ContentControl Content="{TemplateBinding JobDataContext}"/>
+                                <ContentControl Content="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
                             </Grid>
 
                             <!--  flyouts  -->
-                            <ContentControl Grid.Row="1"
+                            <!--ContentControl Grid.Row="1"
                                             Grid.RowSpan="2"
                                             Grid.Column="1"
                                             Grid.ColumnSpan="3"
                                             VerticalAlignment="Stretch"
                                             Panel.ZIndex="2"
-                                            Content="{TemplateBinding Flyouts, Mode=OneWay}"
+                                            Content="{Binding Flyouts}"
                                             Focusable="False"
-                                            KeyboardNavigation.TabNavigation="None" />
+                                            KeyboardNavigation.TabNavigation="None" /-->
 
                             <!--  inactive dialog container  -->
                             <Grid x:Name="PART_InactiveDialogsContainer"
@@ -104,7 +104,7 @@
                                   FocusVisualStyle="{x:Null}" />
 
                             <!--  overlay effect container  -->
-                            <Grid x:Name="PART_OverlayBox"
+                            <!--Grid x:Name="PART_OverlayBox"
                                   Grid.Row="1"
                                   Grid.RowSpan="2"
                                   Grid.Column="1"
@@ -114,7 +114,7 @@
                                   FocusVisualStyle="{x:Null}"
                                   Focusable="False"
                                   Opacity="0"
-                                  Visibility="Hidden" />
+                                  Visibility="Hidden" /-->
 
                             <!--  active dialog container  -->
                             <Grid x:Name="PART_ActiveDialogContainer"
