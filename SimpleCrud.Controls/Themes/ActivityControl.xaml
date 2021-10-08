@@ -4,11 +4,12 @@
                     xmlns:converters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
                     xmlns:local="clr-namespace:SimpleCrud.Controls"
                     xmlns:views="clr-namespace:SimpleCrud.Controls.Views"
-                    xmlns:mvvm="clr-namespace:SimpleCrud.MVVM.ViewModels;assembly=SimpleCrud.MVVM">
+                    xmlns:mvvm="clr-namespace:SimpleCrud.MVVM.ViewModels;assembly=SimpleCrud.MVVM"
+                    xmlns:helpers="clr-namespace:SimpleCrud.Controls.Helpers">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
+        <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
+        <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
