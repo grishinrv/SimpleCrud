@@ -90,7 +90,7 @@
                                             Grid.ColumnSpan="3"
                                             VerticalAlignment="Stretch"
                                             Panel.ZIndex="2"
-                                            Content="{Binding Flyouts, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                            Content="{TemplateBinding Flyouts, Mode=OneWay}"
                                             Focusable="False"
                                             KeyboardNavigation.TabNavigation="None" />
 
