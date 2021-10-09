@@ -45,68 +45,12 @@ namespace SimpleCrud.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            _activeDialogContainer = GetTemplateChild(PART_DialogContainer) as Grid;
+            _dialogContainer = GetTemplateChild(PART_DialogContainer) as Grid;
             _progressViewContainer = GetTemplateChild(PART_ProgressViewContainer) as Grid;
         }
 
-        private Grid _activeDialogContainer;
-        private Grid _inActiveDialogsContainer;
-        private Grid _inactiveProgressViewContainer;
+        private Grid _dialogContainer;
         private Grid _progressViewContainer;
-
-        private static void AddDialog(ActivityControl activity, ProgressControl progress)
-        {
-            if (activity._activeDialogContainer is null)
-            {
-                throw new InvalidOperationException("Active progress container could not be found.");
-            }
-
-            if (activity._inActiveDialogsContainer is null)
-            {
-                throw new InvalidOperationException("Inactive progress container could not be found.");
-            }
-
-            //activity.StoreFocus();
-
-            // if there's already an active progress, move to the background
-            var activeDialog = activity._activeDialogContainer.Children.OfType<ProgressControl>().SingleOrDefault();
-            if (activeDialog != null)
-            {
-                activity._activeDialogContainer.Children.Remove(activeDialog);
-                activity._inActiveDialogsContainer.Children.Add(activeDialog);
-            }
-
-            activity._activeDialogContainer.Children.Add(progress); 
-
-            //activity.SetValue(MetroWindow.IsAnyDialogOpenPropertyKey, BooleanBoxes.TrueBox);
-        }
-        
-        private static void ShowProgressView(ActivityControl activity, ProgressControl progress)
-        {
-            if (activity._progressViewContainer is null)
-            {
-                throw new InvalidOperationException("Progress container could not be found.");
-            }
-
-            if (activity._inactiveProgressViewContainer is null)
-            {
-                throw new InvalidOperationException("Inactive progress container could not be found.");
-            }
-
-            //activity.StoreFocus();
-
-            // if there's already an active progress, move to the background
-            var activeDialog = activity._progressViewContainer.Children.OfType<ProgressControl>().SingleOrDefault();
-            if (activeDialog != null)
-            {
-                activity._progressViewContainer.Children.Remove(activeDialog);
-                activity._inactiveProgressViewContainer.Children.Add(activeDialog);
-            }
-
-            activity._progressViewContainer.Children.Add(progress); 
-
-            //activity.SetValue(MetroWindow.IsAnyDialogOpenPropertyKey, BooleanBoxes.TrueBox);
-        }
 
         #region  Dependency properties accessors
 
