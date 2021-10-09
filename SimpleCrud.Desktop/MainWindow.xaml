@@ -76,7 +76,7 @@
                                                         Height="22"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Kind="OfficeBuilding" />
+                                                        Kind="Bank" />
                         </mah:HamburgerMenuIconItem.Icon>
                         <mah:HamburgerMenuIconItem.Tag>
                             <views:CompaniesView />
@@ -89,7 +89,7 @@
                                                         Height="22"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Kind="NaturePeople" />
+                                                        Kind="FaceMan" />
                         </mah:HamburgerMenuIconItem.Icon>
                         <mah:HamburgerMenuIconItem.Tag>
                             <views:CandidatesView />
@@ -102,7 +102,7 @@
                                                         Height="22"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Kind="Offer" />
+                                                        Kind="InstrumentTriangle" />
                         </mah:HamburgerMenuIconItem.Icon>
                         <mah:HamburgerMenuIconItem.Tag>
                             <views:PositionsView />
