@@ -16,7 +16,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ProgressControl}">
-                    <Border Background="{TemplateBinding Background}"
+                    <Border Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType=mah:MetroWindow}}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
 

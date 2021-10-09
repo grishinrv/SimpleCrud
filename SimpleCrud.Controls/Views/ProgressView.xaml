@@ -16,7 +16,8 @@
                               IsCompleted="{Binding IsCompleted, Mode=OneWay}"
                               IsInProgress="{Binding IsNotCompleted, Mode=OneWay}"
                               CompletedWithError="{Binding IsFaulted, Mode=OneWay}"
-                              Error="{Binding ErrorMessage, Mode=OneWay}">
+                              Error="{Binding ErrorMessage, Mode=OneWay}"
+                              Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType=controls:ActivityControl}}">
         <controls:ProgressControl.Visibility>
             <MultiBinding Converter="{StaticResource JobToVisibilityConverter}" UpdateSourceTrigger="PropertyChanged">
                 <Binding Path="IsNotCompleted" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
