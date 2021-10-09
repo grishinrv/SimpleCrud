@@ -7,7 +7,6 @@
         xmlns:views="clr-namespace:SimpleCrud.Desktop.Views"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconpacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Background="Beige"
         mc:Ignorable="d"
         Title="MainWindow"
         WindowTransitionsEnabled="False"
