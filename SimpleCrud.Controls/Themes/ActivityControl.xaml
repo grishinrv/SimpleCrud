@@ -114,18 +114,16 @@
                             <!--  active dialog container  -->
                             <Grid x:Name="PART_ActiveDialogContainer"
                                   Grid.Row="1"
-                                  Grid.RowSpan="2"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan="3"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="5"
                                   Panel.ZIndex="5"
                                   FocusVisualStyle="{x:Null}" />
 
                             <!--  progress view container  -->
                             <Grid x:Name="PART_ProgressViewContainer"
                                   Grid.Row="1"
-                                  Grid.RowSpan="2"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan="3"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="5"
                                   Panel.ZIndex="6">
                                 <ContentControl Content="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
                                                 ContentTemplate="{StaticResource ProgressView}"/>
