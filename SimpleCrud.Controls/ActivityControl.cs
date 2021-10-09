@@ -11,9 +11,7 @@ namespace SimpleCrud.Controls
     /// <summary>
     /// A form (tab) template, with support of async operations (ui-notifying) and dialogs.
     /// </summary>
-    [TemplatePart(Name = PART_ActiveDialogContainer, Type = typeof(Grid))]
-    [TemplatePart(Name = PART_InactiveDialogsContainer, Type = typeof(Grid))]
-    [TemplatePart(Name = PART_InactiveProgressViewContainer, Type = typeof(Grid))]
+    [TemplatePart(Name = PART_DialogContainer, Type = typeof(Grid))]
     [TemplatePart(Name = PART_ProgressViewContainer, Type = typeof(Grid))]
     public sealed class ActivityControl : ContentControl
     {
@@ -23,9 +21,7 @@ namespace SimpleCrud.Controls
         }
         
         #region Constants
-        private const string PART_ActiveDialogContainer = "PART_ActiveDialogContainer";
-        private const string PART_InactiveDialogsContainer = "PART_InactiveDialogsContainer";
-        private const string PART_InactiveProgressViewContainer = "PART_InactiveProgressViewContainer";
+        private const string PART_DialogContainer = "PART_DialogContainer";
         private const string PART_ProgressViewContainer = "PART_ProgressViewContainer";
         #endregion
 
@@ -49,10 +45,8 @@ namespace SimpleCrud.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            _activeDialogContainer = GetTemplateChild(PART_ActiveDialogContainer) as Grid;
-            _inActiveDialogsContainer = GetTemplateChild(PART_InactiveDialogsContainer) as Grid;
+            _activeDialogContainer = GetTemplateChild(PART_DialogContainer) as Grid;
             _progressViewContainer = GetTemplateChild(PART_ProgressViewContainer) as Grid;
-            _inactiveProgressViewContainer = GetTemplateChild(PART_InactiveProgressViewContainer) as Grid;
         }
 
         private Grid _activeDialogContainer;

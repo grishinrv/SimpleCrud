@@ -68,16 +68,6 @@
                                        Fill="{TemplateBinding FlyoutOverlayBrush}"
                                        Visibility="Hidden" /-->
 
-                            <!--  inactive dialog container  -->
-                            <Grid x:Name="PART_InactiveProgressViewContainer"
-                                  Grid.Row="1"
-                                  Grid.RowSpan="2"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan="3"
-                                  Panel.ZIndex="1"
-                                  FocusVisualStyle="{x:Null}" >
-                            </Grid>
-
                             <!--  flyouts  -->
                             <!--ContentControl Grid.Row="1"
                                             Grid.RowSpan="2"
@@ -88,15 +78,6 @@
                                             Content="{Binding Flyouts}"
                                             Focusable="False"
                                             KeyboardNavigation.TabNavigation="None" /-->
-
-                            <!--  inactive dialog container  -->
-                            <Grid x:Name="PART_InactiveDialogsContainer"
-                                  Grid.Row="1"
-                                  Grid.RowSpan="2"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan="3"
-                                  Panel.ZIndex="3"
-                                  FocusVisualStyle="{x:Null}" />
 
                             <!--  overlay effect container  -->
                             <!--Grid x:Name="PART_OverlayBox"
@@ -112,7 +93,7 @@
                                   Visibility="Hidden" /-->
 
                             <!--  active dialog container  -->
-                            <Grid x:Name="PART_ActiveDialogContainer"
+                            <Grid x:Name="PART_DialogContainer"
                                   Grid.Row="1"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="5"
