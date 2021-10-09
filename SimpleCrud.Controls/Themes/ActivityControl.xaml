@@ -16,7 +16,7 @@
     <converters:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
 
-    <DataTemplate DataType="{x:Type mvvm:TaskWatcher}">
+    <DataTemplate DataType="{x:Type mvvm:TaskWatcher}" x:Key="ProgressView">
         <views:ProgressView />
     </DataTemplate>
 
@@ -48,12 +48,15 @@
 
                             <!--  the main tab content  -->
                             <ContentControl x:Name="PART_Content"
-                                            Grid.Row="2"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="3"
                                             Grid.Column="0"
                                             Grid.ColumnSpan="5"
                                             FocusVisualStyle="{x:Null}"
                                             IsTabStop="False"
-                                            UseLayoutRounding="True">
+                                            UseLayoutRounding="True"
+                                            Panel.ZIndex="4"
+                                            Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=OneTime}">
                             </ContentControl>
 
                             <!--  disables the main content when a modal flyout is shown  -->
@@ -65,14 +68,6 @@
                                        Fill="{TemplateBinding FlyoutOverlayBrush}"
                                        Visibility="Hidden" /-->
 
-                            <mah:MetroThumb x:Name="PART_FlyoutModalDragMoveThumb"
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            Grid.ColumnSpan="5"
-                                            Style="{StaticResource MahApps.Styles.Thumb.WindowTitle}"
-                                            Visibility="{Binding ElementName=PART_FlyoutModal, Path=Visibility, Mode=OneWay}" />
-
-
                             <!--  inactive dialog container  -->
                             <Grid x:Name="PART_InactiveProgressViewContainer"
                                   Grid.Row="1"
@@ -81,7 +76,6 @@
                                   Grid.ColumnSpan="3"
                                   Panel.ZIndex="1"
                                   FocusVisualStyle="{x:Null}" >
-                                <ContentControl Content="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
                             </Grid>
 
                             <!--  flyouts  -->
@@ -132,8 +126,10 @@
                                   Grid.RowSpan="2"
                                   Grid.Column="1"
                                   Grid.ColumnSpan="3"
-                                  Panel.ZIndex="6"
-                                  FocusVisualStyle="{x:Null}" />
+                                  Panel.ZIndex="6">
+                                <ContentControl Content="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                                ContentTemplate="{StaticResource ProgressView}"/>
+                            </Grid>
                         </Grid>
 
                     </Grid>

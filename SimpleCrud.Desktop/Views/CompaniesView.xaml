@@ -13,17 +13,9 @@
     <UserControl.DataContext>
         <viewModels:CompaniesViewModel/>
     </UserControl.DataContext>
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <DataTemplate DataType="{x:Type mvvm:TaskWatcher}">
-                <views:ProgressView Width="200" Height="100" />
-            </DataTemplate>
-        </ResourceDictionary>
-    </UserControl.Resources>
     
-    <StackPanel Orientation="Vertical">
+    <controls:ActivityControl JobDataContext="{Binding CurrentTask, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         <Button Command="{Binding AsyncCommand, Mode=OneTime}"
                 CommandParameter="{Binding ResultParam, Mode=OneTime}"> TEST </Button>
-        <ContentControl Content="{Binding CurrentTask, Mode=OneWay}"/>
-    </StackPanel>
+    </controls:ActivityControl>
 </UserControl>

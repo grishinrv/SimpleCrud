@@ -25,7 +25,7 @@ namespace SimpleCrud.Desktop.ViewModels
 
         private async Task GetResultAsync()
         {
-            await Task.Delay(4000);
+            await Task.Delay(10000);
             //throw new Exception("We've fucked up for some reason...");
             Result = new Random().Next(1, 999);
         }

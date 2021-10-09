@@ -14,6 +14,7 @@ namespace SimpleCrud.Controls
     [TemplatePart(Name = PART_ActiveDialogContainer, Type = typeof(Grid))]
     [TemplatePart(Name = PART_InactiveDialogsContainer, Type = typeof(Grid))]
     [TemplatePart(Name = PART_InactiveProgressViewContainer, Type = typeof(Grid))]
+    [TemplatePart(Name = PART_ProgressViewContainer, Type = typeof(Grid))]
     public sealed class ActivityControl : ContentControl
     {
         static ActivityControl()
@@ -25,6 +26,7 @@ namespace SimpleCrud.Controls
         private const string PART_ActiveDialogContainer = "PART_ActiveDialogContainer";
         private const string PART_InactiveDialogsContainer = "PART_InactiveDialogsContainer";
         private const string PART_InactiveProgressViewContainer = "PART_InactiveProgressViewContainer";
+        private const string PART_ProgressViewContainer = "PART_ProgressViewContainer";
         #endregion
 
         #region Dependency properties declarations
@@ -47,21 +49,25 @@ namespace SimpleCrud.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            ActiveDialogContainer = GetTemplateChild(PART_ActiveDialogContainer) as Grid;
-            InActiveDialogsContainer = GetTemplateChild(PART_InactiveDialogsContainer) as Grid;
+            _activeDialogContainer = GetTemplateChild(PART_ActiveDialogContainer) as Grid;
+            _inActiveDialogsContainer = GetTemplateChild(PART_InactiveDialogsContainer) as Grid;
+            _progressViewContainer = GetTemplateChild(PART_ProgressViewContainer) as Grid;
+            _inactiveProgressViewContainer = GetTemplateChild(PART_InactiveProgressViewContainer) as Grid;
         }
 
-        public Grid ActiveDialogContainer;
-        public Grid InActiveDialogsContainer;
+        private Grid _activeDialogContainer;
+        private Grid _inActiveDialogsContainer;
+        private Grid _inactiveProgressViewContainer;
+        private Grid _progressViewContainer;
 
         private static void AddDialog(ActivityControl activity, ProgressControl progress)
         {
-            if (activity.ActiveDialogContainer is null)
+            if (activity._activeDialogContainer is null)
             {
                 throw new InvalidOperationException("Active progress container could not be found.");
             }
 
-            if (activity.InActiveDialogsContainer is null)
+            if (activity._inActiveDialogsContainer is null)
             {
                 throw new InvalidOperationException("Inactive progress container could not be found.");
             }
@@ -69,14 +75,41 @@ namespace SimpleCrud.Controls
             //activity.StoreFocus();
 
             // if there's already an active progress, move to the background
-            var activeDialog = activity.ActiveDialogContainer.Children.OfType<ProgressControl>().SingleOrDefault();
+            var activeDialog = activity._activeDialogContainer.Children.OfType<ProgressControl>().SingleOrDefault();
             if (activeDialog != null)
             {
-                activity.ActiveDialogContainer.Children.Remove(activeDialog);
-                activity.InActiveDialogsContainer.Children.Add(activeDialog);
+                activity._activeDialogContainer.Children.Remove(activeDialog);
+                activity._inActiveDialogsContainer.Children.Add(activeDialog);
             }
 
-            activity.ActiveDialogContainer.Children.Add(progress); 
+            activity._activeDialogContainer.Children.Add(progress); 
+
+            //activity.SetValue(MetroWindow.IsAnyDialogOpenPropertyKey, BooleanBoxes.TrueBox);
+        }
+        
+        private static void ShowProgressView(ActivityControl activity, ProgressControl progress)
+        {
+            if (activity._progressViewContainer is null)
+            {
+                throw new InvalidOperationException("Progress container could not be found.");
+            }
+
+            if (activity._inactiveProgressViewContainer is null)
+            {
+                throw new InvalidOperationException("Inactive progress container could not be found.");
+            }
+
+            //activity.StoreFocus();
+
+            // if there's already an active progress, move to the background
+            var activeDialog = activity._progressViewContainer.Children.OfType<ProgressControl>().SingleOrDefault();
+            if (activeDialog != null)
+            {
+                activity._progressViewContainer.Children.Remove(activeDialog);
+                activity._inactiveProgressViewContainer.Children.Add(activeDialog);
+            }
+
+            activity._progressViewContainer.Children.Add(progress); 
 
             //activity.SetValue(MetroWindow.IsAnyDialogOpenPropertyKey, BooleanBoxes.TrueBox);
         }

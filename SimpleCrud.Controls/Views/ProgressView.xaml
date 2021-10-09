@@ -5,11 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SimpleCrud.Controls.Views"
              xmlns:controls="clr-namespace:SimpleCrud.Controls"
+             xmlns:converters="clr-namespace:SimpleCrud.Controls.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:JobToVisibilityConverter x:Key="JobToVisibilityConverter" />
+    </UserControl.Resources>
+    
     <controls:ProgressControl Operation="{Binding Operation, Mode=OneWay}"
                               IsCompleted="{Binding IsCompleted, Mode=OneWay}"
                               IsInProgress="{Binding IsNotCompleted, Mode=OneWay}"
                               CompletedWithError="{Binding IsFaulted, Mode=OneWay}"
-                              Error="{Binding ErrorMessage, Mode=OneWay}"/>
+                              Error="{Binding ErrorMessage, Mode=OneWay}">
+        <controls:ProgressControl.Visibility>
+            <MultiBinding Converter="{StaticResource JobToVisibilityConverter}" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="IsNotCompleted" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="IsSuccessfullyCompleted" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="IsCanceled" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="IsFaulted" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+            </MultiBinding>
+        </controls:ProgressControl.Visibility>
+    </controls:ProgressControl>
 </UserControl>
