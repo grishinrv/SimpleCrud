@@ -55,42 +55,22 @@
                                             FocusVisualStyle="{x:Null}"
                                             IsTabStop="False"
                                             UseLayoutRounding="True"
-                                            Panel.ZIndex="4"
+                                            Panel.ZIndex="3"
                                             Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=OneTime}">
                             </ContentControl>
 
-                            <!--  disables the main content when a modal flyout is shown  -->
-                            <!--Rectangle Name="PART_FlyoutModal"
-                                       Grid.Row="1"
-                                       Grid.RowSpan="2"
-                                       Grid.Column="1"
-                                       Grid.ColumnSpan="3"
-                                       Fill="{TemplateBinding FlyoutOverlayBrush}"
-                                       Visibility="Hidden" /-->
-
-                            <!--  flyouts  -->
-                            <!--ContentControl Grid.Row="1"
-                                            Grid.RowSpan="2"
-                                            Grid.Column="1"
-                                            Grid.ColumnSpan="3"
-                                            VerticalAlignment="Stretch"
-                                            Panel.ZIndex="2"
-                                            Content="{Binding Flyouts}"
-                                            Focusable="False"
-                                            KeyboardNavigation.TabNavigation="None" /-->
-
                             <!--  overlay effect container  -->
-                            <!--Grid x:Name="PART_OverlayBox"
-                                  Grid.Row="1"
-                                  Grid.RowSpan="2"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan="3"
+                            <Grid x:Name="PART_OverlayBox"
+                                  Grid.Row="0"
+                                  Grid.RowSpan="3"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="5"
                                   Panel.ZIndex="4"
-                                  Background="{TemplateBinding OverlayBrush}"
+                                  Background="Black"
                                   FocusVisualStyle="{x:Null}"
                                   Focusable="False"
-                                  Opacity="0"
-                                  Visibility="Hidden" /-->
+                                  Opacity="0.5"
+                                  Visibility="Visible" />
 
                             <!--  active dialog container  -->
                             <Grid x:Name="PART_DialogContainer"
