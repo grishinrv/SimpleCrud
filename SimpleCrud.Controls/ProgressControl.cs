@@ -18,12 +18,6 @@ namespace SimpleCrud.Controls
         private const string PART_ErrorTextBlock = "PART_ErrorTextBlock";
         #endregion
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            // Parts initialization
-        }
-
         #region Dependency props define
 
         /// <summary>Identifies the <see cref="DialogButtonFontSize"/> dependency property.</summary>
