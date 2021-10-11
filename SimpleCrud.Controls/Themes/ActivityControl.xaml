@@ -16,10 +16,6 @@
     <converters:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
 
-    <DataTemplate DataType="{x:Type mvvm:TaskWatcher}" x:Key="ProgressView">
-        <views:ProgressView />
-    </DataTemplate>
-
     <Style TargetType="{x:Type local:ActivityControl}">
         <Setter Property="Template">
             <Setter.Value>
@@ -70,7 +66,7 @@
                                   FocusVisualStyle="{x:Null}"
                                   Focusable="False"
                                   Opacity="0.5"
-                                  Visibility="Visible" />
+                                  Visibility="Hidden" />
 
                             <!--  active dialog container  -->
                             <Grid x:Name="PART_DialogContainer"
@@ -86,8 +82,7 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="5"
                                   Panel.ZIndex="6">
-                                <ContentControl Content="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                                ContentTemplate="{StaticResource ProgressView}"/>
+                                <views:ProgressView DataContext="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
                             </Grid>
                         </Grid>
 
