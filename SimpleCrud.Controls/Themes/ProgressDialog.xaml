@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:SimpleCrud.Controls"
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:helpers="clr-namespace:SimpleCrud.Controls.Helpers"
-                    xmlns:converters1="clr-namespace:SimpleCrud.Controls.Converters">
+                    xmlns:converters="clr-namespace:SimpleCrud.Controls.Converters">
     <ResourceDictionary.MergedDictionaries>
         <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
         <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
@@ -12,13 +12,14 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <mah:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <mah:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
-    <converters1:JobToVisibilityConverter x:Key="JobToVisibilityConverter" />
+    <converters:JobToVisibilityConverter x:Key="JobToVisibilityConverter" />
 
     <Style TargetType="{x:Type local:ProgressDialog}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ProgressDialog}">
-                    <local:ProgressControl Operation="{Binding Operation, Mode=OneWay}"
+                    <local:ProgressControl x:Name="PART_ProgressBox"
+                                           Operation="{Binding Operation, Mode=OneWay}"
                                            IsCompleted="{Binding IsCompleted, Mode=OneWay}"
                                            IsInProgress="{Binding IsNotCompleted, Mode=OneWay}"
                                            CompletedWithError="{Binding IsFaulted, Mode=OneWay}"
