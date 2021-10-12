@@ -13,4 +13,10 @@
     <ProjectReference Include="..\SimpleCrud.MVVM\SimpleCrud.MVVM.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Themes\ProgressDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

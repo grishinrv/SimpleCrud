@@ -3,7 +3,6 @@
                     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                     xmlns:converters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
                     xmlns:local="clr-namespace:SimpleCrud.Controls"
-                    xmlns:views="clr-namespace:SimpleCrud.Controls.Views"
                     xmlns:mvvm="clr-namespace:SimpleCrud.MVVM.ViewModels;assembly=SimpleCrud.MVVM"
                     xmlns:helpers="clr-namespace:SimpleCrud.Controls.Helpers">
 
@@ -82,7 +81,7 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="5"
                                   Panel.ZIndex="6">
-                                <views:ProgressView DataContext="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                                <local:ProgressDialog DataContext="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
                             </Grid>
                         </Grid>
 
