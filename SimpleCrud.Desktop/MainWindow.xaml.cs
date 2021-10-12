@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using SimpleCrud.MVVM.Services;
 
 namespace SimpleCrud.Desktop
 {
@@ -7,6 +8,8 @@ namespace SimpleCrud.Desktop
         public MainWindow()
         {
             InitializeComponent();
+            OperationTrackerService.OnOperationFinished += o =>
+                StatusBlock.Text = $"{o.Activity}: {o.Name} finished at {o.CompletionTime}";
         }
 
 

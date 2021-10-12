@@ -14,141 +14,157 @@
         Height="600"
         Width="800">
     <Grid>
-        <Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="22"/>
+        </Grid.RowDefinitions>
+        
+        <Grid>
+            <Grid.Resources>
 
-            <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuIconItem}">
-                <DockPanel Height="48" LastChildFill="True">
-                    <ContentControl x:Name="IconPart"
-                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=CompactPaneLength}"
-                                    Content="{Binding Icon}"
-                                    DockPanel.Dock="Left"
-                                    Focusable="False"
-                                    IsTabStop="False" />
-                    <TextBlock x:Name="TextPart"
-                               VerticalAlignment="Center"
-                               FontSize="16"
-                               Text="{Binding Label}" />
-                </DockPanel>
-                <DataTemplate.Triggers>
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
-                        <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
-                        <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
-                    </DataTrigger>
-                </DataTemplate.Triggers>
-            </DataTemplate>
-
-            <DataTemplate x:Key="OptionsMenuItemTemplate" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
-                <Grid Height="48">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="48" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0"
-                               FontSize="16"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontFamily="Segoe MDL2 Assets"
-                               Text="{Binding Glyph}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               FontSize="16"
-                               Text="{Binding Label}" />
-                </Grid>
-            </DataTemplate>
-
-        </Grid.Resources>
-
-        <mah:HamburgerMenu x:Name="HamburgerMenuControl"
-                                IsPaneOpen="False"
-                                ItemTemplate="{StaticResource MenuItemTemplate}"
-                                OptionsItemTemplate="{StaticResource OptionsMenuItemTemplate}"
-                                ItemClick="HamburgerMenuControl_OnItemClick"
-                                OptionsItemClick="HamburgerMenuControl_OnItemClick"
-                                SelectedIndex="1"
-                                DisplayMode="CompactInline">
-
-            <!--  Items  -->
-            <mah:HamburgerMenu.ItemsSource>
-                <mah:HamburgerMenuItemCollection>
-                    <mah:HamburgerMenuIconItem Label="Companies">
-                        <mah:HamburgerMenuIconItem.Icon>
-                            <iconPacks:PackIconMaterial Width="22"
-                                                        Height="22"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Kind="Bank" />
-                        </mah:HamburgerMenuIconItem.Icon>
-                        <mah:HamburgerMenuIconItem.Tag>
-                            <views:CompaniesView />
-                        </mah:HamburgerMenuIconItem.Tag>
-                    </mah:HamburgerMenuIconItem>
-
-                    <mah:HamburgerMenuIconItem Label="Candidates">
-                        <mah:HamburgerMenuIconItem.Icon>
-                            <iconPacks:PackIconMaterial Width="22"
-                                                        Height="22"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Kind="FaceMan" />
-                        </mah:HamburgerMenuIconItem.Icon>
-                        <mah:HamburgerMenuIconItem.Tag>
-                            <views:CandidatesView />
-                        </mah:HamburgerMenuIconItem.Tag>
-                    </mah:HamburgerMenuIconItem>
-
-                    <mah:HamburgerMenuIconItem Label="Positions">
-                        <mah:HamburgerMenuIconItem.Icon>
-                            <iconPacks:PackIconMaterial Width="22"
-                                                        Height="22"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Kind="InstrumentTriangle" />
-                        </mah:HamburgerMenuIconItem.Icon>
-                        <mah:HamburgerMenuIconItem.Tag>
-                            <views:PositionsView />
-                        </mah:HamburgerMenuIconItem.Tag>
-                    </mah:HamburgerMenuIconItem>
-                </mah:HamburgerMenuItemCollection>
-            </mah:HamburgerMenu.ItemsSource>
-
-            <!--  Options  -->
-            <mah:HamburgerMenu.OptionsItemsSource>
-                <mah:HamburgerMenuItemCollection>
-                    <mah:HamburgerMenuGlyphItem Glyph=""
-                                                     Label="Settings">
-                        <mah:HamburgerMenuGlyphItem.Tag>
-                            <views:AboutView />
-                        </mah:HamburgerMenuGlyphItem.Tag>
-                    </mah:HamburgerMenuGlyphItem>
-                </mah:HamburgerMenuItemCollection>
-            </mah:HamburgerMenu.OptionsItemsSource>
-
-            <!--  Content  -->
-            <mah:HamburgerMenu.ContentTemplate>
-                <DataTemplate DataType="{x:Type mah:HamburgerMenuItem}">
-                    <Grid x:Name="TheContentGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="48" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Border Grid.Row="0"
-                                Background="#FF444444">
-                            <TextBlock x:Name="Header"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="24"
-                                       Foreground="White"
-                                       Text="{Binding Label}" />
-                        </Border>
-                        <ContentControl x:Name="TheContent"
-                                        Grid.Row="1"
+                <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuIconItem}">
+                    <DockPanel Height="48" LastChildFill="True">
+                        <ContentControl x:Name="IconPart"
+                                        Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=CompactPaneLength}"
+                                        Content="{Binding Icon}"
+                                        DockPanel.Dock="Left"
                                         Focusable="False"
-                                        Content="{Binding Tag}" />
+                                        IsTabStop="False" />
+                        <TextBlock x:Name="TextPart"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   Text="{Binding Label}" />
+                    </DockPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
+                            <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
+                            <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+
+                <DataTemplate x:Key="OptionsMenuItemTemplate" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
+                    <Grid Height="48">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   Text="{Binding Glyph}" />
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   Text="{Binding Label}" />
                     </Grid>
                 </DataTemplate>
-            </mah:HamburgerMenu.ContentTemplate>
 
-        </mah:HamburgerMenu>
+            </Grid.Resources>
 
+            <mah:HamburgerMenu x:Name="HamburgerMenuControl"
+                                    IsPaneOpen="False"
+                                    ItemTemplate="{StaticResource MenuItemTemplate}"
+                                    OptionsItemTemplate="{StaticResource OptionsMenuItemTemplate}"
+                                    ItemClick="HamburgerMenuControl_OnItemClick"
+                                    OptionsItemClick="HamburgerMenuControl_OnItemClick"
+                                    SelectedIndex="1"
+                                    DisplayMode="CompactInline">
+
+                <!--  Items  -->
+                <mah:HamburgerMenu.ItemsSource>
+                    <mah:HamburgerMenuItemCollection>
+                        <mah:HamburgerMenuIconItem Label="Companies">
+                            <mah:HamburgerMenuIconItem.Icon>
+                                <iconPacks:PackIconMaterial Width="22"
+                                                            Height="22"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Kind="Bank" />
+                            </mah:HamburgerMenuIconItem.Icon>
+                            <mah:HamburgerMenuIconItem.Tag>
+                                <views:CompaniesView />
+                            </mah:HamburgerMenuIconItem.Tag>
+                        </mah:HamburgerMenuIconItem>
+
+                        <mah:HamburgerMenuIconItem Label="Candidates">
+                            <mah:HamburgerMenuIconItem.Icon>
+                                <iconPacks:PackIconMaterial Width="22"
+                                                            Height="22"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Kind="FaceMan" />
+                            </mah:HamburgerMenuIconItem.Icon>
+                            <mah:HamburgerMenuIconItem.Tag>
+                                <views:CandidatesView />
+                            </mah:HamburgerMenuIconItem.Tag>
+                        </mah:HamburgerMenuIconItem>
+
+                        <mah:HamburgerMenuIconItem Label="Positions">
+                            <mah:HamburgerMenuIconItem.Icon>
+                                <iconPacks:PackIconMaterial Width="22"
+                                                            Height="22"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Kind="InstrumentTriangle" />
+                            </mah:HamburgerMenuIconItem.Icon>
+                            <mah:HamburgerMenuIconItem.Tag>
+                                <views:PositionsView />
+                            </mah:HamburgerMenuIconItem.Tag>
+                        </mah:HamburgerMenuIconItem>
+                    </mah:HamburgerMenuItemCollection>
+                </mah:HamburgerMenu.ItemsSource>
+
+                <!--  Options  -->
+                <mah:HamburgerMenu.OptionsItemsSource>
+                    <mah:HamburgerMenuItemCollection>
+                        <mah:HamburgerMenuGlyphItem Glyph=""
+                                                         Label="Settings">
+                            <mah:HamburgerMenuGlyphItem.Tag>
+                                <views:AboutView />
+                            </mah:HamburgerMenuGlyphItem.Tag>
+                        </mah:HamburgerMenuGlyphItem>
+                    </mah:HamburgerMenuItemCollection>
+                </mah:HamburgerMenu.OptionsItemsSource>
+
+                <!--  Content  -->
+                <mah:HamburgerMenu.ContentTemplate>
+                    <DataTemplate DataType="{x:Type mah:HamburgerMenuItem}">
+                        <Grid x:Name="TheContentGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="48" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0"
+                                    Background="#FF444444">
+                                <TextBlock x:Name="Header"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="24"
+                                           Foreground="White"
+                                           Text="{Binding Label}" />
+                            </Border>
+                            <ContentControl x:Name="TheContent"
+                                            Grid.Row="1"
+                                            Focusable="False"
+                                            Content="{Binding Tag}" />
+                        </Grid>
+                    </DataTemplate>
+                </mah:HamburgerMenu.ContentTemplate>
+
+            </mah:HamburgerMenu>
+
+        </Grid>
+        
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal" 
+                    FlowDirection="LeftToRight">
+            <TextBlock x:Name="StatusBlock" 
+                       Height="22"></TextBlock>
+        </StackPanel>
+        
     </Grid>
+    
 </mah:MetroWindow>
