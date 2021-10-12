@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using SimpleCrud.MVVM.Commands.Parameters;
+using SimpleCrud.MVVM.Services;
 using SimpleCrud.MVVM.ViewModels;
 
 namespace SimpleCrud.MVVM.Commands
@@ -27,7 +28,9 @@ namespace SimpleCrud.MVVM.Commands
 
         private void OnJobCompleted(Operation completedOperation)
         {
+            completedOperation.CompletionTime = DateTime.Now;
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            OperationTrackerService.OperationFinished(completedOperation);
         }
         public event EventHandler CanExecuteChanged;
     }
