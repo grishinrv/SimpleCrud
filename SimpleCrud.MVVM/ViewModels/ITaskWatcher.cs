@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using SimpleCrud.MVVM.Commands.Parameters;
 
 namespace SimpleCrud.MVVM.ViewModels
 {
-    public interface ITaskWatcher : INotifyPropertyChanged, IDisposable
+    public interface ITaskWatcher : INotifyPropertyChanged
     {
-        string Operation { get; }
+        Operation Operation { get; }
         TaskStatus Status { get; }
         bool IsCompleted { get; }
         bool IsNotCompleted { get; }
@@ -16,6 +17,5 @@ namespace SimpleCrud.MVVM.ViewModels
         AggregateException Exception { get; }
         Exception InnerException { get; }
         string ErrorMessage { get; }
-        event Action OnTaskCompleted;
     }
 }

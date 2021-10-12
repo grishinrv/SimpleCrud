@@ -20,12 +20,15 @@ namespace SimpleCrud.MVVM.Commands
         {
             if (CanExecute(null) && parameter is AsyncFunctionContainer container)
             {
-                var watcher = new TaskWatcher(container.Job?.Invoke(), container.Operation);
-                watcher.OnTaskCompleted += () => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                var watcher = new TaskWatcher(container.Job?.Invoke(), container.Operation, OnJobCompleted);
                 _vewModel.CurrentTask = watcher;
             }
         }
 
+        private void OnJobCompleted(Operation completedOperation)
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
         public event EventHandler CanExecuteChanged;
     }
 }

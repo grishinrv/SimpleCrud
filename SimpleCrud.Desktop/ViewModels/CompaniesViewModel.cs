@@ -7,13 +7,13 @@ using SimpleCrud.MVVM.ViewModels;
 
 namespace SimpleCrud.Desktop.ViewModels
 {
-
     public class CompaniesViewModel : TaskExecutionViewModel
     {
+        public override string ActivityName { get; } = "Companies view";
         public CompaniesViewModel() : base()
         {
             Rows = new ObservableCollection<Company>();
-            ResultParam = new AsyncFunctionContainer { Job = GetResultAsync, Operation = "Calculating result" };
+            ResultParam = CreateJob(GetResultAsync, "Calculating result" );
         }
 
         public ObservableCollection<Company> Rows { get; }
@@ -25,7 +25,7 @@ namespace SimpleCrud.Desktop.ViewModels
 
         private async Task GetResultAsync()
         {
-            await Task.Delay(10000);
+            await Task.Delay(5000);
             //throw new Exception("We've fucked up for some reason...");
             Result = new Random().Next(1, 999);
         }

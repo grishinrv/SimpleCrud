@@ -26,7 +26,7 @@
                                    LastChildFill="True">
 
                             <TextBlock DockPanel.Dock="Top"
-                                       Text="{TemplateBinding Operation}" />
+                                       Text="{Binding Path = Operation.Name, Mode=OneWay}" />
 
                             <Grid DockPanel.Dock="Bottom">
                                 <Button x:Name="PART_CloseButton"
