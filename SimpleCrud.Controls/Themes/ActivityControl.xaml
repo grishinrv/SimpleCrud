@@ -65,7 +65,7 @@
                                   FocusVisualStyle="{x:Null}"
                                   Focusable="False"
                                   Opacity="0.5"
-                                  Visibility="Hidden" />
+                                  Visibility="{Binding IsDialogShown, ElementName=PART_ProgressDialog, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <!--  active dialog container  -->
                             <Grid x:Name="PART_DialogContainer"
@@ -75,14 +75,12 @@
                                   Panel.ZIndex="5"
                                   FocusVisualStyle="{x:Null}" />
 
-                            <!--  progress view container  -->
-                            <Grid x:Name="PART_ProgressViewContainer"
-                                  Grid.Row="1"
-                                  Grid.Column="0"
-                                  Grid.ColumnSpan="5"
-                                  Panel.ZIndex="6">
-                                <local:ProgressDialog DataContext="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
-                            </Grid>
+                            <local:ProgressDialog x:Name="PART_ProgressDialog"
+                                                  Grid.Row="1"
+                                                  Grid.Column="0"
+                                                  Grid.ColumnSpan="5"
+                                                  Panel.ZIndex="6"
+                                                  DataContext="{Binding JobDataContext, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
                         </Grid>
 
                     </Grid>

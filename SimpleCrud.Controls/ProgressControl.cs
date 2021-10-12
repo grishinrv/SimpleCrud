@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.ValueBoxes;
 
@@ -8,9 +9,26 @@ namespace SimpleCrud.Controls
     [TemplatePart(Name = PART_ErrorTextBlock, Type = typeof(TextBlock))]
     public sealed class ProgressControl : Control
     {
+        public event Action OnShown;
+        public event Action OnHidden;
         static ProgressControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ProgressControl), new FrameworkPropertyMetadata(typeof(ProgressControl)));
+        }
+
+        private void IsIsProgressChanged(bool isInProgress)
+        {
+            if (isInProgress)
+                OnShown?.Invoke();
+            else
+                OnHidden?.Invoke();
+        }
+        
+        private static void IsInProgressChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            bool isInProgress = (bool)e.NewValue;
+            ProgressControl source = d as ProgressControl;
+            source?.IsIsProgressChanged(isInProgress);
         }
 
         #region Constants
@@ -37,8 +55,8 @@ namespace SimpleCrud.Controls
 
         public static readonly DependencyProperty IsInProgressProperty =
             DependencyProperty.Register(nameof(IsInProgress), typeof(bool), typeof(ProgressControl),
-                new PropertyMetadata(BooleanBoxes.TrueBox));
-
+                new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, IsInProgressChangedCallback));
+        
         public static readonly DependencyProperty IsCompletedProperty =
             DependencyProperty.Register(nameof(IsCompleted), typeof(bool), typeof(ProgressControl),
                 new PropertyMetadata(BooleanBoxes.FalseBox));

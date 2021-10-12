@@ -12,7 +12,7 @@ namespace SimpleCrud.Controls
     /// A form (tab) template, with support of async operations (ui-notifying) and dialogs.
     /// </summary>
     [TemplatePart(Name = PART_DialogContainer, Type = typeof(Grid))]
-    [TemplatePart(Name = PART_ProgressViewContainer, Type = typeof(Grid))]
+    [TemplatePart(Name = PART_ProgressDialog, Type = typeof(Grid))]
     public sealed class ActivityControl : ContentControl
     {
         static ActivityControl()
@@ -22,7 +22,7 @@ namespace SimpleCrud.Controls
         
         #region Constants
         private const string PART_DialogContainer = "PART_DialogContainer";
-        private const string PART_ProgressViewContainer = "PART_ProgressViewContainer";
+        private const string PART_ProgressDialog = "PART_ProgressDialog";
         #endregion
 
         #region Dependency properties declarations
@@ -46,11 +46,11 @@ namespace SimpleCrud.Controls
         {
             base.OnApplyTemplate();
             _dialogContainer = GetTemplateChild(PART_DialogContainer) as Grid;
-            _progressViewContainer = GetTemplateChild(PART_ProgressViewContainer) as Grid;
+            _progressDialog = GetTemplateChild(PART_ProgressDialog) as ProgressDialog;
         }
 
         private Grid _dialogContainer;
-        private Grid _progressViewContainer;
+        private ProgressDialog _progressDialog;
 
         #region  Dependency properties accessors
 
