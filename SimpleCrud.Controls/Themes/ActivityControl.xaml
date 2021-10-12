@@ -14,6 +14,22 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+    
+    <Style TargetType="Grid" x:Key="OverlayGridStyle">
+        <Style.Triggers>
+            <Trigger Property="Visibility" Value="Visible">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0.0" To="0.5"
+                                             Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <Style TargetType="{x:Type local:ActivityControl}">
         <Setter Property="Template">
@@ -56,6 +72,7 @@
 
                             <!--  overlay effect container  -->
                             <Grid x:Name="PART_OverlayBox"
+                                  Style="{StaticResource OverlayGridStyle}"
                                   Grid.Row="0"
                                   Grid.RowSpan="3"
                                   Grid.Column="0"
@@ -64,8 +81,11 @@
                                   Background="Black"
                                   FocusVisualStyle="{x:Null}"
                                   Focusable="False"
-                                  Opacity="0.5"
-                                  Visibility="{Binding IsDialogShown, ElementName=PART_ProgressDialog, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                  Visibility="{Binding IsDialogShown, 
+                                                ElementName=PART_ProgressDialog, 
+                                                UpdateSourceTrigger=PropertyChanged, 
+                                                Mode=OneWay, 
+                                                Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <!--  active dialog container  -->
                             <Grid x:Name="PART_DialogContainer"
@@ -86,7 +106,9 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
+                        
                     </ControlTemplate.Triggers>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
