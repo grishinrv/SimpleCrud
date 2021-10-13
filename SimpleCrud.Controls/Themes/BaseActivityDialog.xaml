@@ -16,15 +16,15 @@
                         </Grid.RowDefinitions>
                         
                         <TextBlock Grid.Row="0" 
-                                   Text="{TemplateBinding Title}" 
-                                   FontSize="{TemplateBinding DialogTitleFontSize}"/>
+                                   Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" 
+                                   FontSize="{Binding DialogTitleFontSize, RelativeSource={RelativeSource TemplatedParent}}"/>
                         
-                        <ContentControl Grid.Row="1" Content="{TemplateBinding Content}"/>
+                        <ContentControl Grid.Row="1" Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"/>
                         
                         <StackPanel Grid.Row="2"
                                     Orientation="Horizontal"
                                     FlowDirection="RightToLeft">
-                            <Button FontSize="{TemplateBinding DialogButtonFontSize}">TEST</Button>
+                            <Button FontSize="{Binding DialogButtonFontSize, RelativeSource={RelativeSource TemplatedParent}}">TEST</Button>
                         </StackPanel>
                         
                     </Grid>
