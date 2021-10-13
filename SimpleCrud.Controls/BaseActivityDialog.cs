@@ -35,9 +35,9 @@ namespace SimpleCrud.Controls
         #endregion
 
         #region dependency properties accessors
-        public string? Title
+        public string Title
         {
-            get => (string?)this.GetValue(TitleProperty);
+            get => (string)this.GetValue(TitleProperty);
             set => this.SetValue(TitleProperty, value);
         }
         public double DialogMessageFontSize

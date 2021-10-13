@@ -13,7 +13,11 @@
     </UserControl.DataContext>
     
     <controls:ActivityControl JobDataContext="{Binding CurrentTask, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-        <Button Command="{Binding AsyncCommand, Mode=OneTime}"
-                CommandParameter="{Binding ResultParam, Mode=OneTime}"> TEST </Button>
+        <StackPanel Orientation="Vertical">
+            <Button Command="{Binding AsyncCommand, Mode=OneTime}"
+                    CommandParameter="{Binding ResultParam, Mode=OneTime}"> TEST </Button>
+            
+            <controls:BaseActivityDialog Title="Sample title"></controls:BaseActivityDialog>
+        </StackPanel>
     </controls:ActivityControl>
 </UserControl>
