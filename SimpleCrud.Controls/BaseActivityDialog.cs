@@ -6,6 +6,11 @@ namespace SimpleCrud.Controls
 {
     public class BaseActivityDialog : ContentControl
     {
+        static BaseActivityDialog()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseActivityDialog), new FrameworkPropertyMetadata(typeof(BaseActivityDialog)));
+        }
+
         #region dependency properties metadata
         
         public static readonly DependencyProperty TitleProperty

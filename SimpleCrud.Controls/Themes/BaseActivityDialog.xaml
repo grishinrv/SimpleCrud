@@ -3,39 +3,36 @@
                     xmlns:controls="clr-namespace:SimpleCrud.Controls"
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
     
-    <Style TargetType="controls:BaseActivityDialog">
-        <Style.Setters>
-            <Setter Property="Template">
-                <Setter.Value>
-                    
-                    <ControlTemplate TargetType="controls:BaseActivityDialog">
-                        <Grid Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=mah:MetroWindow}}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            
-                            <TextBlock Grid.Row="0" 
-                                       Text="{TemplateBinding Title}" 
-                                       FontSize="{TemplateBinding DialogTitleFontSize}"/>
-                            
-                            <ContentControl Grid.Row="1"/>
-                            
-                            <StackPanel Grid.Row="2"
-                                        Orientation="Horizontal"
-                                        FlowDirection="RightToLeft">
-                                <Button FontSize="{TemplateBinding DialogButtonFontSize}">TEST</Button>
-                            </StackPanel>
-                            
-                        </Grid>
+    <Style TargetType="{x:Type controls:BaseActivityDialog}">
+        <Setter Property="Template">
+            <Setter.Value>
+                
+                <ControlTemplate TargetType="{x:Type controls:BaseActivityDialog}">
+                    <Grid Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=mah:MetroWindow}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         
-                    </ControlTemplate>
+                        <TextBlock Grid.Row="0" 
+                                   Text="{TemplateBinding Title}" 
+                                   FontSize="{TemplateBinding DialogTitleFontSize}"/>
+                        
+                        <ContentControl Grid.Row="1" Content="{TemplateBinding Content}"/>
+                        
+                        <StackPanel Grid.Row="2"
+                                    Orientation="Horizontal"
+                                    FlowDirection="RightToLeft">
+                            <Button FontSize="{TemplateBinding DialogButtonFontSize}">TEST</Button>
+                        </StackPanel>
+                        
+                    </Grid>
                     
-                </Setter.Value>
-            </Setter>
-        </Style.Setters>
-        
+                </ControlTemplate>
+                
+            </Setter.Value>
+        </Setter>
     </Style>
     
 </ResourceDictionary>
