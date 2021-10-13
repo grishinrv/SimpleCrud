@@ -1,4 +1,41 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:SimpleCrud.Controls"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+    
+    <Style TargetType="controls:BaseActivityDialog">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    
+                    <ControlTemplate TargetType="controls:BaseActivityDialog">
+                        <Grid Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=mah:MetroWindow}}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" 
+                                       Text="{TemplateBinding Title}" 
+                                       FontSize="{TemplateBinding DialogTitleFontSize}"/>
+                            
+                            <ContentControl Grid.Row="1"/>
+                            
+                            <StackPanel Grid.Row="2"
+                                        Orientation="Horizontal"
+                                        FlowDirection="RightToLeft">
+                                <Button FontSize="{TemplateBinding DialogButtonFontSize}">TEST</Button>
+                            </StackPanel>
+                            
+                        </Grid>
+                        
+                    </ControlTemplate>
+                    
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+        
+    </Style>
     
 </ResourceDictionary>
