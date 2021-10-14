@@ -15,14 +15,22 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         
-                        <TextBlock Grid.Row="0" 
-                                   Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}, Mode=OneTime}" 
-                                   FontSize="{Binding DialogTitleFontSize, 
-                                        RelativeSource={RelativeSource TemplatedParent}, 
-                                        Mode=OneWay,
-                                        UpdateSourceTrigger=PropertyChanged}"
-                                   TextWrapping="Wrap" 
-                                   Foreground="{TemplateBinding Foreground}"/>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Grid.Column="1" 
+                                       Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}, Mode=OneTime}" 
+                                       FontSize="{Binding DialogTitleFontSize, 
+                                            RelativeSource={RelativeSource TemplatedParent}, 
+                                            Mode=OneWay,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                       TextWrapping="Wrap" 
+                                       Foreground="{TemplateBinding Foreground}"/>
+                        </Grid>
                         
                         <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" />
                         
