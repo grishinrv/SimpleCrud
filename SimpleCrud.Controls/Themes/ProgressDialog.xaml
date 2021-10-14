@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SimpleCrud.Controls"
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:helpers="clr-namespace:SimpleCrud.Controls.Helpers"
-                    xmlns:converters="clr-namespace:SimpleCrud.Controls.Converters">
+                    xmlns:helpers="clr-namespace:SimpleCrud.Controls.Helpers">
     <ResourceDictionary.MergedDictionaries>
         <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
         <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
@@ -12,28 +11,54 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <mah:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <mah:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
-    <converters:JobToVisibilityConverter x:Key="JobToVisibilityConverter" />
 
     <Style TargetType="{x:Type local:ProgressDialog}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ProgressDialog}">
-                    <local:ProgressControl x:Name="PART_ProgressBox"
-                                           Operation="{Binding Operation, Mode=OneWay}"
-                                           IsCompleted="{Binding IsCompleted, Mode=OneWay}"
-                                           IsInProgress="{Binding IsNotCompleted, Mode=OneWay}"
-                                           CompletedWithError="{Binding IsFaulted, Mode=OneWay}"
-                                           Error="{Binding ErrorMessage, Mode=OneWay}"
-                                           Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType=local:ActivityControl}}">
-                        <local:ProgressControl.Visibility>
-                            <MultiBinding Converter="{StaticResource JobToVisibilityConverter}" UpdateSourceTrigger="PropertyChanged">
-                                <Binding Path="IsNotCompleted" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
-                                <Binding Path="IsSuccessfullyCompleted" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
-                                <Binding Path="IsCanceled" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
-                                <Binding Path="IsFaulted" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
-                            </MultiBinding>
-                        </local:ProgressControl.Visibility>
-                    </local:ProgressControl>
+                    <Border Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType=mah:MetroWindow}}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <DockPanel LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
+                                   RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}"
+                                   UseLayoutRounding="True"
+                                   LastChildFill="True">
+
+                            <TextBlock DockPanel.Dock="Top"
+                                       Text="{Binding Path = Operation.Name, Mode=OneWay}" />
+
+                            <Grid DockPanel.Dock="Bottom">
+                                <Button x:Name="PART_CloseButton"
+                                        Margin="0 0 5 0"
+                                        Content="Close"
+                                        Visibility="{TemplateBinding CompletedWithError, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        FontSize="{TemplateBinding DialogButtonFontSize}"
+                                        Style="{DynamicResource MahApps.Styles.Button.Dialogs}" />
+                            </Grid>
+
+                            <StackPanel DockPanel.Dock="Bottom"
+                                        FlowDirection="LeftToRight">
+                                <Label Target="{Binding ElementName=PART_ErrorTextBlock}" HorizontalAlignment="Left"
+                                       Visibility="{TemplateBinding CompletedWithError, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <AccessText TextWrapping="WrapWithOverflow">
+                                        Failed to perform the operation:
+                                    </AccessText>
+                                </Label>
+                                <TextBlock x:Name="PART_ErrorTextBlock"
+                                           Visibility="{TemplateBinding CompletedWithError, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                           Text="{TemplateBinding Error}" />
+                            </StackPanel>
+
+                            <Grid>
+                                <mah:ProgressRing
+                                    Width="40"
+                                    Height="40"
+                                    IsActive="{TemplateBinding IsInProgress}" />
+                            </Grid>
+
+                        </DockPanel>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

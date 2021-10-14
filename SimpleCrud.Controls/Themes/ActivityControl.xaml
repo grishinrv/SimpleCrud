@@ -95,7 +95,7 @@
                                   Panel.ZIndex="5"
                                   FocusVisualStyle="{x:Null}" />
 
-                            <local:ProgressDialog x:Name="PART_ProgressDialog"
+                            <local:ProgressView x:Name="PART_ProgressDialog"
                                                   Grid.Row="1"
                                                   Grid.Column="0"
                                                   Grid.ColumnSpan="5"

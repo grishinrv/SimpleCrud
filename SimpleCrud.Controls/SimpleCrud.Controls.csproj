@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Themes\ProgressDialog.xaml">
+    <Page Update="Themes\ProgressView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

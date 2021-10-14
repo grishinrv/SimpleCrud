@@ -46,11 +46,11 @@ namespace SimpleCrud.Controls
         {
             base.OnApplyTemplate();
             _dialogContainer = GetTemplateChild(PART_DialogContainer) as Grid;
-            _progressDialog = GetTemplateChild(PART_ProgressDialog) as ProgressDialog;
+            _progressView = GetTemplateChild(PART_ProgressDialog) as ProgressView;
         }
 
         private Grid _dialogContainer;
-        private ProgressDialog _progressDialog;
+        private ProgressView _progressView;
 
         #region  Dependency properties accessors
 
