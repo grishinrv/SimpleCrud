@@ -1,7 +1,9 @@
 ﻿using System;
 using SimpleCrud.Storage.Models;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
+using SimpleCrud.MVVM;
 using SimpleCrud.MVVM.Commands.Parameters;
 using SimpleCrud.MVVM.ViewModels;
 
@@ -23,7 +25,7 @@ namespace SimpleCrud.Desktop.ViewModels
 
         public AsyncFunctionContainer ResultParam { get; }
 
-        private async Task GetResultAsync()
+        private async Task GetResultAsync(IProgress<JobStage> progress, CancellationToken token)
         {
             await Task.Delay(5000);
             //throw new Exception("We've fucked up for some reason...");
