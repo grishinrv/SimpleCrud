@@ -2,8 +2,6 @@
                     xmlns:helpers="clr-namespace:SimpleCrud.Controls.Helpers">
     <ResourceDictionary.MergedDictionaries>
         <helpers:SharedResourceDictionary Source="pack://application:,,,/SimpleCrud.Controls;component/Themes/BaseActivityDialog.xaml" />
-        <helpers:SharedResourceDictionary Source="pack://application:,,,/SimpleCrud.Controls;component/Themes/ProgressControl.xaml" />
-        <helpers:SharedResourceDictionary Source="pack://application:,,,/SimpleCrud.Controls;component/Themes/ProgressDialog.xaml" />
         <helpers:SharedResourceDictionary Source="pack://application:,,,/SimpleCrud.Controls;component/Themes/ActivityControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using MahApps.Metro.Controls.Dialogs;
 
 namespace SimpleCrud.Controls
 {
@@ -32,25 +30,25 @@ namespace SimpleCrud.Controls
         public static readonly DependencyProperty TitleProperty
             = DependencyProperty.Register(nameof(Title),
                 typeof(string),
-                typeof(BaseMetroDialog),
-                new PropertyMetadata(default(string)));
+                typeof(BaseActivityDialog),
+                new FrameworkPropertyMetadata(default(string)));
 
         public static readonly DependencyProperty DialogTitleFontSizeProperty
             = DependencyProperty.Register(nameof(DialogTitleFontSize),
                 typeof(double),
-                typeof(BaseMetroDialog),
+                typeof(BaseActivityDialog),
                 new PropertyMetadata(26D));
 
         public static readonly DependencyProperty DialogMessageFontSizeProperty
             = DependencyProperty.Register(nameof(DialogMessageFontSize),
                 typeof(double),
-                typeof(BaseMetroDialog),
+                typeof(BaseActivityDialog),
                 new PropertyMetadata(15D));
 
         public static readonly DependencyProperty DialogButtonFontSizeProperty
             = DependencyProperty.Register(nameof(DialogButtonFontSize),
                 typeof(double),
-                typeof(BaseMetroDialog),
+                typeof(BaseActivityDialog),
                 new PropertyMetadata(SystemFonts.MessageFontSize));
 
         public static readonly DependencyProperty ButtonsProperty

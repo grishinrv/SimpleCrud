@@ -1,111 +1,127 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Input;
 using MahApps.Metro.ValueBoxes;
 
 namespace SimpleCrud.Controls
 {
-    [TemplatePart(Name = PART_CloseButton, Type = typeof(Button))]
-    [TemplatePart(Name = PART_ErrorTextBlock, Type = typeof(TextBlock))]
-    public sealed class ProgressDialog : Control
+    public sealed partial class ProgressDialog : BaseActivityDialog
     {
-        public event Action OnShown;
-        public event Action OnHidden;
         static ProgressDialog()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ProgressDialog), new FrameworkPropertyMetadata(typeof(ProgressDialog)));
+            VisibilityProperty.OverrideMetadata(typeof(ProgressDialog), new FrameworkPropertyMetadata(Visibility.Hidden));
         }
 
         private void IsIsProgressChanged(bool isInProgress)
         {
-            if (isInProgress)
-                OnShown?.Invoke();
-            else
-                OnHidden?.Invoke();
+            if (!isInProgress)
+            {
+                bool isSuccessful = string.IsNullOrWhiteSpace((string)GetValue(ErrorTextProperty));
+                if (isSuccessful && (bool)GetValue(AutoCloseOnSuccessProperty))
+                {
+                    SetValue(VisibilityProperty, Visibility.Hidden);
+                    SetValue(ShowCancelButtonProperty, BooleanBoxes.FalseBox);
+                }
+            }
         }
-        
-        private static void IsInProgressChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+        private static void ShowProgressChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             bool isInProgress = (bool)e.NewValue;
             ProgressDialog source = d as ProgressDialog;
             source?.IsIsProgressChanged(isInProgress);
         }
 
-        #region Constants
-        private const string PART_CloseButton = "PART_CloseButton";
-        private const string PART_ErrorTextBlock = "PART_ErrorTextBlock";
-        #endregion
 
         #region Dependency props define
 
-        /// <summary>Identifies the <see cref="DialogButtonFontSize"/> dependency property.</summary>
-        public static readonly DependencyProperty DialogButtonFontSizeProperty
-            = DependencyProperty.Register(nameof(DialogButtonFontSize),
-                typeof(double),
-                typeof(ProgressDialog),
-                new PropertyMetadata(SystemFonts.MessageFontSize));
+        public static readonly DependencyProperty ProcessErrorCommandProperty = DependencyProperty.Register(
+            nameof(ProcessErrorCommand), typeof(ICommand), typeof(ProgressDialog),
+            new PropertyMetadata(default(ICommand)));
 
-        public static readonly DependencyProperty OperationProperty =
-            DependencyProperty.Register(nameof(Operation), typeof(string), typeof(ProgressDialog),
-                new PropertyMetadata("Operation"));
+        public static readonly DependencyProperty ProcessErrorCommandParameterProperty = DependencyProperty.Register(
+            nameof(ProcessErrorCommandParameter), typeof(object), typeof(ProgressDialog),
+            new PropertyMetadata(default(object)));
 
-        public static readonly DependencyProperty ErrorProperty =
-            DependencyProperty.Register(nameof(Error), typeof(string), typeof(ProgressDialog),
+        public static readonly DependencyProperty ProcessErrorButtonTextProperty = DependencyProperty.Register(
+            nameof(ProcessErrorButtonText), typeof(string), typeof(ProgressDialog),
+            new PropertyMetadata(default(string)));
+
+        public static readonly DependencyProperty ErrorTextProperty =
+            DependencyProperty.Register(nameof(ErrorText), typeof(string), typeof(ProgressDialog),
                 new PropertyMetadata(string.Empty));
 
-        public static readonly DependencyProperty IsInProgressProperty =
-            DependencyProperty.Register(nameof(IsInProgress), typeof(bool), typeof(ProgressDialog),
-                new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, IsInProgressChangedCallback));
-        
-        public static readonly DependencyProperty IsCompletedProperty =
-            DependencyProperty.Register(nameof(IsCompleted), typeof(bool), typeof(ProgressDialog),
-                new PropertyMetadata(BooleanBoxes.FalseBox));
+        public static readonly DependencyProperty ProgressProperty = DependencyProperty.Register(
+            nameof(Progress), typeof(double), typeof(ProgressDialog), new PropertyMetadata(default(double)));
 
-        public static readonly DependencyProperty CompletedWithErrorProperty =
-            DependencyProperty.Register(nameof(CompletedWithError), typeof(bool), typeof(ProgressDialog),
-                new PropertyMetadata(BooleanBoxes.FalseBox));
+        public static readonly DependencyProperty ShowProgressAnimationProperty =
+            DependencyProperty.Register(nameof(ShowProgressAnimation), typeof(bool), typeof(ProgressDialog),
+                new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, ShowProgressChanged));
+
+        public static readonly DependencyProperty ShowCancelButtonProperty = DependencyProperty.Register(
+            nameof(ShowCancelButton), typeof(bool), typeof(ProgressDialog), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(
+            nameof(CancelCommand), typeof(ICommand), typeof(ProgressDialog), new PropertyMetadata(default(ICommand)));
+
+        public static readonly DependencyProperty AutoCloseOnSuccessProperty = DependencyProperty.Register(
+            nameof(AutoCloseOnSuccess), typeof(bool), typeof(ProgressDialog),
+            new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
         #region Dependency props accessors
 
-        /// <summary>
-        /// Gets or sets the font size of any dialog buttons.
-        /// </summary>
-        public double DialogButtonFontSize
+        public ICommand ProcessErrorCommand
         {
-            get => (double)this.GetValue(DialogButtonFontSizeProperty);
-            set => this.SetValue(DialogButtonFontSizeProperty, value);
+            get { return (ICommand)GetValue(ProcessErrorCommandProperty); }
+            set { SetValue(ProcessErrorCommandProperty, value); }
         }
 
-        public string Operation
+        public object ProcessErrorCommandParameter
         {
-            get { return (string)GetValue(OperationProperty); }
-            set { SetValue(OperationProperty, value); }
+            get { return (object)GetValue(ProcessErrorCommandParameterProperty); }
+            set { SetValue(ProcessErrorCommandParameterProperty, value); }
         }
 
-        public string Error
+        public string ProcessErrorButtonText
         {
-            get { return (string)GetValue(ErrorProperty); }
-            set { SetValue(ErrorProperty, value); }
+            get { return (string)GetValue(ProcessErrorButtonTextProperty); }
+            set { SetValue(ProcessErrorButtonTextProperty, value); }
         }
 
-        public bool IsInProgress
+        public string ErrorText
         {
-            get { return (bool)GetValue(IsInProgressProperty); }
-            set { SetValue(IsInProgressProperty, BooleanBoxes.Box(value)); }
+            get { return (string)GetValue(ErrorTextProperty); }
+            set { SetValue(ErrorTextProperty, value); }
         }
 
-        public bool IsCompleted
+        public double Progress
         {
-            get { return (bool)GetValue(IsCompletedProperty); }
-            set { SetValue(IsCompletedProperty, BooleanBoxes.Box(value)); }
+            get { return (double)GetValue(ProgressProperty); }
+            set { SetValue(ProgressProperty, value); }
         }
 
-        public bool CompletedWithError
+        public bool ShowProgressAnimation
         {
-            get { return (bool)GetValue(CompletedWithErrorProperty); }
-            set { SetValue(CompletedWithErrorProperty, BooleanBoxes.Box(value)); }
+            get { return (bool)GetValue(ShowProgressAnimationProperty); }
+            set { SetValue(ShowProgressAnimationProperty, BooleanBoxes.Box(value)); }
+        }
+
+        public bool ShowCancelButton
+        {
+            get { return (bool)GetValue(ShowCancelButtonProperty); }
+            set { SetValue(ShowCancelButtonProperty, value); }
+        }
+
+        public ICommand CancelCommand
+        {
+            get { return (ICommand)GetValue(CancelCommandProperty); }
+            set { SetValue(CancelCommandProperty, value); }
+        }
+        public bool AutoCloseOnSuccess
+        {
+            get { return (bool)GetValue(AutoCloseOnSuccessProperty); }
+            set { SetValue(AutoCloseOnSuccessProperty, BooleanBoxes.Box(value)); }
         }
 
         #endregion

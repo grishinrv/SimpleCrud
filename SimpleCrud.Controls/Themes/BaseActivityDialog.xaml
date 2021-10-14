@@ -23,7 +23,7 @@
                             </Grid.ColumnDefinitions>
                             
                             <TextBlock Grid.Column="1" 
-                                       Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}, Mode=OneTime}" 
+                                       Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BaseActivityDialog}, Mode=OneWay}" 
                                        FontSize="{Binding DialogTitleFontSize, 
                                             RelativeSource={RelativeSource TemplatedParent}, 
                                             Mode=OneWay,
@@ -32,7 +32,14 @@
                                        Foreground="{TemplateBinding Foreground}"/>
                         </Grid>
                         
-                        <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" />
+                        <ContentPresenter Grid.Row="1" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         
                         <ItemsControl x:Name="PART_ButtonsPanel" 
                                       Grid.Row="2" 

@@ -12,7 +12,7 @@ namespace SimpleCrud.Controls
     /// A form (tab) template, with support of async operations (ui-notifying) and dialogs.
     /// </summary>
     [TemplatePart(Name = PART_DialogContainer, Type = typeof(Grid))]
-    [TemplatePart(Name = PART_ProgressDialog, Type = typeof(Grid))]
+    [TemplatePart(Name = PART_ProgressDialog, Type = typeof(ProgressDialog))]
     public sealed class ActivityControl : ContentControl
     {
         static ActivityControl()
@@ -46,11 +46,9 @@ namespace SimpleCrud.Controls
         {
             base.OnApplyTemplate();
             _dialogContainer = GetTemplateChild(PART_DialogContainer) as Grid;
-            _progressView = GetTemplateChild(PART_ProgressDialog) as ProgressView;
         }
 
         private Grid _dialogContainer;
-        private ProgressView _progressView;
 
         #region  Dependency properties accessors
 
