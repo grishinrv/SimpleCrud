@@ -17,7 +17,7 @@
             <Button Command="{Binding AsyncCommand, Mode=OneTime}"
                     CommandParameter="{Binding ResultParam, Mode=OneTime}"> TEST </Button>
             
-            <controls:BaseActivityDialog Title="Sample title"></controls:BaseActivityDialog>
+            <controls:BaseActivityDialog Title="Sample title">Ta-dam</controls:BaseActivityDialog>
         </StackPanel>
     </controls:ActivityControl>
 </UserControl>
