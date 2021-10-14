@@ -22,7 +22,7 @@
                                         Mode=OneWay,
                                         UpdateSourceTrigger=PropertyChanged}"/>
                         
-                        <ContentPresenter Grid.Row="1" />
+                        <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" />
                         
                         <StackPanel Grid.Row="2"
                                     Orientation="Horizontal"
