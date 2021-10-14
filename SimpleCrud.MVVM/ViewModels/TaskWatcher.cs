@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using SimpleCrud.MVVM.Commands;
 using SimpleCrud.MVVM.Commands.Parameters;
 
 namespace SimpleCrud.MVVM.ViewModels
@@ -21,6 +24,10 @@ namespace SimpleCrud.MVVM.ViewModels
             private set => OnSet(ref _progress, value);
         }
 
+        public bool IsJobCancellable { get; }
+
+        public ICommand CancelJobCommand { get; }
+        
         public TaskWatcher(AsyncFunctionContainer container, Action<Operation> onCompletedCallBack)
         {
             Stages = new ObservableCollection<string>();
@@ -31,8 +38,13 @@ namespace SimpleCrud.MVVM.ViewModels
                 if (!string.IsNullOrWhiteSpace(stage.Name))
                     Stages.Add(stage.Name);
             });
+
+            var tokenSource = new CancellationTokenSource();
+            CancelJobCommand = new CancelJobCommand(tokenSource);
+            CancellationToken token = tokenSource.Token;
+            IsJobCancellable = container.IsJobCancellable;
             
-            Task = container.Job.Invoke(progress);
+            Task = container.Job.Invoke(progress, token);
             if (!Task.IsCompleted)
             {
                 var _ = WatchTaskAsync(Task, onCompletedCallBack);

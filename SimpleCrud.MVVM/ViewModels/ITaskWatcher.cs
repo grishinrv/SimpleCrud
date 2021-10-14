@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using SimpleCrud.MVVM.Commands.Parameters;
 
 namespace SimpleCrud.MVVM.ViewModels
@@ -20,5 +21,7 @@ namespace SimpleCrud.MVVM.ViewModels
         string ErrorMessage { get; }
         ObservableCollection<string> Stages { get; }
         double Progress { get; }
+        bool IsJobCancellable { get; }
+        ICommand CancelJobCommand { get; }
     }
 }
