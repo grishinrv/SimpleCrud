@@ -20,7 +20,9 @@
                                    FontSize="{Binding DialogTitleFontSize, 
                                         RelativeSource={RelativeSource TemplatedParent}, 
                                         Mode=OneWay,
-                                        UpdateSourceTrigger=PropertyChanged}"/>
+                                        UpdateSourceTrigger=PropertyChanged}"
+                                   TextWrapping="Wrap" 
+                                   Foreground="{TemplateBinding Foreground}"/>
                         
                         <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" />
                         
