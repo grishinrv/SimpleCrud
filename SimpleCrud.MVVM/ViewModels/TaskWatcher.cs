@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using SimpleCrud.MVVM.Commands.Parameters;
 
@@ -7,17 +8,33 @@ namespace SimpleCrud.MVVM.ViewModels
     public sealed class TaskWatcher : ViewModel, ITaskWatcher
     {
         public static ITaskWatcher NullObject { get; } =
-            new TaskWatcher(Task.FromResult(0), Commands.Parameters.Operation.NullObject, (_)=>{});
+            new TaskWatcher(AsyncFunctionContainer.NullObject, (_) => { });
+
         public Task Task { get; }
         public Operation Operation { get; }
+        public ObservableCollection<string> Stages { get; }
 
-        public TaskWatcher(Task task, Operation operation, Action<Operation> onCompletedCallBack)
+        private double _progress;
+        public double Progress
         {
-            Operation = operation;
-            Task = task;
-            if (!task.IsCompleted)
+            get { return _progress; }
+            set => OnSet(ref _progress, value);
+        }
+
+        public TaskWatcher(AsyncFunctionContainer container, Action<Operation> onCompletedCallBack)
+        {
+            Stages = new ObservableCollection<string>();
+            Operation = container.Operation;
+            var progress = new Progress<JobStage>(stage =>
             {
-                var _ = WatchTaskAsync(task, onCompletedCallBack);
+                Progress = stage.PercentageFinish;
+                Stages.Add(stage.Name);
+            });
+            
+            Task = container.Job.Invoke(progress);
+            if (!Task.IsCompleted)
+            {
+                var _ = WatchTaskAsync(Task, onCompletedCallBack);
             }
         }
 
