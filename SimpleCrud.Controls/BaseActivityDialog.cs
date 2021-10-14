@@ -1,16 +1,27 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace SimpleCrud.Controls
 {
+    [TemplatePart(Name = PART_ButtonsPanel, Type = typeof(ItemsControl))]
     public class BaseActivityDialog : ContentControl
     {
+        private const string PART_ButtonsPanel = "PART_ButtonsPanel";
         static BaseActivityDialog()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseActivityDialog), new FrameworkPropertyMetadata(typeof(BaseActivityDialog)));
         }
+        
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            _buttonsPanel = GetTemplateChild(PART_ButtonsPanel) as ItemsControl;
+        }
 
+        private ItemsControl _buttonsPanel;
+        
         #region dependency properties metadata
         
         public static readonly DependencyProperty TitleProperty
@@ -36,6 +47,18 @@ namespace SimpleCrud.Controls
                 typeof(double),
                 typeof(BaseMetroDialog),
                 new PropertyMetadata(SystemFonts.MessageFontSize));
+
+        public static readonly DependencyProperty ButtonsProperty 
+            = DependencyProperty.Register(nameof(Buttons), 
+                typeof(List<Button>),
+                typeof(BaseActivityDialog),
+                new PropertyMetadata(new List<Button>()));
+
+        public List<Button> Buttons
+        {
+            get { return (List<Button>)GetValue(ButtonsProperty); }
+            set { SetValue(ButtonsProperty, value); }
+        }
 
         #endregion
 

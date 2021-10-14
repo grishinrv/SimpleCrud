@@ -24,11 +24,16 @@
                         
                         <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" />
                         
-                        <StackPanel Grid.Row="2"
-                                    Orientation="Horizontal"
-                                    FlowDirection="RightToLeft">
-                            <Button FontSize="{Binding DialogButtonFontSize, RelativeSource={RelativeSource TemplatedParent}}">TEST</Button>
-                        </StackPanel>
+                        <ItemsControl x:Name="PART_ButtonsPanel" 
+                                      Grid.Row="2" 
+                                      ItemsSource="{TemplateBinding Buttons}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"
+                                                FlowDirection="RightToLeft"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
                         
                     </Grid>
                     
