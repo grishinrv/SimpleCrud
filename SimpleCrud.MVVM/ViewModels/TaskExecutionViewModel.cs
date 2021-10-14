@@ -8,7 +8,7 @@ namespace SimpleCrud.MVVM.ViewModels
     public abstract class TaskExecutionViewModel : ViewModel
     {
         public abstract string ActivityName { get; }
-        protected AsyncFunctionContainer CreateJob(Func<Task> task, string operationName)
+        protected AsyncFunctionContainer CreateJob(Func<IProgress<JobStage>, Task> task, string operationName)
         {
             Operation operation = new Operation { Activity = ActivityName, Name = operationName };
             return new AsyncFunctionContainer { Job = task, Operation = operation };

@@ -17,8 +17,8 @@ namespace SimpleCrud.MVVM.ViewModels
         private double _progress;
         public double Progress
         {
-            get { return _progress; }
-            set => OnSet(ref _progress, value);
+            get => _progress;
+            private set => OnSet(ref _progress, value);
         }
 
         public TaskWatcher(AsyncFunctionContainer container, Action<Operation> onCompletedCallBack)
@@ -28,7 +28,8 @@ namespace SimpleCrud.MVVM.ViewModels
             var progress = new Progress<JobStage>(stage =>
             {
                 Progress = stage.PercentageFinish;
-                Stages.Add(stage.Name);
+                if (!string.IsNullOrWhiteSpace(stage.Name))
+                    Stages.Add(stage.Name);
             });
             
             Task = container.Job.Invoke(progress);
