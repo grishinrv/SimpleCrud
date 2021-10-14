@@ -36,6 +36,7 @@
                         
                         <ItemsControl x:Name="PART_ButtonsPanel" 
                                       Grid.Row="2" 
+                                      MinHeight="85"
                                       ItemsSource="{TemplateBinding Buttons}"
                                       ItemContainerStyle="{DynamicResource MahApps.Styles.Button.Dialogs}">
                             <ItemsControl.ItemsPanel>
