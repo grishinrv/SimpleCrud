@@ -13,6 +13,8 @@ namespace SimpleCrud.MVVM.ViewModels
         public static ITaskWatcher NullObject { get; } =
             new TaskWatcher(AsyncFunctionContainer.NullObject, (_) => { });
 
+        private bool _showDialog;
+        public bool ShowDialog { get => _showDialog; set=> OnSet(ref _showDialog, value); }
         public Task Task { get; }
         public Operation Operation { get; }
         public ObservableCollection<string> Stages { get; }
@@ -47,6 +49,7 @@ namespace SimpleCrud.MVVM.ViewModels
             Task = container.Job.Invoke(progress, token);
             if (!Task.IsCompleted)
             {
+                ShowDialog = true;
                 var _ = WatchTaskAsync(Task, onCompletedCallBack);
             }
         }
