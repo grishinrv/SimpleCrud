@@ -26,7 +26,8 @@
                         
                         <ItemsControl x:Name="PART_ButtonsPanel" 
                                       Grid.Row="2" 
-                                      ItemsSource="{TemplateBinding Buttons}">
+                                      ItemsSource="{TemplateBinding Buttons}"
+                                      ItemContainerStyle="{DynamicResource MahApps.Styles.Button.Dialogs}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal"
