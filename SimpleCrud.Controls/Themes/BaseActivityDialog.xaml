@@ -16,10 +16,13 @@
                         </Grid.RowDefinitions>
                         
                         <TextBlock Grid.Row="0" 
-                                   Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" 
-                                   FontSize="{Binding DialogTitleFontSize, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                   Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}, Mode=OneTime}" 
+                                   FontSize="{Binding DialogTitleFontSize, 
+                                        RelativeSource={RelativeSource TemplatedParent}, 
+                                        Mode=OneWay,
+                                        UpdateSourceTrigger=PropertyChanged}"/>
                         
-                        <ContentControl Grid.Row="1" Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <ContentPresenter Grid.Row="1" />
                         
                         <StackPanel Grid.Row="2"
                                     Orientation="Horizontal"
