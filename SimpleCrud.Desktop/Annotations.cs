@@ -954,7 +954,7 @@ namespace SimpleCrud.Desktop.Annotations
   /// [ActionName("Foo")]
   /// public ActionResult Login(string returnUrl) {
   ///   ViewBag.ReturnUrl = Url.Action("Foo"); // OK
-  ///   return RedirectToAction("Bar"); // Error: Cannot resolve action
+  ///   return RedirectToAction("Bar"); // ErrorText: Cannot resolve action
   /// }
   /// </code></example>
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
