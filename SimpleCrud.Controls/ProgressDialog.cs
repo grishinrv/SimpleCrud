@@ -18,15 +18,15 @@ namespace SimpleCrud.Controls
 
         private void IsIsProgressChanged(bool isInProgress)
         {
-            if (!isInProgress)
-            {
-                bool isSuccessful = string.IsNullOrWhiteSpace((string)GetValue(ErrorTextProperty));
-                if (isSuccessful && (bool)GetValue(AutoCloseOnSuccessProperty))
-                {
-                    SetValue(VisibilityProperty, Visibility.Hidden);
-                    SetValue(ShowCancelButtonProperty, BooleanBoxes.FalseBox);
-                }
-            }
+            // if (!isInProgress)
+            // {
+            //     bool isSuccessful = string.IsNullOrWhiteSpace((string)GetValue(ErrorTextProperty));
+            //     if (isSuccessful && (bool)GetValue(AutoCloseOnSuccessProperty))
+            //     {
+            //         SetValue(VisibilityProperty, Visibility.Hidden);
+            //         // SetValue(ShowCancelButtonProperty, BooleanBoxes.FalseBox);
+            //     }
+            // }
         }
 
         private static void ShowProgressChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

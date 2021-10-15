@@ -36,20 +36,21 @@
                     RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}"/>
         <Button x:Name="PART_ProcessErrorButton"
                 Content="{Binding Data.ProcessErrorButtonText, 
-                    Mode=OneWay,diag:PresentationTraceSources.TraceLevel=High,
+                    Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged,
                     Source={StaticResource progressDialog}}"
-                Command="{Binding ProcessErrorCommand,
+                Command="{Binding Data.ProcessErrorCommand, 
                     Mode=OneTime,
-                    RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}"
-                CommandParameter="{Binding ProcessErrorCommandParameter,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Source={StaticResource progressDialog}}"
+                CommandParameter="{Binding Data.ProcessErrorCommandParameter,
+                    Mode=OneTime,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Source={StaticResource progressDialog}}"
+                Visibility="{Binding Data.ErrorText, 
                     Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged,
-                    RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}"
-                Visibility="{Binding ErrorText,
-                    RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor},
-                    Mode=OneWay,
-                    UpdateSourceTrigger=PropertyChanged,
+                    Source={StaticResource progressDialog},
                     Converter={StaticResource StringCollapseConverter}}"/>
         
     </controls:BaseActivityDialog.Buttons>

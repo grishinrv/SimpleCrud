@@ -29,7 +29,7 @@ namespace SimpleCrud.Desktop.ViewModels
         private async Task GetResultAsync(IProgress<JobStage> progress, CancellationToken token)
         {
             await Task.Delay(5000);
-            //throw new Exception("We've fucked up for some reason...");
+            throw new Exception("We've fucked up for some reason...");
             Result = new Random().Next(1, 999);
         }
     }

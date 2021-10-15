@@ -124,7 +124,10 @@
                                                     Source={StaticResource proxy}}"
                                                 ProcessErrorButtonText="Notify developer"
                                                 ShowCancelButton="{Binding IsJobCancellable,
-                                                    Mode=OneTime}" />
+                                                    Mode=OneTime}" 
+                                                ErrorText="{Binding ErrorMessage,
+                                                    Mode=OneWay,
+                                                    UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
 
                                     </ResourceDictionary>
