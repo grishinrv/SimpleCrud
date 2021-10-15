@@ -10,6 +10,11 @@ namespace SimpleCrud.Infrastructure.Configuration
             try
             {
                 string valFromFile = ConfigurationManager.AppSettings[key];
+                if (string.IsNullOrWhiteSpace(valFromFile))
+                {
+                    return defaultValue;
+                }
+                
                 T actualVal = (T)Convert.ChangeType(valFromFile, typeof(T));
                 return actualVal;
             }

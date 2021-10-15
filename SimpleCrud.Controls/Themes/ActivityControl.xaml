@@ -122,7 +122,15 @@
                                                     Mode=OneWay,
                                                     UpdateSourceTrigger=PropertyChanged,
                                                     Source={StaticResource proxy}}"
-                                                ProcessErrorButtonText="Notify developer"
+                                                
+                                                ProcessErrorButtonText="Notify developer by e-mail"
+                                                ProcessErrorCommand="{Binding Data.ProcessErrorCommand,
+                                                    Mode=OneTime,
+                                                    Source={StaticResource proxy}}"
+                                                ProcessErrorCommandParameter="{Binding Exception,
+                                                    Mode=OneWay,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                                
                                                 ShowCancelButton="{Binding IsJobCancellable,
                                                     Mode=OneTime}" 
                                                 ErrorText="{Binding ErrorMessage,

@@ -40,11 +40,11 @@
                     UpdateSourceTrigger=PropertyChanged,
                     Source={StaticResource progressDialog}}"
                 Command="{Binding Data.ProcessErrorCommand, 
-                    Mode=OneTime,
+                    Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged,
                     Source={StaticResource progressDialog}}"
                 CommandParameter="{Binding Data.ProcessErrorCommandParameter,
-                    Mode=OneTime,
+                    Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged,
                     Source={StaticResource progressDialog}}"
                 Visibility="{Binding Data.ErrorText, 
