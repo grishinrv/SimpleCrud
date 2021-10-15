@@ -4,40 +4,90 @@ using MahApps.Metro.ValueBoxes;
 
 namespace SimpleCrud.Controls
 {
+    public enum DialogState
+    {
+        Closed = 0,
+        PerformingJob = 1,
+        WaitingForUserDecision = 2
+    }
+
     public sealed partial class ProgressDialog : BaseActivityDialog
     {
+        #region constructors
+
         static ProgressDialog()
         {
-            VisibilityProperty.OverrideMetadata(typeof(ProgressDialog), new FrameworkPropertyMetadata(Visibility.Hidden));
+            VisibilityProperty.OverrideMetadata(typeof(ProgressDialog),
+                new FrameworkPropertyMetadata(Visibility.Hidden));
         }
 
         public ProgressDialog()
         {
             InitializeComponent();
+            PART_CloseButton.Click += CloseButtonClicked;
         }
 
-        private void IsIsProgressChanged(bool isInProgress)
+        #endregion
+
+        private void CloseButtonClicked(object sender, RoutedEventArgs e)
         {
-            // if (!isInProgress)
-            // {
-            //     bool isSuccessful = string.IsNullOrWhiteSpace((string)GetValue(ErrorTextProperty));
-            //     if (isSuccessful && (bool)GetValue(AutoCloseOnSuccessProperty))
-            //     {
-            //         SetValue(VisibilityProperty, Visibility.Hidden);
-            //         // SetValue(ShowCancelButtonProperty, BooleanBoxes.FalseBox);
-            //     }
-            // }
+            e.Handled = true;
+            SetValue(VisibilityProperty, Visibility.Collapsed);
         }
 
-        private static void ShowProgressChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void ActualizeState()
         {
-            bool isInProgress = (bool)e.NewValue;
+            DialogState state;
+            bool isInProgress = (bool)GetValue(IsJobInProgressProperty);
+            bool hasError = false;
+            bool autoClose = false;
+            if (isInProgress)
+                state = Controls.DialogState.PerformingJob;
+            else
+            {
+                 hasError = !string.IsNullOrWhiteSpace((string)GetValue(ErrorTextProperty));
+                 if (hasError)
+                     state = Controls.DialogState.WaitingForUserDecision;
+                else
+                {
+                    autoClose = (bool)GetValue(AutoCloseOnSuccessProperty);
+                    if (autoClose)
+                        state = Controls.DialogState.Closed;
+                    else
+                        state = Controls.DialogState.WaitingForUserDecision;
+                }
+            }
+
+            SetValue(DialogStateProperty, state);
+        }
+
+        #region dependency properties callbacks
+
+        private static void IsJobInProgressChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
             ProgressDialog source = d as ProgressDialog;
-            source?.IsIsProgressChanged(isInProgress);
+            source.ActualizeState();
         }
 
+        private static void OnErrorTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ProgressDialog source = d as ProgressDialog;
+            source.ActualizeState();
+        }
+
+        private static void OnAutoCloseChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ProgressDialog source = d as ProgressDialog;
+            source.ActualizeState();
+        }
+
+        #endregion
 
         #region Dependency props define
+
+        public static readonly DependencyProperty DialogStateProperty = DependencyProperty.Register(
+            nameof(DialogState), typeof(DialogState), typeof(ProgressDialog),
+            new PropertyMetadata(Controls.DialogState.Closed));
 
         public static readonly DependencyProperty ProcessErrorCommandProperty = DependencyProperty.Register(
             nameof(ProcessErrorCommand), typeof(ICommand), typeof(ProgressDialog),
@@ -53,28 +103,35 @@ namespace SimpleCrud.Controls
 
         public static readonly DependencyProperty ErrorTextProperty =
             DependencyProperty.Register(nameof(ErrorText), typeof(string), typeof(ProgressDialog),
-                new PropertyMetadata(string.Empty));
+                new FrameworkPropertyMetadata(string.Empty, OnErrorTextChanged));
 
         public static readonly DependencyProperty ProgressProperty = DependencyProperty.Register(
             nameof(Progress), typeof(double), typeof(ProgressDialog), new PropertyMetadata(default(double)));
 
-        public static readonly DependencyProperty ShowProgressAnimationProperty =
-            DependencyProperty.Register(nameof(ShowProgressAnimation), typeof(bool), typeof(ProgressDialog),
-                new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, ShowProgressChanged));
+        public static readonly DependencyProperty IsJobInProgressProperty =
+            DependencyProperty.Register(nameof(IsJobInProgress), typeof(bool), typeof(ProgressDialog),
+                new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, IsJobInProgressChanged));
 
         public static readonly DependencyProperty ShowCancelButtonProperty = DependencyProperty.Register(
-            nameof(ShowCancelButton), typeof(bool), typeof(ProgressDialog), new PropertyMetadata(BooleanBoxes.FalseBox));
+            nameof(ShowCancelButton), typeof(bool), typeof(ProgressDialog),
+            new PropertyMetadata(BooleanBoxes.FalseBox));
 
         public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(
             nameof(CancelCommand), typeof(ICommand), typeof(ProgressDialog), new PropertyMetadata(default(ICommand)));
 
         public static readonly DependencyProperty AutoCloseOnSuccessProperty = DependencyProperty.Register(
             nameof(AutoCloseOnSuccess), typeof(bool), typeof(ProgressDialog),
-            new PropertyMetadata(BooleanBoxes.FalseBox));
+            new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, OnAutoCloseChanged));
 
         #endregion
 
         #region Dependency props accessors
+
+        public DialogState DialogState
+        {
+            get { return (DialogState)GetValue(DialogStateProperty); }
+            set { SetValue(DialogStateProperty, value); }
+        }
 
         public ICommand ProcessErrorCommand
         {
@@ -106,10 +163,10 @@ namespace SimpleCrud.Controls
             set { SetValue(ProgressProperty, value); }
         }
 
-        public bool ShowProgressAnimation
+        public bool IsJobInProgress
         {
-            get { return (bool)GetValue(ShowProgressAnimationProperty); }
-            set { SetValue(ShowProgressAnimationProperty, BooleanBoxes.Box(value)); }
+            get { return (bool)GetValue(IsJobInProgressProperty); }
+            set { SetValue(IsJobInProgressProperty, BooleanBoxes.Box(value)); }
         }
 
         public bool ShowCancelButton
@@ -123,6 +180,7 @@ namespace SimpleCrud.Controls
             get { return (ICommand)GetValue(CancelCommandProperty); }
             set { SetValue(CancelCommandProperty, value); }
         }
+
         public bool AutoCloseOnSuccess
         {
             get { return (bool)GetValue(AutoCloseOnSuccessProperty); }

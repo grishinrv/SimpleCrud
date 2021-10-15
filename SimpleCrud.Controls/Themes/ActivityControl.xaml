@@ -115,7 +115,7 @@
                                                 Title="{Binding Operation.Name, 
                                                     Mode=OneTime, 
                                                     UpdateSourceTrigger=PropertyChanged}"
-                                                ShowProgressAnimation="{Binding IsNotCompleted, 
+                                                IsJobInProgress="{Binding IsNotCompleted, 
                                                     Mode=OneWay, 
                                                     UpdateSourceTrigger=PropertyChanged}"
                                                 AutoCloseOnSuccess="{Binding Data.AutoCloseProgressDialogOnSuccess,

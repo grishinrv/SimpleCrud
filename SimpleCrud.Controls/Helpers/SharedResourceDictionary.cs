@@ -8,7 +8,7 @@ namespace SimpleCrud.Controls.Helpers
     /// <summary>
     /// Fixes Resource dictionary duplication issue by preventing loading same resource dictionaries multiple times.
     /// </summary>
-    public class SharedResourceDictionary : ResourceDictionary
+    public sealed class SharedResourceDictionary : ResourceDictionary
     {
         /// <summary>
         /// Internal cache of loaded dictionaries 

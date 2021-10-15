@@ -17,15 +17,27 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:StringCollapseConverter x:Key="StringCollapseConverter" />
             <converters:BooleanCollapseConverter x:Key="BooleanCollapseConverter" />
+            <converters:DialogStateToVisibilityConverter x:Key="DialogStateToVisibilityConverter"/>
+            
             <helpers:BindingProxy x:Key="progressDialog" Data="{Binding 
                 RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}" />
+            
+            <helpers:DialogStateContainer State="Closed" x:Key="DialogStateClosed"/>
+            <helpers:DialogStateContainer State="PerformingJob" x:Key="DialogStatePerformingJob"/>
+            <helpers:DialogStateContainer State="WaitingForUserDecision" x:Key="DialogStateWaitingForUserDecision"/>
+            
         </ResourceDictionary>
     </controls:BaseActivityDialog.Resources>
     
     <controls:BaseActivityDialog.Buttons>
         <Button x:Name="PART_CloseButton"
                 Content="Close"
-                Visibility="Collapsed"/>
+                Visibility="{Binding Data.DialogState,
+                    Mode=OneWay, diag:PresentationTraceSources.TraceLevel=High,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Converter={StaticResource DialogStateToVisibilityConverter},
+                    ConverterParameter={StaticResource DialogStateWaitingForUserDecision},
+                    Source={StaticResource progressDialog}}"/>
         <Button x:Name="PART_CancelButton"
                 Content="Cancel"
                 Visibility="{Binding ShowCancelButton, 
@@ -84,7 +96,7 @@
             <mah:ProgressRing
                 Width="40"
                 Height="40"
-                IsActive="{Binding ShowProgressAnimation,
+                IsActive="{Binding IsJobInProgress,
                     RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor},
                     Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged}"/>

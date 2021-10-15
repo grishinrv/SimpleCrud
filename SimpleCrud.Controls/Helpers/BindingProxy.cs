@@ -2,7 +2,7 @@
 
 namespace SimpleCrud.Controls.Helpers
 {
-    public class BindingProxy : Freezable
+    public sealed class BindingProxy : Freezable
     {
         #region Overrides of Freezable
 
