@@ -114,7 +114,11 @@
                                                         Mode=OneWay, 
                                                         RelativeSource={RelativeSource TemplatedParent},
                                                         UpdateSourceTrigger=PropertyChanged}"
-                                                  AutoCloseOnSuccess="True"
+                                                  AutoCloseOnSuccess="{Binding Path=JobDataContext.IsJobCancellable,
+                                                        Mode=OneWay,
+                                                        RelativeSource={RelativeSource TemplatedParent},
+                                                        UpdateSourceTrigger=PropertyChanged}"
+                                                  ProcessErrorButtonText="Notify developer"
                                                   />
                         </Grid>
 

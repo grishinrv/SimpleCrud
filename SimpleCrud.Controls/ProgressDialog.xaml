@@ -34,7 +34,8 @@
                     RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}"/>
         <Button x:Name="PART_ProcessErrorButton"
                 Content="{Binding ProcessErrorButtonText, 
-                    Mode=OneTime,
+                    Mode=OneWay,
+                    UpdateSourceTrigger=PropertyChanged,
                     RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}"
                 Command="{Binding ProcessErrorCommand,
                     Mode=OneTime,
