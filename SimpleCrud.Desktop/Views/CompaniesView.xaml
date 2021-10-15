@@ -15,7 +15,9 @@
     <controls:ActivityControl JobDataContext="{Binding CurrentTask, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         <StackPanel Orientation="Vertical">
             <Button Command="{Binding AsyncCommand, Mode=OneTime}"
-                    CommandParameter="{Binding ResultParam, Mode=OneTime}"> TEST </Button>
+                    CommandParameter="{Binding FailedResultParam, Mode=OneTime}"> Test error </Button>
+            <Button Command="{Binding AsyncCommand, Mode=OneTime}"
+                    CommandParameter="{Binding SuccessResultParam, Mode=OneTime}"> Test success </Button>
             
         </StackPanel>
     </controls:ActivityControl>

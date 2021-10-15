@@ -15,7 +15,8 @@ namespace SimpleCrud.Desktop.ViewModels
         public CompaniesViewModel() : base()
         {
             Rows = new ObservableCollection<Company>();
-            ResultParam = CreateJob(GetResultAsync, "Calculating result" );
+            FailedResultParam = CreateJob(GetErrorAsync, "Generating exception..." );
+            SuccessResultParam = CreateJob(GetResultAsync, "Calculating result...", true );
             AutoCloseProgressDialogOnSuccess = true; //todo get from config
         }
 
@@ -24,12 +25,18 @@ namespace SimpleCrud.Desktop.ViewModels
         private int _result;
         public int Result { get => _result; set => OnSet(ref _result, value); }
 
-        public AsyncFunctionContainer ResultParam { get; }
+        public AsyncFunctionContainer FailedResultParam { get; }
+        public AsyncFunctionContainer SuccessResultParam { get; }
 
+        private async Task GetErrorAsync(IProgress<JobStage> progress, CancellationToken token)
+        {
+            await Task.Delay(2000);
+            throw new Exception("We've fucked up for some reason...");
+            Result = new Random().Next(1, 999);
+        }
         private async Task GetResultAsync(IProgress<JobStage> progress, CancellationToken token)
         {
-            await Task.Delay(5000);
-            throw new Exception("We've fucked up for some reason...");
+            await Task.Delay(7000);
             Result = new Random().Next(1, 999);
         }
     }

@@ -42,19 +42,19 @@ namespace SimpleCrud.Controls
             bool hasError = false;
             bool autoClose = false;
             if (isInProgress)
-                state = Controls.DialogState.PerformingJob;
+                state = DialogState.PerformingJob;
             else
             {
                  hasError = !string.IsNullOrWhiteSpace((string)GetValue(ErrorTextProperty));
                  if (hasError)
-                     state = Controls.DialogState.WaitingForUserDecision;
+                     state = DialogState.WaitingForUserDecision;
                 else
                 {
                     autoClose = (bool)GetValue(AutoCloseOnSuccessProperty);
                     if (autoClose)
-                        state = Controls.DialogState.Closed;
+                        state = DialogState.Closed;
                     else
-                        state = Controls.DialogState.WaitingForUserDecision;
+                        state = DialogState.WaitingForUserDecision;
                 }
             }
 
@@ -81,13 +81,23 @@ namespace SimpleCrud.Controls
             source.ActualizeState();
         }
 
+        private static void OnDialogStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ProgressDialog source = d as ProgressDialog;
+            DialogState newState = (DialogState)e.NewValue;
+            if (newState == DialogState.Closed)
+            {
+                source.SetValue(VisibilityProperty, Visibility.Collapsed);
+            }
+        }
+
         #endregion
 
         #region Dependency props define
 
         public static readonly DependencyProperty DialogStateProperty = DependencyProperty.Register(
             nameof(DialogState), typeof(DialogState), typeof(ProgressDialog),
-            new PropertyMetadata(Controls.DialogState.Closed));
+            new FrameworkPropertyMetadata(Controls.DialogState.Closed, OnDialogStateChanged));
 
         public static readonly DependencyProperty ProcessErrorCommandProperty = DependencyProperty.Register(
             nameof(ProcessErrorCommand), typeof(ICommand), typeof(ProgressDialog),

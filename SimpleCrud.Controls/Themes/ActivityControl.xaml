@@ -113,8 +113,7 @@
                                                     Mode=TwoWay, 
                                                     Converter={StaticResource BooleanToVisibilityConverter}}"
                                                 Title="{Binding Operation.Name, 
-                                                    Mode=OneTime, 
-                                                    UpdateSourceTrigger=PropertyChanged}"
+                                                    Mode=OneTime}"
                                                 IsJobInProgress="{Binding IsNotCompleted, 
                                                     Mode=OneWay, 
                                                     UpdateSourceTrigger=PropertyChanged}"
