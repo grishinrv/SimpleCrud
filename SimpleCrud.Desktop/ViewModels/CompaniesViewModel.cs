@@ -16,6 +16,7 @@ namespace SimpleCrud.Desktop.ViewModels
         {
             Rows = new ObservableCollection<Company>();
             ResultParam = CreateJob(GetResultAsync, "Calculating result" );
+            AutoCloseProgressDialogOnSuccess = true; //todo get from config
         }
 
         public ObservableCollection<Company> Rows { get; }

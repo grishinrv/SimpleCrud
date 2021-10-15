@@ -4,6 +4,7 @@
                              xmlns:controls="clr-namespace:SimpleCrud.Controls"
                              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                              xmlns:helpers="clr-namespace:SimpleCrud.Controls.Helpers"
+                             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                              xmlns:converters="clr-namespace:SimpleCrud.Controls.Converters">
     <controls:BaseActivityDialog.Resources>
         <ResourceDictionary>
@@ -16,7 +17,8 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:StringCollapseConverter x:Key="StringCollapseConverter" />
             <converters:BooleanCollapseConverter x:Key="BooleanCollapseConverter" />
-            
+            <helpers:BindingProxy x:Key="progressDialog" Data="{Binding 
+                RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}" />
         </ResourceDictionary>
     </controls:BaseActivityDialog.Resources>
     
@@ -33,10 +35,10 @@
                     Mode=OneTime,
                     RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}"/>
         <Button x:Name="PART_ProcessErrorButton"
-                Content="{Binding ProcessErrorButtonText, 
-                    Mode=OneWay,
+                Content="{Binding Data.ProcessErrorButtonText, 
+                    Mode=OneWay,diag:PresentationTraceSources.TraceLevel=High,
                     UpdateSourceTrigger=PropertyChanged,
-                    RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}"
+                    Source={StaticResource progressDialog}}"
                 Command="{Binding ProcessErrorCommand,
                     Mode=OneTime,
                     RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}"

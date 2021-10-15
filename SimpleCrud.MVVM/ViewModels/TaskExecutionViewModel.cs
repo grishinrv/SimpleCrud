@@ -9,16 +9,20 @@ namespace SimpleCrud.MVVM.ViewModels
     public abstract class TaskExecutionViewModel : ViewModel
     {
         public abstract string ActivityName { get; }
-        protected AsyncFunctionContainer CreateJob(Func<IProgress<JobStage>, CancellationToken, Task> task, string operationName, bool isCancellable = false)
+
+        protected AsyncFunctionContainer CreateJob(Func<IProgress<JobStage>, CancellationToken, Task> task,
+            string operationName, bool isCancellable = false)
         {
             Operation operation = new Operation { Activity = ActivityName, Name = operationName };
-            return new AsyncFunctionContainer { Job = task, Operation = operation, IsJobCancellable = isCancellable};
+            return new AsyncFunctionContainer { Job = task, Operation = operation, IsJobCancellable = isCancellable };
         }
+
         protected TaskExecutionViewModel()
         {
             AsyncCommand = new RunLongTaskCommand(this);
             _currentTask = TaskWatcher.NullObject;
         }
+
         public RunLongTaskCommand AsyncCommand { get; }
         private ITaskWatcher _currentTask;
 
@@ -26,6 +30,13 @@ namespace SimpleCrud.MVVM.ViewModels
         {
             get => _currentTask;
             set => OnSet(ref _currentTask, value);
+        }
+
+        private bool _autoCloseProgressDialogOnSuccess;
+        public bool AutoCloseProgressDialogOnSuccess
+        {
+            get => _autoCloseProgressDialogOnSuccess;
+            set => OnSet(ref _autoCloseProgressDialogOnSuccess, value);
         }
     }
 }

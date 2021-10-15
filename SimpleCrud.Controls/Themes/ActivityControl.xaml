@@ -8,7 +8,8 @@
                     xmlns:converters="clr-namespace:SimpleCrud.Controls.Converters">
 
     <ResourceDictionary.MergedDictionaries>
-        <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
+        <helpers:SharedResourceDictionary
+            Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
         <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -16,7 +17,7 @@
     <mahConverters:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <mahConverters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <converters:VisibilityReverseConverter x:Key="VisibilityReverseConverter" />
-    
+
     <Style TargetType="Grid" x:Key="OverlayGridStyle">
         <Style.Triggers>
             <Trigger Property="Visibility" Value="Visible">
@@ -69,8 +70,7 @@
                                             IsTabStop="False"
                                             UseLayoutRounding="True"
                                             Panel.ZIndex="3"
-                                            Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=OneTime}">
-                            </ContentControl>
+                                            Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=OneTime}" />
 
                             <!--  overlay effect container  -->
                             <Grid x:Name="PART_OverlayBox"
@@ -83,10 +83,11 @@
                                   Background="Black"
                                   FocusVisualStyle="{x:Null}"
                                   Focusable="False"
-                                  Visibility="{Binding Visibility, 
-                                                UpdateSourceTrigger=PropertyChanged, 
-                                                ElementName=PART_ProgressDialog,
-                                                Mode=OneWay}" />
+                                  Visibility="{Binding JobDataContext.ShowDialog, 
+                                        Mode=OneWay, 
+                                        RelativeSource={RelativeSource TemplatedParent},
+                                        Converter={StaticResource BooleanToVisibilityConverter},
+                                        UpdateSourceTrigger=PropertyChanged}" />
 
                             <!--  active dialog container  -->
                             <Grid x:Name="PART_DialogContainer"
@@ -96,38 +97,53 @@
                                   Panel.ZIndex="5"
                                   FocusVisualStyle="{x:Null}" />
 
-                            <local:ProgressDialog x:Name="PART_ProgressDialog"
-                                                  Grid.Row="1"
-                                                  Grid.Column="0"
-                                                  Grid.ColumnSpan="5"
-                                                  Panel.ZIndex="6"
-                                                  Visibility="{Binding JobDataContext.ShowDialog, 
-                                                        UpdateSourceTrigger=PropertyChanged, 
-                                                        RelativeSource={RelativeSource TemplatedParent},
-                                                        Mode=TwoWay, 
-                                                        Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                  Title="{Binding Path=JobDataContext.Operation.Name, 
-                                                        Mode=OneWay, 
-                                                        RelativeSource={RelativeSource TemplatedParent},
-                                                        UpdateSourceTrigger=PropertyChanged}"
-                                                  ShowProgressAnimation="{Binding Path=JobDataContext.IsNotCompleted, 
-                                                        Mode=OneWay, 
-                                                        RelativeSource={RelativeSource TemplatedParent},
-                                                        UpdateSourceTrigger=PropertyChanged}"
-                                                  AutoCloseOnSuccess="{Binding Path=JobDataContext.IsJobCancellable,
-                                                        Mode=OneWay,
-                                                        RelativeSource={RelativeSource TemplatedParent},
-                                                        UpdateSourceTrigger=PropertyChanged}"
-                                                  ProcessErrorButtonText="Notify developer"
-                                                  />
+                            <Grid Grid.Row="1"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="5"
+                                  Panel.ZIndex="6">
+                                <Grid.Resources>
+                                    <ResourceDictionary>
+
+                                        <helpers:BindingProxy x:Key="proxy" Data="{Binding }" />
+
+                                        <DataTemplate x:Key="JobDataTemplate">
+                                            <local:ProgressDialog
+                                                Visibility="{Binding ShowDialog, 
+                                                    UpdateSourceTrigger=PropertyChanged, 
+                                                    Mode=TwoWay, 
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                Title="{Binding Operation.Name, 
+                                                    Mode=OneTime, 
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                                ShowProgressAnimation="{Binding IsNotCompleted, 
+                                                    Mode=OneWay, 
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                                AutoCloseOnSuccess="{Binding Data.AutoCloseProgressDialogOnSuccess,
+                                                    Mode=OneWay,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    Source={StaticResource proxy}}"
+                                                ProcessErrorButtonText="Notify developer"
+                                                ShowCancelButton="{Binding IsJobCancellable,
+                                                    Mode=OneTime}" />
+                                        </DataTemplate>
+
+                                    </ResourceDictionary>
+                                </Grid.Resources>
+                                <ContentPresenter x:Name="PART_ProgressDialogContainer"
+                                                  Content="{Binding JobDataContext, 
+                                                    Mode=OneWay, 
+                                                    RelativeSource={RelativeSource TemplatedParent},
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                                  ContentTemplate="{StaticResource JobDataTemplate}" />
+                            </Grid>
                         </Grid>
 
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        
+
                     </ControlTemplate.Triggers>
-                    
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
