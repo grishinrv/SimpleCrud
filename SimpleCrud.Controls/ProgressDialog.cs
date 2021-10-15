@@ -11,6 +11,11 @@ namespace SimpleCrud.Controls
             VisibilityProperty.OverrideMetadata(typeof(ProgressDialog), new FrameworkPropertyMetadata(Visibility.Hidden));
         }
 
+        public ProgressDialog()
+        {
+            InitializeComponent();
+        }
+
         private void IsIsProgressChanged(bool isInProgress)
         {
             if (!isInProgress)

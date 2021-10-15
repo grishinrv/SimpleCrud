@@ -59,7 +59,9 @@
         <StackPanel DockPanel.Dock="Bottom"
                     FlowDirection="LeftToRight">
             <Label Target="{Binding ElementName=PART_ErrorTextBlock}" HorizontalAlignment="Left"
-                   Visibility="{TemplateBinding CompletedWithError, Converter={StaticResource BooleanToVisibilityConverter}}">
+                   Visibility="{Binding ErrorText, 
+                        RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor},
+                        Converter={StaticResource StringCollapseConverter}}">
                 <AccessText TextWrapping="WrapWithOverflow">
                     Failed to perform the operation:
                 </AccessText>
