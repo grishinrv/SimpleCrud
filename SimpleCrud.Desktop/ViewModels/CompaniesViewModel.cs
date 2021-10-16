@@ -25,8 +25,8 @@ namespace SimpleCrud.Desktop.ViewModels
         private int _result;
         public int Result { get => _result; set => OnSet(ref _result, value); }
 
-        public AsyncFunctionContainer FailedResultParam { get; }
-        public AsyncFunctionContainer SuccessResultParam { get; }
+        public JobData FailedResultParam { get; }
+        public JobData SuccessResultParam { get; }
 
         private async Task GetErrorAsync(IProgress<JobStage> progress, CancellationToken token)
         {
