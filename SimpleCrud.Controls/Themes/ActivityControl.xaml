@@ -19,7 +19,7 @@
     <mahConverters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <converters:VisibilityReverseConverter x:Key="VisibilityReverseConverter" />
     <converters:JobStatusToDialogStateConverter x:Key="JobStatusToDialogStateConverter" />
-    <converters:JobStatusToOverlayVisibilityConverter x:Key="JobStatusToOverlayVisibilityConverter" />
+    <converters:VisibilityLogicAndMultiConverter x:Key="VisibilityLogicAndMultiConverter" />
 
     <Style TargetType="Grid" x:Key="OverlayGridStyle">
         <Style.Triggers>
@@ -85,11 +85,17 @@
                                   Panel.ZIndex="4"
                                   Background="Black"
                                   FocusVisualStyle="{x:Null}"
-                                  Focusable="False"
-                                  Visibility="{Binding CurrentJob, 
-                                    Mode=OneWay, 
-                                    UpdateSourceTrigger=PropertyChanged,
-                                    Converter={StaticResource JobStatusToOverlayVisibilityConverter}}">
+                                  Focusable="False">
+                                <Grid.Visibility>
+                                    <MultiBinding Mode="OneWay" 
+                                                  UpdateSourceTrigger="PropertyChanged"
+                                                  Converter="{StaticResource VisibilityLogicAndMultiConverter}">
+                                        <Binding ElementName="PART_ProgressDialog" 
+                                                 Path="Visibility"
+                                                 Mode="OneWay"
+                                                 UpdateSourceTrigger="PropertyChanged"/>
+                                    </MultiBinding>
+                                </Grid.Visibility>
                             </Grid>
 
                             <!--  active dialog container  -->
