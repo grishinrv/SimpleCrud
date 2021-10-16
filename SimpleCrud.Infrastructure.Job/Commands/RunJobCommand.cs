@@ -6,20 +6,20 @@ namespace SimpleCrud.Infrastructure.Job.Commands
 {
     public sealed class RunJobCommand : ICommand
     {
-        private readonly IJobController _controller;
+        private readonly IJobLauncher _launcher;
 
-        public RunJobCommand(IJobController controller)
+        public RunJobCommand(IJobLauncher launcher)
         {
-            _controller = controller;
+            _launcher = launcher;
         }
 
-        public bool CanExecute(object parameter) => _controller.LastJobStatus == JobCompletionStatus.Default;
+        public bool CanExecute(object parameter) => _launcher.LastJobStatus == JobCompletionStatus.Default;
 
         public void Execute(object parameter)
         {
             if (CanExecute(null) && parameter is JobData data)
             {
-                _controller.BeginExecute(data);
+                _launcher.BeginExecute(data);
             }
         }
         // todo

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Windows.Input;
+using SimpleCrud.Infrastructure.Job.Commands;
 
 namespace SimpleCrud.Infrastructure.Job.Services
 {
-    public interface IJobController
+    public interface IJobController : IJobLauncher
     {
-        string JobSourceName { get; }
         ICommand ProcessErrorCommand { get; }
         ICommand RunJobCommand { get; }
-        JobCompletionStatus LastJobStatus { get; }
         IProgress<JobStage> ProgressStream { get; }
-        void BeginExecute(JobData data);
+        JobData CurrentJob { get; }
     }
 }
