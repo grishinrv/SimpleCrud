@@ -109,7 +109,10 @@
                                                   Grid.Column="0"
                                                   Grid.ColumnSpan="5"
                                                   Panel.ZIndex="6"
-                                                  Progress=""/>
+                                                  JobStatus="{Binding JobStatus,
+                                                    Mode=OneWay, 
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    Source=ProgressContext}"/>
                         </Grid>
 
                     </Grid>

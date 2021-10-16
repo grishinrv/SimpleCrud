@@ -13,6 +13,7 @@
                 <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:StringCollapseConverter x:Key="StringCollapseConverter" />
             <converters:JobCancelButtonVisibilityConverter x:Key="JobCancelButtonVisibilityConverter" />
             
@@ -25,16 +26,23 @@
     <controls:BaseActivityDialog.Buttons>
         <Button x:Name="PART_CloseButton"
                 Content="Close"
-                Visibility="{Binding JobStatus,
-                    Mode=OneWay, 
+                Visibility="{Binding ShowCloseButton, 
+                    Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged,
-                    Converter={StaticResource DialogStateToVisibilityConverter}}"/>
+                    Converter={StaticResource BooleanToVisibilityConverter},
+                    Source={StaticResource progressDialog}}"/>
         
         <Button x:Name="PART_CancelButton"
                 Content="Cancel"
                 Command="{Binding ShowCancelButton, 
                     Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged,
+                    Converter={StaticResource BooleanToVisibilityConverter},
+                    Source={StaticResource progressDialog}}"
+                Visibility="{Binding ShowCancelButton, 
+                    Mode=OneWay,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Converter={StaticResource BooleanToVisibilityConverter},
                     Source={StaticResource progressDialog}}"/>
         
         <Button x:Name="PART_ProcessErrorButton"
