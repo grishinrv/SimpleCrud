@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using MahApps.Metro.ValueBoxes;
+using SimpleCrud.Infrastructure.Job;
 
 namespace SimpleCrud.Controls
 {
@@ -27,16 +26,9 @@ namespace SimpleCrud.Controls
         public ProgressDialog()
         {
             InitializeComponent();
-            PART_CloseButton.Click += CloseButtonClicked;
         }
 
         #endregion
-
-        private void CloseButtonClicked(object sender, RoutedEventArgs e)
-        {
-            e.Handled = true;
-            SetValue(VisibilityProperty, Visibility.Collapsed);
-        }
 
         #region dependency properties callbacks
 
@@ -63,6 +55,10 @@ namespace SimpleCrud.Controls
         #endregion
 
         #region Dependency props define
+
+        public static readonly DependencyProperty JobStatusProperty = DependencyProperty.Register(
+            nameof(JobStatus), typeof(JobCompletionStatus), typeof(ProgressDialog),
+            new PropertyMetadata(JobCompletionStatus.Default));
 
         public static readonly DependencyProperty DialogStateProperty = DependencyProperty.Register(
             nameof(DialogState), typeof(DialogState), typeof(ProgressDialog),
@@ -95,9 +91,6 @@ namespace SimpleCrud.Controls
             nameof(ShowCancelButton), typeof(bool), typeof(ProgressDialog),
             new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(
-            nameof(CancelCommand), typeof(ICommand), typeof(ProgressDialog), new PropertyMetadata(default(ICommand)));
-
         public static readonly DependencyProperty AutoCloseOnSuccessProperty = DependencyProperty.Register(
             nameof(AutoCloseOnSuccess), typeof(bool), typeof(ProgressDialog),
             new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
@@ -105,6 +98,12 @@ namespace SimpleCrud.Controls
         #endregion
 
         #region Dependency props accessors
+
+        public JobCompletionStatus JobStatus
+        {
+            get { return (JobCompletionStatus)GetValue(JobStatusProperty); }
+            set { SetValue(JobStatusProperty, value); }
+        }
 
         public DialogState DialogState
         {
@@ -152,12 +151,6 @@ namespace SimpleCrud.Controls
         {
             get { return (bool)GetValue(ShowCancelButtonProperty); }
             set { SetValue(ShowCancelButtonProperty, value); }
-        }
-
-        public ICommand CancelCommand
-        {
-            get { return (ICommand)GetValue(CancelCommandProperty); }
-            set { SetValue(CancelCommandProperty, value); }
         }
 
         public bool AutoCloseOnSuccess

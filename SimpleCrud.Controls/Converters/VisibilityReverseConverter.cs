@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace SimpleCrud.Controls.Converters
 {
-    public class VisibilityReverseConverter : IValueConverter
+    public sealed class VisibilityReverseConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

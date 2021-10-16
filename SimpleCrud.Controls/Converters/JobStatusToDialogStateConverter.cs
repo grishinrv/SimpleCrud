@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using SimpleCrud.MVVM;
+using SimpleCrud.Infrastructure.Job;
 
 namespace SimpleCrud.Controls.Converters
 {
-    public class JobStatusToDialogStateConverter : IMultiValueConverter
+    public sealed class JobStatusToDialogStateConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -16,24 +16,19 @@ namespace SimpleCrud.Controls.Converters
             
             switch (status)
             {
-                case JobCompletionStatus.None:
-                    return GetResultFromDialogState(DialogState.Closed);
+                case JobCompletionStatus.Default:
+                    return DialogState.Closed;
                 case JobCompletionStatus.InProgress:
-                    return GetResultFromDialogState(DialogState.PerformingJob);
+                    return DialogState.PerformingJob;
                 case JobCompletionStatus.CompetedSuccessfully:
                     if (autoClose)
-                        return GetResultFromDialogState(DialogState.Closed);
-                    return GetResultFromDialogState(DialogState.WaitingForUserDecision);
+                        return DialogState.Closed;
+                    return DialogState.WaitingForUserDecision;
                 case JobCompletionStatus.CompetedWithError:
-                    return GetResultFromDialogState(DialogState.WaitingForUserDecision);
+                    return DialogState.WaitingForUserDecision;
                 default:
                     throw new NotImplementedException($"{status} is not implemented!");
             }
-        }
-
-        protected virtual object GetResultFromDialogState(DialogState state)
-        {
-            return state;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => null;

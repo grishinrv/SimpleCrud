@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace SimpleCrud.Controls.Converters
 {
-    public class StringCollapseConverter: IValueConverter
+    public sealed class StringCollapseConverter: IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
