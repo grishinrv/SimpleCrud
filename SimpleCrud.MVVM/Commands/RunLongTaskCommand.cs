@@ -19,7 +19,7 @@ namespace SimpleCrud.MVVM.Commands
 
         public void Execute(object parameter)
         {
-            if (CanExecute(null) && parameter is AsyncFunctionContainer container)
+            if (CanExecute(null) && parameter is JobData container)
             {
                 var watcher = new TaskWatcher(container, OnJobCompleted);
                 _vewModel.CurrentTask = watcher;

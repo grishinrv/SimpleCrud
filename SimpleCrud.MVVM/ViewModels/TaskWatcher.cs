@@ -11,15 +11,21 @@ namespace SimpleCrud.MVVM.ViewModels
     public sealed class TaskWatcher : ViewModel, ITaskWatcher
     {
         public static ITaskWatcher NullObject { get; } =
-            new TaskWatcher(AsyncFunctionContainer.NullObject, (_) => { });
+            new TaskWatcher(JobData.NullObject, (_) => { });
 
-        private bool _showDialog;
-        public bool ShowDialog { get => _showDialog; set=> OnSet(ref _showDialog, value); }
+        private JobCompletionStatus _jobStatus;
+        public JobCompletionStatus JobStatus
+        {
+            get => _jobStatus;
+            private set => OnSet(ref _jobStatus, value);
+        }
+
         public Task Task { get; }
         public Operation Operation { get; }
         public ObservableCollection<string> Stages { get; }
 
         private double _progress;
+
         public double Progress
         {
             get => _progress;
@@ -29,9 +35,10 @@ namespace SimpleCrud.MVVM.ViewModels
         public bool IsJobCancellable { get; }
 
         public ICommand CancelJobCommand { get; }
-        
-        public TaskWatcher(AsyncFunctionContainer container, Action<Operation> onCompletedCallBack)
+
+        public TaskWatcher(JobData container, Action<Operation> onCompletedCallBack)
         {
+            _jobStatus = JobCompletionStatus.None;
             Stages = new ObservableCollection<string>();
             Operation = container.Operation;
             var progress = new Progress<JobStage>(stage =>
@@ -44,12 +51,12 @@ namespace SimpleCrud.MVVM.ViewModels
             var tokenSource = new CancellationTokenSource();
             CancelJobCommand = new CancelJobCommand(tokenSource);
             CancellationToken token = tokenSource.Token;
-            IsJobCancellable = container.IsJobCancellable;
-            
+            IsJobCancellable = container.IsCancellable;
+
             Task = container.Job.Invoke(progress, token);
             if (!Task.IsCompleted)
             {
-                ShowDialog = true;
+                JobStatus = JobCompletionStatus.InProgress;
                 var _ = WatchTaskAsync(Task, onCompletedCallBack);
             }
         }
@@ -59,10 +66,11 @@ namespace SimpleCrud.MVVM.ViewModels
             try
             {
                 await task;
+                JobStatus = JobCompletionStatus.CompetedSuccessfully;
             }
             catch
             {
-                // ignored
+                JobStatus = JobCompletionStatus.CompetedWithError;
             }
 
             OnPropertyChanged(nameof(Status));
@@ -81,6 +89,7 @@ namespace SimpleCrud.MVVM.ViewModels
             {
                 OnPropertyChanged(nameof(IsSuccessfullyCompleted));
             }
+
             onCompletedCallBack?.Invoke(Operation);
         }
 
