@@ -28,7 +28,6 @@ namespace SimpleCrud.Controls
 
         private Grid _dialogContainer;
 
-
         public ProgressContext ProgressContext { get; set; }
 
     }

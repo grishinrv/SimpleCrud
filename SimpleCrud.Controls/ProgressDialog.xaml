@@ -30,14 +30,25 @@
                     Mode=OneWay, 
                     UpdateSourceTrigger=PropertyChanged,
                     Converter={StaticResource DialogStateToVisibilityConverter}}"/>
+        
         <Button x:Name="PART_CancelButton"
                 Content="Cancel"
-                Visibility="{Binding CurrentJob.IsCancellable,
-                    Mode=OneWay, 
-                    UpdateSourceTrigger=PropertyChanged,
-                    Converter={StaticResource JobCancelButtonVisibilityConverter}
-                    ConverterParameter={}}"
-                Command="{Binding CancelJobCommand, Mode=OneTime}"/>
+                Command="{Binding CancelJobCommand, Mode=OneTime}">
+            <Button.Visibility>
+                <MultiBinding Mode="OneWay" 
+                              Converter="{StaticResource JobCancelButtonVisibilityConverter}"
+                              UpdateSourceTrigger="PropertyChanged">
+                    <Binding Source="ProgressContext"
+                             Mode="OneWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             Path="JobStatus"/>
+                    <Binding Mode="OneWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             Path="CurrentJob"/>
+                </MultiBinding>
+            </Button.Visibility>
+        </Button>
+        
         <Button x:Name="PART_ProcessErrorButton"
                 Content="{Binding Data.ProcessErrorButtonText, 
                     Mode=OneWay,
@@ -63,7 +74,15 @@
                RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}"
                UseLayoutRounding="True"
                LastChildFill="True">
-
+        
+        <ProgressBar DockPanel.Dock="Bottom"
+                     Width="250"
+                     Margin="4"
+                     Maximum="100"
+                     Minimum="0"
+                     Value="{Binding Progress, 
+                        RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}" />
+        
         <StackPanel DockPanel.Dock="Bottom"
                     FlowDirection="LeftToRight">
             <Label Target="{Binding ElementName=PART_ErrorTextBlock}" HorizontalAlignment="Left"

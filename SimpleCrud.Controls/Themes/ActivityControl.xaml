@@ -18,9 +18,7 @@
     <mahConverters:ThicknessBindingConverter x:Key="ThicknessBindingConverter" />
     <mahConverters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <converters:VisibilityReverseConverter x:Key="VisibilityReverseConverter" />
-    <converters:DialogStateToVisibilityConverter x:Key="DialogStateToVisibilityConverter" />
     <converters:JobStatusToDialogStateConverter x:Key="JobStatusToDialogStateConverter" />
-    <converters:JobStatusToVisibilityConverter x:Key="JobStatusToVisibilityConverter" />
 
     <Style TargetType="Grid" x:Key="OverlayGridStyle">
         <Style.Triggers>
@@ -86,22 +84,11 @@
                                   Panel.ZIndex="4"
                                   Background="Black"
                                   FocusVisualStyle="{x:Null}"
-                                  Focusable="False">
-                                <Grid.Visibility>
-                                    <MultiBinding Mode="OneWay"
-                                                  UpdateSourceTrigger="PropertyChanged"
-                                                  Converter="{StaticResource JobStatusToVisibilityConverter}">
-                                        <Binding Path="JobDataContext.JobStatus" Mode="OneWay" 
-                                                 UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.RelativeSource>
-                                                <RelativeSource Mode="TemplatedParent"/>
-                                            </Binding.RelativeSource>
-                                        </Binding>
-                                        <Binding Path="AutoCloseProgressDialogOnSuccess" Mode="OneWay"
-                                                 UpdateSourceTrigger="PropertyChanged">
-                                        </Binding>
-                                    </MultiBinding>
-                                </Grid.Visibility>
+                                  Focusable="False"
+                                  Visibility="{Binding CurrentJob, 
+                                    Mode=OneWay, 
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    Converter={StaticResource JobStatusToOverlayVisibilityConverter}}">
                             </Grid>
 
                             <!--  active dialog container  -->
@@ -112,66 +99,12 @@
                                   Panel.ZIndex="5"
                                   FocusVisualStyle="{x:Null}" />
 
-                            <Grid Grid.Row="1"
-                                  Grid.Column="0"
-                                  Grid.ColumnSpan="5"
-                                  Panel.ZIndex="6">
-                                <Grid.Resources>
-                                    <ResourceDictionary>
-
-                                        <helpers:BindingProxy x:Key="proxy" Data="{Binding }" />
-
-                                        <DataTemplate x:Key="JobDataTemplate">
-                                            <local:ProgressDialog x:Name="ProgressDialog"
-                                                                  Title="{Binding Operation.Name, 
-                                                    Mode=OneTime}"
-                                                                  IsJobInProgress="{Binding IsNotCompleted, 
-                                                    Mode=OneWay, 
-                                                    UpdateSourceTrigger=PropertyChanged}"
-                                                                  AutoCloseOnSuccess="{Binding Data.AutoCloseProgressDialogOnSuccess,
-                                                    Mode=OneWay,
-                                                    UpdateSourceTrigger=PropertyChanged,
-                                                    Source={StaticResource proxy}}"
-
-                                                                  ProcessErrorButtonText="Notify developer by e-mail"
-                                                                  ProcessErrorCommand="{Binding Data.ProcessErrorCommand,
-                                                    Mode=OneTime,
-                                                    Source={StaticResource proxy}}"
-                                                                  ProcessErrorCommandParameter="{Binding Exception,
-                                                    Mode=OneWay,
-                                                    UpdateSourceTrigger=PropertyChanged}"
-
-                                                                  ShowCancelButton="{Binding IsJobCancellable,
-                                                    Mode=OneTime}"
-                                                                  ErrorText="{Binding ErrorMessage,
-                                                    Mode=OneWay,
-                                                    UpdateSourceTrigger=PropertyChanged}">
-                                                <local:ProgressDialog.DialogState>
-                                                    <MultiBinding Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
-                                                                  Converter="{StaticResource JobStatusToDialogStateConverter}">
-                                                        <Binding Path="JobStatus" Mode="OneWay"
-                                                                 UpdateSourceTrigger="PropertyChanged" />
-                                                        <Binding Path="Data.AutoCloseProgressDialogOnSuccess"
-                                                                 Mode="OneWay"
-                                                                 UpdateSourceTrigger="PropertyChanged">
-                                                            <Binding.Source>
-                                                                <StaticResource ResourceKey="proxy" />
-                                                            </Binding.Source>
-                                                        </Binding>
-                                                    </MultiBinding>
-                                                </local:ProgressDialog.DialogState>
-                                            </local:ProgressDialog>
-                                        </DataTemplate>
-
-                                    </ResourceDictionary>
-                                </Grid.Resources>
-                                <ContentPresenter x:Name="PART_ProgressDialogContainer"
-                                                  Content="{Binding JobDataContext, 
-                                                    Mode=OneWay, 
-                                                    RelativeSource={RelativeSource TemplatedParent},
-                                                    UpdateSourceTrigger=PropertyChanged}"
-                                                  ContentTemplate="{StaticResource JobDataTemplate}" />
-                            </Grid>
+                            <local:ProgressDialog x:Name="PART_ProgressDialog"
+                                                  Grid.Row="1"
+                                                  Grid.Column="0"
+                                                  Grid.ColumnSpan="5"
+                                                  Panel.ZIndex="6"
+                                                  Progress=""/>
                         </Grid>
 
                     </Grid>

@@ -12,6 +12,8 @@ namespace SimpleCrud.Infrastructure.Job.Commands
 
         public void Execute(object parameter) => _controller.CancelCurrentJob();
 
+#pragma warning disable CS0067
         public event EventHandler CanExecuteChanged;
+#pragma warning restore CS0067
     }
 }

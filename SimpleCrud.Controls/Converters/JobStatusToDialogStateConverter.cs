@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using SimpleCrud.Controls.Components;
 using SimpleCrud.Infrastructure.Job;
 
 namespace SimpleCrud.Controls.Converters

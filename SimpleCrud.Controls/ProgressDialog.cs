@@ -2,16 +2,12 @@
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.ValueBoxes;
+using SimpleCrud.Controls.Components;
 using SimpleCrud.Infrastructure.Job;
 
 namespace SimpleCrud.Controls
 {
-    public enum DialogState
-    {
-        Closed = 0,
-        PerformingJob = 1,
-        WaitingForUserDecision = 2
-    }
+
 
     public sealed partial class ProgressDialog : BaseActivityDialog
     {
@@ -62,7 +58,7 @@ namespace SimpleCrud.Controls
 
         public static readonly DependencyProperty DialogStateProperty = DependencyProperty.Register(
             nameof(DialogState), typeof(DialogState), typeof(ProgressDialog),
-            new FrameworkPropertyMetadata(Controls.DialogState.Closed, OnDialogStateChanged));
+            new FrameworkPropertyMetadata(DialogState.Closed, OnDialogStateChanged));
 
         public static readonly DependencyProperty ProcessErrorCommandProperty = DependencyProperty.Register(
             nameof(ProcessErrorCommand), typeof(ICommand), typeof(ProgressDialog),
@@ -135,7 +131,7 @@ namespace SimpleCrud.Controls
             set { SetValue(ErrorTextProperty, value); }
         }
 
-        public double Progress
+        public double Progress 
         {
             get { return (double)GetValue(ProgressProperty); }
             set { SetValue(ProgressProperty, value); }

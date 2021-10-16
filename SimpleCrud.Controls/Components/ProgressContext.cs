@@ -13,17 +13,15 @@ namespace SimpleCrud.Controls.Components
 
         public static readonly DependencyProperty JobDataProperty = DependencyProperty.Register(
             nameof(JobData), typeof(JobData), typeof(ProgressContext),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.NotDataBindable, OnTaskChanged));
+            new FrameworkPropertyMetadata(null, OnTaskChanged));
 
         public static readonly DependencyProperty ProgressStreamProperty = DependencyProperty.Register(
             nameof(ProgressStream), typeof(IProgress<JobStage>), typeof(ProgressContext),
-            new FrameworkPropertyMetadata(default(IProgress<JobStage>),
-                FrameworkPropertyMetadataOptions.NotDataBindable));
+            new PropertyMetadata(default(IProgress<JobStage>)));
 
         public static readonly DependencyProperty CancellationTokenProperty = DependencyProperty.Register(
             nameof(CancellationToken), typeof(CancellationToken), typeof(ProgressContext),
-            new FrameworkPropertyMetadata(default(CancellationToken),
-                FrameworkPropertyMetadataOptions.NotDataBindable));
+            new PropertyMetadata(default(CancellationToken)));
 
         public static readonly DependencyProperty CanCancelProperty = DependencyProperty.Register(
             nameof(CanCancel), typeof(bool), typeof(ProgressContext),

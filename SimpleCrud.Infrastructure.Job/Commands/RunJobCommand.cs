@@ -29,6 +29,8 @@ namespace SimpleCrud.Infrastructure.Job.Commands
         //     CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         //     OperationTrackerService.OperationFinished(completedOperationData);
         // }
+#pragma warning disable CS0067
         public event EventHandler CanExecuteChanged;
+#pragma warning restore CS0067
     }
 }
