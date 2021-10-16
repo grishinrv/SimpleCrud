@@ -13,7 +13,6 @@
                 <helpers:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:StringCollapseConverter x:Key="StringCollapseConverter" />
             <converters:JobCancelButtonVisibilityConverter x:Key="JobCancelButtonVisibilityConverter" />
             
