@@ -86,6 +86,10 @@ namespace SimpleCrud.Controls
         public static readonly DependencyProperty ShowCancelButtonProperty = DependencyProperty.Register(
             nameof(ShowCancelButton), typeof(bool), typeof(ProgressDialog),
             new PropertyMetadata(BooleanBoxes.FalseBox));
+        
+        public static readonly DependencyProperty ShowCloseButtonProperty = DependencyProperty.Register(
+            nameof(ShowCloseButton), typeof(bool), typeof(ProgressDialog),
+            new PropertyMetadata(BooleanBoxes.FalseBox));
 
         public static readonly DependencyProperty AutoCloseOnSuccessProperty = DependencyProperty.Register(
             nameof(AutoCloseOnSuccess), typeof(bool), typeof(ProgressDialog),
@@ -146,7 +150,12 @@ namespace SimpleCrud.Controls
         public bool ShowCancelButton
         {
             get { return (bool)GetValue(ShowCancelButtonProperty); }
-            set { SetValue(ShowCancelButtonProperty, value); }
+            set { SetValue(ShowCancelButtonProperty, BooleanBoxes.Box(value)); }
+        }
+        public bool ShowCloseButton
+        {
+            get { return (bool)GetValue(ShowCloseButtonProperty); }
+            set { SetValue(ShowCloseButtonProperty, BooleanBoxes.Box(value)); }
         }
 
         public bool AutoCloseOnSuccess
