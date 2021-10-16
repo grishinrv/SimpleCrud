@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SimpleCrud.Infrastructure.Job\SimpleCrud.Infrastructure.Job.csproj" />
     <ProjectReference Include="..\SimpleCrud.Infrastructure\SimpleCrud.Infrastructure.csproj" />
   </ItemGroup>
 

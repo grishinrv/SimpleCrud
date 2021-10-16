@@ -1,4 +1,4 @@
-﻿namespace SimpleCrud.MVVM
+﻿namespace SimpleCrud.Infrastructure.Job
 {
     public readonly struct JobStage
     {
