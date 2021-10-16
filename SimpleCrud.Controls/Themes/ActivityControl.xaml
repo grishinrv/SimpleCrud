@@ -19,6 +19,7 @@
     <mahConverters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <converters:VisibilityReverseConverter x:Key="VisibilityReverseConverter" />
     <converters:JobStatusToDialogStateConverter x:Key="JobStatusToDialogStateConverter" />
+    <converters:JobStatusToOverlayVisibilityConverter x:Key="JobStatusToOverlayVisibilityConverter" />
 
     <Style TargetType="Grid" x:Key="OverlayGridStyle">
         <Style.Triggers>
