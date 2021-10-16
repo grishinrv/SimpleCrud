@@ -4,7 +4,6 @@
                              xmlns:controls="clr-namespace:SimpleCrud.Controls"
                              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                              xmlns:helpers="clr-namespace:SimpleCrud.Controls.Helpers"
-                             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                              xmlns:converters="clr-namespace:SimpleCrud.Controls.Converters">
     <controls:BaseActivityDialog.Resources>
         <ResourceDictionary>
@@ -33,7 +32,7 @@
         <Button x:Name="PART_CloseButton"
                 Content="Close"
                 Visibility="{Binding Data.DialogState,
-                    Mode=OneWay, diag:PresentationTraceSources.TraceLevel=High,
+                    Mode=OneWay, 
                     UpdateSourceTrigger=PropertyChanged,
                     Converter={StaticResource DialogStateToVisibilityConverter},
                     ConverterParameter={StaticResource DialogStateWaitingForUserDecision},
@@ -79,7 +78,7 @@
                         RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor},
                         Converter={StaticResource StringCollapseConverter}}">
                 <AccessText TextWrapping="WrapWithOverflow">
-                    Failed to perform the operation:
+                    Failed to perform the operationData:
                 </AccessText>
             </Label>
             <TextBlock x:Name="PART_ErrorTextBlock"

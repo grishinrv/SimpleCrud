@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using SimpleCrud.Controls.Components;
 
 namespace SimpleCrud.Controls
 {
@@ -24,24 +20,6 @@ namespace SimpleCrud.Controls
         private const string PART_DialogContainer = "PART_DialogContainer";
         private const string PART_ProgressDialog = "PART_ProgressDialog";
         #endregion
-
-        #region Dependency properties declarations
-
-        public static readonly DependencyProperty JobDataContextProperty =
-            DependencyProperty.Register(nameof(JobDataContext), typeof(object), typeof(ActivityControl), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnJobDataContextChanged), null));
-
-        #endregion
-
-
-        #region CallBacks
-
-        private static void OnJobDataContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            // AddDialog todo
-        }
-
-        #endregion
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -50,14 +28,8 @@ namespace SimpleCrud.Controls
 
         private Grid _dialogContainer;
 
-        #region  Dependency properties accessors
 
-        public object JobDataContext
-        {
-            get { return (object)GetValue(JobDataContextProperty); }
-            set { SetValue(JobDataContextProperty, value); }
-        }
+        public ProgressContext ProgressContext { get; set; }
 
-        #endregion
     }
 }

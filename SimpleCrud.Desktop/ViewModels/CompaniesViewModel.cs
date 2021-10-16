@@ -3,20 +3,19 @@ using SimpleCrud.Storage.Models;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using SimpleCrud.MVVM;
-using SimpleCrud.MVVM.Commands.Parameters;
+using SimpleCrud.Infrastructure.Job;
 using SimpleCrud.MVVM.ViewModels;
 
 namespace SimpleCrud.Desktop.ViewModels
 {
-    public class CompaniesViewModel : TaskExecutionViewModel
+    public class CompaniesViewModel : JobViewModel
     {
-        public override string ActivityName { get; } = "Companies view";
+        public override string JobSourceName { get; } = "Companies view";
         public CompaniesViewModel() : base()
         {
             Rows = new ObservableCollection<Company>();
-            FailedResultParam = CreateJob(GetErrorAsync, "Generating exception..." );
-            SuccessResultParam = CreateJob(GetResultAsync, "Calculating result...", true );
+            FailedResultParam = CreateJob(GetErrorAsync, "Generating exception..." ); // todo completion callback
+            SuccessResultParam = CreateJob(GetResultAsync, "Calculating result...", null ); // todo completion callback
             AutoCloseProgressDialogOnSuccess = true; //todo get from config
         }
 
@@ -32,7 +31,6 @@ namespace SimpleCrud.Desktop.ViewModels
         {
             await Task.Delay(2000);
             throw new Exception("We've fucked up for some reason...");
-            Result = new Random().Next(1, 999);
         }
         private async Task GetResultAsync(IProgress<JobStage> progress, CancellationToken token)
         {

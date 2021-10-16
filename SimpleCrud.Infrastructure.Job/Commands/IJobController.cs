@@ -1,8 +1,8 @@
 ﻿namespace SimpleCrud.Infrastructure.Job.Commands
 {
-    public interface IJobLauncher
+    public interface IJobController
     {
-        JobCompletionStatus LastJobStatus { get; }
         void BeginExecute(JobData data);
+        void CancelCurrentJob();
     }
 }

@@ -6,13 +6,19 @@
              xmlns:local="clr-namespace:SimpleCrud.Desktop.Views"
              xmlns:controls="clr-namespace:SimpleCrud.Controls;assembly=SimpleCrud.Controls"
              xmlns:viewModels="clr-namespace:SimpleCrud.Desktop.ViewModels"
+             xmlns:components="clr-namespace:SimpleCrud.Controls.Components;assembly=SimpleCrud.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <viewModels:CompaniesViewModel/>
     </UserControl.DataContext>
     
-    <controls:ActivityControl JobDataContext="{Binding CurrentTask, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+    <controls:ActivityControl>
+        <controls:ActivityControl.ProgressContext>
+            <components:ProgressContext CancellationToken="{Binding CancellationToken, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        JobData="{Binding CurrentJob, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ProgressStream="{Binding Path=ProgressStream, UpdateSourceTrigger=PropertyChanged}"/>
+        </controls:ActivityControl.ProgressContext>
         <StackPanel Orientation="Vertical">
             <Button Command="{Binding AsyncCommand, Mode=OneTime}"
                     CommandParameter="{Binding FailedResultParam, Mode=OneTime}"> Test error </Button>

@@ -53,7 +53,7 @@ namespace SimpleCrud.Controls.Components
                 if (!job.IsCompleted)
                 {
                     context.SetValue(CanCancelProperty, BooleanBoxes.Box(data.IsCancellable));
-                    context.SetValue(JobTitleProperty, data.Name);
+                    context.SetValue(JobTitleProperty, data.Title);
                     JobCompletionStatus status = JobCompletionStatus.InProgress;
                     context.SetValue(JobStatusProperty, status);
                     Exception error = null;
@@ -73,7 +73,7 @@ namespace SimpleCrud.Controls.Components
                     {
                         try
                         {
-                            await data.CompletedCallBack(data.Name, status, error);
+                            await data.CompletedCallBack(data.Title, status, error);
                         }
                         catch
                         {

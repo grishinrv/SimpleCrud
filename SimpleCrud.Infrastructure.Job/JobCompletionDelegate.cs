@@ -1,5 +1,8 @@
-﻿namespace SimpleCrud.Infrastructure.Job
+﻿using System;
+using System.Threading.Tasks;
+
+namespace SimpleCrud.Infrastructure.Job
 {
-    public delegate void JobCompletionDelegate(string jobName, JobCompletionStatus completionStatus, 
-        object resultData = null);
+    public delegate Task JobCompletionDelegate(string jobName, JobCompletionStatus completionStatus, 
+        Exception exception = null);
 }

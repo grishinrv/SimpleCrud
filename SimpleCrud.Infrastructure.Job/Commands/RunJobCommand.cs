@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Windows.Input;
-using SimpleCrud.Infrastructure.Job.Services;
+using SimpleCrud.Infrastructure.Job.ViewModel;
 
 namespace SimpleCrud.Infrastructure.Job.Commands
 {
     public sealed class RunJobCommand : ICommand
     {
-        private readonly IJobLauncher _launcher;
+        private readonly IJobController _controller;
 
-        public RunJobCommand(IJobLauncher launcher)
+        public RunJobCommand(IJobController controller)
         {
-            _launcher = launcher;
+            _controller = controller;
         }
 
-        public bool CanExecute(object parameter) => _launcher.LastJobStatus == JobCompletionStatus.Default;
+        public bool CanExecute(object parameter) => true;
 
         public void Execute(object parameter)
         {
             if (CanExecute(null) && parameter is JobData data)
             {
-                _launcher.BeginExecute(data);
+                _controller.BeginExecute(data);
             }
         }
         // todo
