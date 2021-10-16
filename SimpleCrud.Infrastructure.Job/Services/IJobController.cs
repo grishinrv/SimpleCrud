@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 
 namespace SimpleCrud.Infrastructure.Job.Services
 {
@@ -8,6 +9,7 @@ namespace SimpleCrud.Infrastructure.Job.Services
         ICommand ProcessErrorCommand { get; }
         ICommand RunJobCommand { get; }
         JobCompletionStatus LastJobStatus { get; }
+        IProgress<JobStage> ProgressStream { get; }
         void BeginExecute(JobData data);
     }
 }
