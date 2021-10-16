@@ -5,11 +5,11 @@ namespace SimpleCrud.MVVM.Services
 {
     public static class OperationTrackerService
     {
-        internal static void OperationFinished(Operation operation)
+        internal static void OperationFinished(OperationData operationData)
         {
-            OnOperationFinished.Invoke(operation);
+            OnOperationFinished.Invoke(operationData);
         }
 
-        public static event Action<Operation> OnOperationFinished = _ => {  };
+        public static event Action<OperationData> OnOperationFinished = _ => {  };
     }
 }

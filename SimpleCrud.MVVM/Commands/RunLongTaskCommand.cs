@@ -26,11 +26,11 @@ namespace SimpleCrud.MVVM.Commands
             }
         }
 
-        private void OnJobCompleted(Operation completedOperation)
+        private void OnJobCompleted(OperationData completedOperationData)
         {
-            completedOperation.CompletionTime = DateTime.Now;
+            completedOperationData.CompletionTime = DateTime.Now;
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-            OperationTrackerService.OperationFinished(completedOperation);
+            OperationTrackerService.OperationFinished(completedOperationData);
         }
         public event EventHandler CanExecuteChanged;
     }

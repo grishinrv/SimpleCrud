@@ -15,8 +15,8 @@ namespace SimpleCrud.MVVM.ViewModels
         protected JobData CreateJob(Func<IProgress<JobStage>, CancellationToken, Task> task,
             string operationName, bool isCancellable = false)
         {
-            Operation operation = new Operation { Activity = ActivityName, Name = operationName };
-            return new JobData { Job = task, Operation = operation, IsCancellable = isCancellable };
+            OperationData operationData = new OperationData { Activity = ActivityName, Name = operationName };
+            return new JobData { Job = task, OperationData = operationData, IsCancellable = isCancellable };
         }
 
         protected TaskExecutionViewModel()

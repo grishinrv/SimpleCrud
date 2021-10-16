@@ -21,7 +21,7 @@ namespace SimpleCrud.MVVM.ViewModels
         }
 
         public Task Task { get; }
-        public Operation Operation { get; }
+        public OperationData OperationData { get; }
         public ObservableCollection<string> Stages { get; }
 
         private double _progress;
@@ -36,11 +36,11 @@ namespace SimpleCrud.MVVM.ViewModels
 
         public ICommand CancelJobCommand { get; }
 
-        public TaskWatcher(JobData container, Action<Operation> onCompletedCallBack)
+        public TaskWatcher(JobData container, Action<OperationData> onCompletedCallBack)
         {
             _jobStatus = JobCompletionStatus.None;
             Stages = new ObservableCollection<string>();
-            Operation = container.Operation;
+            OperationData = container.OperationData;
             var progress = new Progress<JobStage>(stage =>
             {
                 Progress = stage.PercentageFinish;
@@ -61,7 +61,7 @@ namespace SimpleCrud.MVVM.ViewModels
             }
         }
 
-        private async Task WatchTaskAsync(Task task, Action<Operation> onCompletedCallBack)
+        private async Task WatchTaskAsync(Task task, Action<OperationData> onCompletedCallBack)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace SimpleCrud.MVVM.ViewModels
                 OnPropertyChanged(nameof(IsSuccessfullyCompleted));
             }
 
-            onCompletedCallBack?.Invoke(Operation);
+            onCompletedCallBack?.Invoke(OperationData);
         }
 
         public TaskStatus Status => Task.Status;
