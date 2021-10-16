@@ -69,12 +69,15 @@ namespace SimpleCrud.Controls.Components
 
                     context.SetValue(JobStatusProperty, status);
 
-                    try
+                    if (data.CompletedCallBack != null)
                     {
-                        await data.CompletedCallBack(data.Name, status, error);
-                    }
-                    catch
-                    {
+                        try
+                        {
+                            await data.CompletedCallBack(data.Name, status, error);
+                        }
+                        catch
+                        {
+                        }
                     }
                 }
             }
