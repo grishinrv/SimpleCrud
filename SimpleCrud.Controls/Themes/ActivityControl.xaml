@@ -112,7 +112,10 @@
                                                   JobStatus="{Binding JobStatus,
                                                     Mode=OneWay, 
                                                     UpdateSourceTrigger=PropertyChanged,
-                                                    Source=ProgressContext}"/>
+                                                    Source=ProgressContext}"
+                                                  AutoCloseOnSuccess="{Binding AutoCloseProgressDialogOnSuccess,
+                                                    Mode=OneWay, UpdateSourceTrigger=PropertyChanged,
+                                                    RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"/>
                         </Grid>
 
                     </Grid>
