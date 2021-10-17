@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SimpleCrud.Desktop.Views"
              xmlns:controls="clr-namespace:SimpleCrud.Controls;assembly=SimpleCrud.Controls"
              xmlns:viewModels="clr-namespace:SimpleCrud.Desktop.ViewModels"
              xmlns:components="clr-namespace:SimpleCrud.Controls.Components;assembly=SimpleCrud.Controls"
@@ -20,9 +19,9 @@
                                         ProgressStream="{Binding Path=ProgressStream, UpdateSourceTrigger=PropertyChanged}"/>
         </controls:ActivityControl.ProgressContext>
         <StackPanel Orientation="Vertical">
-            <Button Command="{Binding AsyncCommand, Mode=OneTime}"
+            <Button Command="{Binding RunJobCommand, Mode=OneTime}"
                     CommandParameter="{Binding FailedResultParam, Mode=OneTime}"> Test error </Button>
-            <Button Command="{Binding AsyncCommand, Mode=OneTime}"
+            <Button Command="{Binding RunJobCommand, Mode=OneTime}"
                     CommandParameter="{Binding SuccessResultParam, Mode=OneTime}"> Test success </Button>
             
         </StackPanel>
