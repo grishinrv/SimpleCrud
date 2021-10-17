@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.ValueBoxes;
-using SimpleCrud.Controls.Components;
 using SimpleCrud.Infrastructure.Job;
 
 namespace SimpleCrud.Controls
@@ -16,7 +15,7 @@ namespace SimpleCrud.Controls
         static ProgressDialog()
         {
             VisibilityProperty.OverrideMetadata(typeof(ProgressDialog),
-                new FrameworkPropertyMetadata(Visibility.Hidden));
+                new FrameworkPropertyMetadata(Visibility.Collapsed));
         }
 
         public ProgressDialog()
@@ -28,37 +27,53 @@ namespace SimpleCrud.Controls
 
         #region dependency properties callbacks
 
-        private static void OnDialogStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnJobStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressDialog source = d as ProgressDialog;
-            DialogState newState = (DialogState)e.NewValue;
-            switch (newState)
+            JobCompletionStatus jobStatus = (JobCompletionStatus)e.NewValue;
+
+            switch (jobStatus)
             {
-                case DialogState.Closed:
+                case JobCompletionStatus.InProgress:
+                    source.OnInProgress();
+                    break;
+                case JobCompletionStatus.CompetedSuccessfully:                 
+                    source.OnSuccess();
+                    break;
+                case JobCompletionStatus.CompetedWithError:
+                    source.OnError();
+                    break;
+                case JobCompletionStatus.Default:
+                case JobCompletionStatus.Cancelled:
                     source.SetValue(VisibilityProperty, Visibility.Collapsed);
                     break;
-                case DialogState.PerformingJob:
-                    source.SetValue(VisibilityProperty, Visibility.Visible);
-                    break;
-                case DialogState.WaitingForUserDecision:
-                    source.SetValue(VisibilityProperty, Visibility.Visible);
-                    break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException($"{jobStatus} is not implemented!");
             }
         }
 
+        private void OnError()
+        {
+            
+        }
+
+        private void OnSuccess()
+        {
+            
+        }
+
+        private void OnInProgress()
+        {
+            
+        }
+        
         #endregion
 
         #region Dependency props define
 
         public static readonly DependencyProperty JobStatusProperty = DependencyProperty.Register(
             nameof(JobStatus), typeof(JobCompletionStatus), typeof(ProgressDialog),
-            new PropertyMetadata(JobCompletionStatus.Default));
-
-        public static readonly DependencyProperty DialogStateProperty = DependencyProperty.Register(
-            nameof(DialogState), typeof(DialogState), typeof(ProgressDialog),
-            new FrameworkPropertyMetadata(DialogState.Closed, OnDialogStateChanged));
+            new FrameworkPropertyMetadata(JobCompletionStatus.Default, OnJobStatusChanged));
 
         public static readonly DependencyProperty ProcessErrorCommandProperty = DependencyProperty.Register(
             nameof(ProcessErrorCommand), typeof(ICommand), typeof(ProgressDialog),
@@ -103,12 +118,6 @@ namespace SimpleCrud.Controls
         {
             get { return (JobCompletionStatus)GetValue(JobStatusProperty); }
             set { SetValue(JobStatusProperty, value); }
-        }
-
-        public DialogState DialogState
-        {
-            get { return (DialogState)GetValue(DialogStateProperty); }
-            set { SetValue(DialogStateProperty, value); }
         }
 
         public ICommand ProcessErrorCommand
