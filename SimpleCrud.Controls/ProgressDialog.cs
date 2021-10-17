@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.ValueBoxes;
 using SimpleCrud.Infrastructure.Job;
+using SimpleCrud.Infrastructure.KnownBoxes;
 
 namespace SimpleCrud.Controls
 {
@@ -58,6 +59,7 @@ namespace SimpleCrud.Controls
             SetValue(ShowProcessErrorButtonProperty, BooleanBoxes.FalseBox);
             SetValue(ShowCloseButtonProperty, BooleanBoxes.FalseBox);
             SetValue(ShowCancelButtonProperty, BooleanBoxes.FalseBox);
+            SetValue(ProgressProperty, DoubleBoxes.ZeroBox);
         }
 
         private void OnError()
@@ -93,7 +95,7 @@ namespace SimpleCrud.Controls
 
         public static readonly DependencyProperty JobStatusProperty = DependencyProperty.Register(
             nameof(JobStatus), typeof(JobCompletionStatus), typeof(ProgressDialog),
-            new FrameworkPropertyMetadata(JobCompletionStatus.Default, OnJobStatusChanged));
+            new FrameworkPropertyMetadata(JobCompletionStatusBoxes.DefaultBox, OnJobStatusChanged));
 
         public static readonly DependencyProperty ProcessErrorCommandProperty = DependencyProperty.Register(
             nameof(ProcessErrorCommand), typeof(ICommand), typeof(ProgressDialog),
@@ -141,7 +143,7 @@ namespace SimpleCrud.Controls
         public JobCompletionStatus JobStatus
         {
             get { return (JobCompletionStatus)GetValue(JobStatusProperty); }
-            set { SetValue(JobStatusProperty, value); }
+            set { SetValue(JobStatusProperty, JobCompletionStatusBoxes.Box(value)); }
         }
 
         public ICommand ProcessErrorCommand
