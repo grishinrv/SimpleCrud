@@ -29,8 +29,11 @@ namespace SimpleCrud.Controls
         private static void OnJobStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressDialog source = d as ProgressDialog;
-            JobCompletionStatus jobStatus = (JobCompletionStatus)e.NewValue;
+            bool jobStatusAssigned = e.NewValue is JobCompletionStatus;
+            if (!jobStatusAssigned)
+                return;
 
+            JobCompletionStatus jobStatus = (JobCompletionStatus)e.NewValue;
             switch (jobStatus)
             {
                 case JobCompletionStatus.InProgress:
@@ -84,6 +87,7 @@ namespace SimpleCrud.Controls
 
         private void OnInProgress()
         {
+            SetValue(VisibilityProperty, Visibility.Visible);
             SetValue(IsJobInProgressProperty, BooleanBoxes.TrueBox);
             if ((bool)GetValue(JobCanBeCancelledProperty))
                 SetValue(ShowCancelButtonProperty, BooleanBoxes.TrueBox);

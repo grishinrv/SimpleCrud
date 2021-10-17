@@ -109,12 +109,13 @@
                                                   Grid.Column="0"
                                                   Grid.ColumnSpan="5"
                                                   Panel.ZIndex="6"
-                                                  JobStatus="{Binding JobStatus,
+                                                  JobStatus="{Binding ProgressContext.JobStatus,
                                                     Mode=OneWay, 
                                                     UpdateSourceTrigger=PropertyChanged,
-                                                    Source=ProgressContext}"
-                                                  AutoCloseOnSuccess="{Binding AutoCloseProgressDialogOnSuccess,
-                                                    Mode=OneWay, UpdateSourceTrigger=PropertyChanged,
+                                                    RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"
+                                                  AutoCloseOnSuccess="{Binding DataContext.AutoCloseProgressDialogOnSuccess,
+                                                    Mode=OneWay, 
+                                                    UpdateSourceTrigger=PropertyChanged,
                                                     RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"/>
                         </Grid>
 
