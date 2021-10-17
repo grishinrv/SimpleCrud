@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using SimpleCrud.Controls.Components;
 
 namespace SimpleCrud.Controls
@@ -30,7 +31,25 @@ namespace SimpleCrud.Controls
 
         public static readonly DependencyProperty ProgressContextProperty = DependencyProperty.Register(
             nameof(ProgressContext), typeof(ProgressContext), typeof(ActivityControl), 
-            new FrameworkPropertyMetadata(default(ProgressContext)));
+            new FrameworkPropertyMetadata(default(ProgressContext), OnProgressContextAssigned));
+
+        private static void OnProgressContextAssigned(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ProgressContext context = e.NewValue as ProgressContext;
+            if (context != null)
+            {
+                Binding contextBinding = new Binding
+                {
+                    Source = d, 
+                    Mode = BindingMode.OneWay, 
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    Path = new PropertyPath("DataContext")
+                };
+
+                context.SetBinding(DataContextProperty, contextBinding);
+            }
+        }
+
         public ProgressContext ProgressContext
         {
             get { return (ProgressContext)GetValue(ProgressContextProperty); }

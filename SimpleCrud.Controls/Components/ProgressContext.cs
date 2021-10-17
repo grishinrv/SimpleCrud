@@ -7,7 +7,7 @@ using SimpleCrud.Infrastructure.Job;
 
 namespace SimpleCrud.Controls.Components
 {
-    public class ProgressContext : DependencyObject
+    public class ProgressContext : FrameworkElement
     {
         #region dependencyproperty declarations
 
