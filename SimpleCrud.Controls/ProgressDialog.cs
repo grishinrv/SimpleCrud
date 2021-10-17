@@ -6,8 +6,6 @@ using SimpleCrud.Infrastructure.Job;
 
 namespace SimpleCrud.Controls
 {
-
-
     public sealed partial class ProgressDialog : BaseActivityDialog
     {
         #region constructors
@@ -37,7 +35,7 @@ namespace SimpleCrud.Controls
                 case JobCompletionStatus.InProgress:
                     source.OnInProgress();
                     break;
-                case JobCompletionStatus.CompetedSuccessfully:                 
+                case JobCompletionStatus.CompetedSuccessfully:
                     source.OnSuccess();
                     break;
                 case JobCompletionStatus.CompetedWithError:
@@ -45,28 +43,50 @@ namespace SimpleCrud.Controls
                     break;
                 case JobCompletionStatus.Default:
                 case JobCompletionStatus.Cancelled:
-                    source.SetValue(VisibilityProperty, Visibility.Collapsed);
+                    source.SetDefaultState();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException($"{jobStatus} is not implemented!");
             }
         }
 
+        private void SetDefaultState()
+        {
+            SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
+            SetValue(VisibilityProperty, Visibility.Collapsed);
+            SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
+            SetValue(ShowProcessErrorButtonProperty, BooleanBoxes.FalseBox);
+            SetValue(ShowCloseButtonProperty, BooleanBoxes.FalseBox);
+            SetValue(ShowCancelButtonProperty, BooleanBoxes.FalseBox);
+        }
+
         private void OnError()
         {
-            
+            SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
+            bool hasProcessErrorCommand = GetValue(ProcessErrorCommandProperty) is ICommand;
+            if (hasProcessErrorCommand)
+                SetValue(ShowProcessErrorButtonProperty, BooleanBoxes.TrueBox);
+            SetValue(ShowCloseButtonProperty, BooleanBoxes.TrueBox);
         }
 
         private void OnSuccess()
         {
-            
+            SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
+            SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
+            bool closeOnSuccess = (bool)GetValue(AutoCloseOnSuccessProperty);
+            if (closeOnSuccess)
+                SetValue(VisibilityProperty, Visibility.Collapsed);
+            else
+                SetValue(ShowCloseButtonProperty, BooleanBoxes.TrueBox);
         }
 
         private void OnInProgress()
         {
-            
+            SetValue(IsJobInProgressProperty, BooleanBoxes.TrueBox);
+            if ((bool)GetValue(JobCanBeCancelledProperty))
+                SetValue(ShowCancelButtonProperty, BooleanBoxes.TrueBox);
         }
-        
+
         #endregion
 
         #region Dependency props define
@@ -78,10 +98,6 @@ namespace SimpleCrud.Controls
         public static readonly DependencyProperty ProcessErrorCommandProperty = DependencyProperty.Register(
             nameof(ProcessErrorCommand), typeof(ICommand), typeof(ProgressDialog),
             new PropertyMetadata(default(ICommand)));
-
-        public static readonly DependencyProperty ProcessErrorCommandParameterProperty = DependencyProperty.Register(
-            nameof(ProcessErrorCommandParameter), typeof(object), typeof(ProgressDialog),
-            new PropertyMetadata(default(object)));
 
         public static readonly DependencyProperty ProcessErrorButtonTextProperty = DependencyProperty.Register(
             nameof(ProcessErrorButtonText), typeof(string), typeof(ProgressDialog),
@@ -98,10 +114,18 @@ namespace SimpleCrud.Controls
             DependencyProperty.Register(nameof(IsJobInProgress), typeof(bool), typeof(ProgressDialog),
                 new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
 
+        public static readonly DependencyProperty JobCanBeCancelledProperty = DependencyProperty.Register(
+            nameof(JobCanBeCancelled), typeof(bool), typeof(ProgressDialog),
+            new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        public static readonly DependencyProperty ShowProcessErrorButtonProperty = DependencyProperty.Register(
+            nameof(ShowProcessErrorButton), typeof(bool), typeof(ProgressDialog),
+            new PropertyMetadata(BooleanBoxes.FalseBox));
+
         public static readonly DependencyProperty ShowCancelButtonProperty = DependencyProperty.Register(
             nameof(ShowCancelButton), typeof(bool), typeof(ProgressDialog),
             new PropertyMetadata(BooleanBoxes.FalseBox));
-        
+
         public static readonly DependencyProperty ShowCloseButtonProperty = DependencyProperty.Register(
             nameof(ShowCloseButton), typeof(bool), typeof(ProgressDialog),
             new PropertyMetadata(BooleanBoxes.FalseBox));
@@ -126,12 +150,6 @@ namespace SimpleCrud.Controls
             set { SetValue(ProcessErrorCommandProperty, value); }
         }
 
-        public object ProcessErrorCommandParameter
-        {
-            get { return (object)GetValue(ProcessErrorCommandParameterProperty); }
-            set { SetValue(ProcessErrorCommandParameterProperty, value); }
-        }
-
         public string ProcessErrorButtonText
         {
             get { return (string)GetValue(ProcessErrorButtonTextProperty); }
@@ -144,7 +162,7 @@ namespace SimpleCrud.Controls
             set { SetValue(ErrorTextProperty, value); }
         }
 
-        public double Progress 
+        public double Progress
         {
             get { return (double)GetValue(ProgressProperty); }
             set { SetValue(ProgressProperty, value); }
@@ -156,11 +174,24 @@ namespace SimpleCrud.Controls
             set { SetValue(IsJobInProgressProperty, BooleanBoxes.Box(value)); }
         }
 
+        public bool JobCanBeCancelled
+        {
+            get { return (bool)GetValue(JobCanBeCancelledProperty); }
+            set { SetValue(JobCanBeCancelledProperty, BooleanBoxes.Box(value)); }
+        }
+
+        public bool ShowProcessErrorButton
+        {
+            get { return (bool)GetValue(ShowProcessErrorButtonProperty); }
+            set { SetValue(ShowProcessErrorButtonProperty, BooleanBoxes.Box(value)); }
+        }
+
         public bool ShowCancelButton
         {
             get { return (bool)GetValue(ShowCancelButtonProperty); }
             set { SetValue(ShowCancelButtonProperty, BooleanBoxes.Box(value)); }
         }
+
         public bool ShowCloseButton
         {
             get { return (bool)GetValue(ShowCloseButtonProperty); }
