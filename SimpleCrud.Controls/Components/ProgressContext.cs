@@ -13,7 +13,7 @@ namespace SimpleCrud.Controls.Components
 
         public static readonly DependencyProperty JobDataProperty = DependencyProperty.Register(
             nameof(JobData), typeof(JobData), typeof(ProgressContext),
-            new FrameworkPropertyMetadata(null, OnTaskChanged));
+            new FrameworkPropertyMetadata(null, OnJobAssigned));
 
         public static readonly DependencyProperty ProgressStreamProperty = DependencyProperty.Register(
             nameof(ProgressStream), typeof(IProgress<JobStage>), typeof(ProgressContext),
@@ -38,7 +38,7 @@ namespace SimpleCrud.Controls.Components
 
         #region callbacks
 
-        private static async void OnTaskChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static async void OnJobAssigned(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressContext context = d as ProgressContext;
             JobData data = e.NewValue as JobData;

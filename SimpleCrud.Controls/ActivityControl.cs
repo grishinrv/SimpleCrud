@@ -28,7 +28,14 @@ namespace SimpleCrud.Controls
 
         private Grid _dialogContainer;
 
-        public ProgressContext ProgressContext { get; set; }
+        public static readonly DependencyProperty ProgressContextProperty = DependencyProperty.Register(
+            nameof(ProgressContext), typeof(ProgressContext), typeof(ActivityControl), 
+            new FrameworkPropertyMetadata(default(ProgressContext)));
+        public ProgressContext ProgressContext
+        {
+            get { return (ProgressContext)GetValue(ProgressContextProperty); }
+            set { SetValue(ProgressContextProperty, value); }
+        }
 
     }
 }
