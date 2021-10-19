@@ -26,20 +26,16 @@
     <controls:BaseActivityDialog.Buttons>
         <Button x:Name="PART_CloseButton"
                 Content="Close"
-                Visibility="{Binding ShowCloseButton, 
+                Visibility="{Binding Data.ShowCloseButton, 
                     Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged,
                     Converter={StaticResource BooleanToVisibilityConverter},
                     Source={StaticResource progressDialog}}"/>
         
+        <!-- ToDo Command for CancelButton -->
         <Button x:Name="PART_CancelButton"
                 Content="Cancel"
-                Command="{Binding ShowCancelButton, 
-                    Mode=OneWay,
-                    UpdateSourceTrigger=PropertyChanged,
-                    Converter={StaticResource BooleanToVisibilityConverter},
-                    Source={StaticResource progressDialog}}"
-                Visibility="{Binding ShowCancelButton, 
+                Visibility="{Binding Data.ShowCancelButton, 
                     Mode=OneWay,
                     UpdateSourceTrigger=PropertyChanged,
                     Converter={StaticResource BooleanToVisibilityConverter},

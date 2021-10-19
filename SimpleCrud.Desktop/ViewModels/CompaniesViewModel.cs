@@ -15,7 +15,7 @@ namespace SimpleCrud.Desktop.ViewModels
         {
             Rows = new ObservableCollection<Company>();
             FailedResultParam = CreateJob(GetErrorAsync, "Generating exception..." ); // todo completion callback
-            SuccessResultParam = CreateJob(GetResultAsync, "Calculating result...", null ); // todo completion callback
+            SuccessResultParam = CreateJob(GetResultAsync, "Calculating result...", null, true ); // todo completion callback
             AutoCloseProgressDialogOnSuccess = true; //todo get from config
         }
 

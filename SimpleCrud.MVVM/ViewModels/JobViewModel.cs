@@ -86,6 +86,7 @@ namespace SimpleCrud.MVVM.ViewModels
             get => _autoCloseProgressDialogOnSuccess;
             set => OnSet(ref _autoCloseProgressDialogOnSuccess, value);
         }
+
         #region private fields
 
         private JobData _currentJob;

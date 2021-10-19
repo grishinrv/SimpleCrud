@@ -113,6 +113,10 @@
                                                     Mode=TwoWay, 
                                                     UpdateSourceTrigger=PropertyChanged,
                                                     RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"
+                                                  JobCanBeCancelled="{Binding ProgressContext.CanCancel,
+                                                    Mode=OneWay, 
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"
                                                   AutoCloseOnSuccess="{Binding DataContext.AutoCloseProgressDialogOnSuccess,
                                                     Mode=OneWay, 
                                                     UpdateSourceTrigger=PropertyChanged,

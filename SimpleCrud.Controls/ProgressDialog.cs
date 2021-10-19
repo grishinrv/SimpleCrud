@@ -65,7 +65,7 @@ namespace SimpleCrud.Controls
         private void SetDefaultState()
         {
             SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
-            SetValue(VisibilityProperty, Visibility.Collapsed);
+            SetValue(VisibilityProperty, VisibilityBoxes.CollapsedBox);
             SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
             SetValue(ShowProcessErrorButtonProperty, BooleanBoxes.FalseBox);
             SetValue(ShowCloseButtonProperty, BooleanBoxes.FalseBox);
@@ -85,10 +85,9 @@ namespace SimpleCrud.Controls
         private void OnSuccess()
         {
             SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
-            SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
             bool closeOnSuccess = (bool)GetValue(AutoCloseOnSuccessProperty);
             if (closeOnSuccess)
-                SetValue(VisibilityProperty, Visibility.Collapsed);
+                SetValue(VisibilityProperty, VisibilityBoxes.CollapsedBox);
             else
                 SetValue(ShowCloseButtonProperty, BooleanBoxes.TrueBox);
         }
@@ -100,6 +99,8 @@ namespace SimpleCrud.Controls
             SetValue(IsJobInProgressProperty, BooleanBoxes.TrueBox);
             if ((bool)GetValue(JobCanBeCancelledProperty))
                 SetValue(ShowCancelButtonProperty, BooleanBoxes.TrueBox);
+            else
+                SetValue(ShowCancelButtonProperty, BooleanBoxes.FalseBox);
         }
 
         #endregion
