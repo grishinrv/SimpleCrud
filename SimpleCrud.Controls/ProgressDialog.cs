@@ -20,17 +20,24 @@ namespace SimpleCrud.Controls
         public ProgressDialog()
         {
             InitializeComponent();
+            PART_CloseButton.Click += PART_CloseButtonOnClick;
         }
 
         #endregion
 
-        #region dependency properties callbacks
+        #region callbacks
+
+        private void PART_CloseButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            SetValue(JobStatusProperty, JobCompletionStatusBoxes.DefaultBox);
+        }
 
         private static void OnJobStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressDialog source = d as ProgressDialog;
             bool jobStatusAssigned = e.NewValue is JobCompletionStatus;
-            if (!jobStatusAssigned)
+            if (!jobStatusAssigned || d == null)
                 return;
 
             JobCompletionStatus jobStatus = (JobCompletionStatus)e.NewValue;

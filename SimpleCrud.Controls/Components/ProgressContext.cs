@@ -32,7 +32,7 @@ namespace SimpleCrud.Controls.Components
 
         public static readonly DependencyProperty JobStatusProperty = DependencyProperty.Register(
             nameof(JobStatus), typeof(JobCompletionStatus), typeof(ProgressContext),
-            new PropertyMetadata(JobCompletionStatus.Default));
+            new FrameworkPropertyMetadata( JobCompletionStatusBoxes.DefaultBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         #endregion
 
@@ -126,7 +126,7 @@ namespace SimpleCrud.Controls.Components
         public JobCompletionStatus JobStatus
         {
             get { return (JobCompletionStatus)GetValue(JobStatusProperty); }
-            set { SetValue(JobStatusProperty, value); }
+            set { SetValue(JobStatusProperty, JobCompletionStatusBoxes.Box(value)); }
         }
 
         #endregion
