@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.ValueBoxes;
+using SimpleCrud.Controls.KnownBoxes;
 using SimpleCrud.Infrastructure.Job;
 using SimpleCrud.Infrastructure.KnownBoxes;
 
@@ -14,7 +15,7 @@ namespace SimpleCrud.Controls
         static ProgressDialog()
         {
             VisibilityProperty.OverrideMetadata(typeof(ProgressDialog),
-                new FrameworkPropertyMetadata(Visibility.Collapsed));
+                new FrameworkPropertyMetadata(VisibilityBoxes.CollapsedBox));
         }
 
         public ProgressDialog()
@@ -94,7 +95,8 @@ namespace SimpleCrud.Controls
 
         private void OnInProgress()
         {
-            SetValue(VisibilityProperty, Visibility.Visible);
+            SetValue(VisibilityProperty, VisibilityBoxes.VisibleBox);
+            SetValue(ShowCloseButtonProperty, BooleanBoxes.FalseBox);
             SetValue(IsJobInProgressProperty, BooleanBoxes.TrueBox);
             if ((bool)GetValue(JobCanBeCancelledProperty))
                 SetValue(ShowCancelButtonProperty, BooleanBoxes.TrueBox);
