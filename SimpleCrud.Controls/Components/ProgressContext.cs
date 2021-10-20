@@ -46,7 +46,7 @@ namespace SimpleCrud.Controls.Components
             {
                 IProgress<JobStage> stream = (IProgress<JobStage>)context.GetValue(ProgressStreamProperty);
                 CancellationTokenSource tokenSource = (CancellationTokenSource)context.GetValue(CancellationTokenSourceProperty);
-
+                
                 Task job = data.Job.Invoke(stream, tokenSource.Token);
                 if (!job.IsCompleted)
                 {

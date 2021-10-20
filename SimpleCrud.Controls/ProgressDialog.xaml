@@ -41,7 +41,8 @@
                     Converter={StaticResource BooleanToVisibilityConverter},
                     Source={StaticResource progressDialog}}"
                 Command="{Binding Data.CancelJobCommand, 
-                    Mode=OneTime,
+                    Mode=OneWay,
+                    UpdateSourceTrigger=PropertyChanged,
                     Source={StaticResource progressDialog}}"/>
         
         <Button x:Name="PART_ProcessErrorButton"

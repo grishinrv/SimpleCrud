@@ -34,7 +34,14 @@ namespace SimpleCrud.Desktop.ViewModels
         }
         private async Task GetResultAsync(IProgress<JobStage> progress, CancellationToken token)
         {
-            await Task.Delay(7000);
+            for (int i = 0; i < 7; i++)
+            {
+                await Task.Delay(1000);
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+            }
             Result = new Random().Next(1, 999);
         }
     }

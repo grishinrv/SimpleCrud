@@ -121,7 +121,7 @@
                                                     Mode=OneWay, 
                                                     UpdateSourceTrigger=PropertyChanged,
                                                     RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"
-                                                  CancelJobCommand="{Binding CancelJobCommand,
+                                                  CancelJobCommand="{Binding DataContext.CancelJobCommand,
                                                     Mode=OneTime,
                                                     RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"/>
                         </Grid>
