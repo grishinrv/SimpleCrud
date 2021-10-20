@@ -14,7 +14,7 @@
     
     <controls:ActivityControl>
         <controls:ActivityControl.ProgressContext>
-            <components:ProgressContext CancellationToken="{Binding CancellationToken, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+            <components:ProgressContext CancellationTokenSource="{Binding CancellationTokenSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                                         JobData="{Binding CurrentJob}"
                                         ProgressStream="{Binding Path=ProgressStream, UpdateSourceTrigger=PropertyChanged}"/>
         </controls:ActivityControl.ProgressContext>

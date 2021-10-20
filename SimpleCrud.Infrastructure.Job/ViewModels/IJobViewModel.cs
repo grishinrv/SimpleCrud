@@ -12,7 +12,7 @@ namespace SimpleCrud.Infrastructure.Job.ViewModel
         ICommand ProcessErrorCommand { get; }
         ICommand RunJobCommand { get; }
         ICommand CancelJobCommand { get; }
-        CancellationToken CancellationToken { get;}
+        CancellationTokenSource CancellationTokenSource { get;}
         IProgress<JobStage> ProgressStream { get; }
         ObservableCollection<string> CurrentJobStages { get; }
         JobData CurrentJob { get; }

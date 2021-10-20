@@ -19,9 +19,9 @@ namespace SimpleCrud.Controls.Components
             nameof(ProgressStream), typeof(IProgress<JobStage>), typeof(ProgressContext),
             new PropertyMetadata(default(IProgress<JobStage>)));
 
-        public static readonly DependencyProperty CancellationTokenProperty = DependencyProperty.Register(
-            nameof(CancellationToken), typeof(CancellationToken), typeof(ProgressContext),
-            new PropertyMetadata(default(CancellationToken)));
+        public static readonly DependencyProperty CancellationTokenSourceProperty = DependencyProperty.Register(
+            nameof(CancellationTokenSource), typeof(CancellationTokenSource), typeof(ProgressContext),
+            new PropertyMetadata(default(CancellationTokenSource)));
 
         public static readonly DependencyProperty CanCancelProperty = DependencyProperty.Register(
             nameof(CanCancel), typeof(bool), typeof(ProgressContext),
@@ -45,9 +45,9 @@ namespace SimpleCrud.Controls.Components
             if (data != null)
             {
                 IProgress<JobStage> stream = (IProgress<JobStage>)context.GetValue(ProgressStreamProperty);
-                CancellationToken token = (CancellationToken)context.GetValue(CancellationTokenProperty);
+                CancellationTokenSource tokenSource = (CancellationTokenSource)context.GetValue(CancellationTokenSourceProperty);
 
-                Task job = data.Job.Invoke(stream, token);
+                Task job = data.Job.Invoke(stream, tokenSource.Token);
                 if (!job.IsCompleted)
                 {
                     context.SetValue(CanCancelProperty, BooleanBoxes.Box(data.IsCancellable));
@@ -84,9 +84,16 @@ namespace SimpleCrud.Controls.Components
         private static void OnJobStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             JobCompletionStatus newStatus = (JobCompletionStatus)e.NewValue;
-            if (newStatus == JobCompletionStatus.Default || newStatus == JobCompletionStatus.Cancelled)
+            if (newStatus == JobCompletionStatus.Default)
             {
                 d.SetValue(JobDataProperty, null);
+            }
+            else if (newStatus == JobCompletionStatus.Cancelled)
+            {
+                d.SetValue(JobDataProperty, null);
+                // CancellationTokenSource tokenSource = (CancellationTokenSource)d.GetValue(CancellationTokenSourceProperty);
+                // tokenSource.Cancel();
+                // tokenSource.Dispose();
             }
         }
         
@@ -102,10 +109,10 @@ namespace SimpleCrud.Controls.Components
 
         #region dependency properties accessors
 
-        public CancellationToken CancellationToken
+        public CancellationTokenSource CancellationTokenSource
         {
-            get { return (CancellationToken)GetValue(CancellationTokenProperty); }
-            set { SetValue(CancellationTokenProperty, value); }
+            get { return (CancellationTokenSource)GetValue(CancellationTokenSourceProperty); }
+            set { SetValue(CancellationTokenSourceProperty, value); }
         }
 
         public JobData JobData
@@ -123,7 +130,7 @@ namespace SimpleCrud.Controls.Components
         public bool CanCancel
         {
             get { return (bool)GetValue(CanCancelProperty); }
-            set { SetValue(CanCancelProperty, value); }
+            set { SetValue(CanCancelProperty, BooleanBoxes.Box(value)); }
         }
 
         public string JobTitle

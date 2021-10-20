@@ -22,6 +22,7 @@ namespace SimpleCrud.Controls
         {
             InitializeComponent();
             PART_CloseButton.Click += PART_CloseButtonOnClick;
+            PART_CancelButton.Click += PART_CancelButtonOnClick;
         }
 
         #endregion
@@ -32,6 +33,12 @@ namespace SimpleCrud.Controls
         {
             e.Handled = true;
             SetValue(JobStatusProperty, JobCompletionStatusBoxes.DefaultBox);
+        }
+
+        private void PART_CancelButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            SetValue(JobStatusProperty, JobCompletionStatusBoxes.CancelledBox);
         }
 
         private static void OnJobStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

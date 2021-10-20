@@ -40,18 +40,17 @@ namespace SimpleCrud.MVVM.ViewModels
         {
             // the order of calls matters!
             CurrentJobStages.Clear();
-            _tokenSource = new CancellationTokenSource();
-            CancellationToken = _tokenSource.Token;
+            CancellationTokenSource = new CancellationTokenSource();
             CurrentJob = data;
         }
 
         public void CancelCurrentJob()
         {
-            if (CurrentJob.IsCancellable && !_tokenSource.IsCancellationRequested)
+            if (CurrentJob.IsCancellable && !CancellationTokenSource.IsCancellationRequested)
             {
-                using (_tokenSource)
+                using (CancellationTokenSource)
                 {
-                    _tokenSource.Cancel();
+                    CancellationTokenSource.Cancel();
                 }
             }
         }
@@ -75,10 +74,10 @@ namespace SimpleCrud.MVVM.ViewModels
             set => OnSet(ref _progressStream, value);
         }
 
-        public CancellationToken CancellationToken
+        public CancellationTokenSource CancellationTokenSource
         {
-            get => _cancellationToken;
-            set => OnSet(ref _cancellationToken, value);
+            get => _cancellationTokenSource;
+            set => OnSet(ref _cancellationTokenSource, value);
         }
 
         public bool AutoCloseProgressDialogOnSuccess
@@ -91,8 +90,7 @@ namespace SimpleCrud.MVVM.ViewModels
 
         private JobData _currentJob;
         private IProgress<JobStage> _progressStream;
-        private CancellationToken _cancellationToken;
-        private CancellationTokenSource _tokenSource;
+        private CancellationTokenSource _cancellationTokenSource;
         private bool _autoCloseProgressDialogOnSuccess;
 
         #endregion
