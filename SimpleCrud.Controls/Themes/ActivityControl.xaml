@@ -102,16 +102,16 @@
                             <Grid x:Name="PART_DialogContainer"
                                   Grid.Row="1"
                                   Grid.RowSpan="3"
-                                  Grid.Column="0"
-                                  Grid.ColumnSpan="5"
+                                  Grid.Column="1"
+                                  Grid.ColumnSpan="3"
                                   Panel.ZIndex="5"
                                   FocusVisualStyle="{x:Null}" />
 
                             <local:ProgressDialog x:Name="PART_ProgressDialog"
                                                   Grid.Row="1"
                                                   Grid.RowSpan="3"
-                                                  Grid.Column="0"
-                                                  Grid.ColumnSpan="5"
+                                                  Grid.Column="1"
+                                                  Grid.ColumnSpan="3"
                                                   Panel.ZIndex="6"
                                                   Title="{Binding ProgressContext.JobTitle,
                                                     Mode=OneWay, 
