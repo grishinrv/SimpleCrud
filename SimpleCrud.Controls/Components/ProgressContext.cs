@@ -13,7 +13,7 @@ namespace SimpleCrud.Controls.Components
 
         public static readonly DependencyProperty JobDataProperty = DependencyProperty.Register(
             nameof(JobData), typeof(JobData), typeof(ProgressContext),
-            new FrameworkPropertyMetadata(null, OnJobAssigned));
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnJobAssigned));
 
         public static readonly DependencyProperty ProgressStreamProperty = DependencyProperty.Register(
             nameof(ProgressStream), typeof(IProgress<JobStage>), typeof(ProgressContext),
@@ -32,7 +32,7 @@ namespace SimpleCrud.Controls.Components
 
         public static readonly DependencyProperty JobStatusProperty = DependencyProperty.Register(
             nameof(JobStatus), typeof(JobCompletionStatus), typeof(ProgressContext),
-            new FrameworkPropertyMetadata( JobCompletionStatusBoxes.DefaultBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            new FrameworkPropertyMetadata( JobCompletionStatusBoxes.DefaultBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnJobStatusChanged));
 
         #endregion
 
@@ -81,6 +81,15 @@ namespace SimpleCrud.Controls.Components
             }
         }
 
+        private static void OnJobStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            JobCompletionStatus newStatus = (JobCompletionStatus)e.NewValue;
+            if (newStatus == JobCompletionStatus.Default || newStatus == JobCompletionStatus.Cancelled)
+            {
+                d.SetValue(JobDataProperty, null);
+            }
+        }
+        
         private async Task<JobCompletionStatus> Execute(Task task)
         {
             await task;
