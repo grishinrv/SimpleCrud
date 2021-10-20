@@ -59,12 +59,14 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <!--  the main tab content  -->
                             <ContentControl x:Name="PART_Content"
                                             Grid.Row="0"
-                                            Grid.RowSpan="3"
+                                            Grid.RowSpan="5"
                                             Grid.Column="0"
                                             Grid.ColumnSpan="5"
                                             FocusVisualStyle="{x:Null}"
@@ -77,7 +79,7 @@
                             <Grid x:Name="PART_OverlayBox"
                                   Style="{StaticResource OverlayGridStyle}"
                                   Grid.Row="0"
-                                  Grid.RowSpan="3"
+                                  Grid.RowSpan="5"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="5"
                                   Panel.ZIndex="4"
@@ -99,6 +101,7 @@
                             <!--  active dialog container  -->
                             <Grid x:Name="PART_DialogContainer"
                                   Grid.Row="1"
+                                  Grid.RowSpan="3"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="5"
                                   Panel.ZIndex="5"
@@ -106,9 +109,14 @@
 
                             <local:ProgressDialog x:Name="PART_ProgressDialog"
                                                   Grid.Row="1"
+                                                  Grid.RowSpan="3"
                                                   Grid.Column="0"
                                                   Grid.ColumnSpan="5"
                                                   Panel.ZIndex="6"
+                                                  Title="{Binding ProgressContext.JobTitle,
+                                                    Mode=OneWay, 
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"
                                                   JobStatus="{Binding ProgressContext.JobStatus,
                                                     Mode=TwoWay, 
                                                     UpdateSourceTrigger=PropertyChanged,
