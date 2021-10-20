@@ -59,6 +59,10 @@ namespace SimpleCrud.Controls.Components
                     {
                         status = await context.Execute(job);
                     }
+                    catch (TaskCanceledException)
+                    {
+                        status = JobCompletionStatus.Cancelled;
+                    }
                     catch (Exception ex)
                     {
                         error = ex;
@@ -84,16 +88,9 @@ namespace SimpleCrud.Controls.Components
         private static void OnJobStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             JobCompletionStatus newStatus = (JobCompletionStatus)e.NewValue;
-            if (newStatus == JobCompletionStatus.Default)
+            if (newStatus == JobCompletionStatus.Default || newStatus == JobCompletionStatus.Cancelled)
             {
                 d.SetValue(JobDataProperty, null);
-            }
-            else if (newStatus == JobCompletionStatus.Cancelled)
-            {
-                d.SetValue(JobDataProperty, null);
-                // CancellationTokenSource tokenSource = (CancellationTokenSource)d.GetValue(CancellationTokenSourceProperty);
-                // tokenSource.Cancel();
-                // tokenSource.Dispose();
             }
         }
         

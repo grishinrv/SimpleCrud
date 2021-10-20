@@ -39,7 +39,7 @@ namespace SimpleCrud.Desktop.ViewModels
                 await Task.Delay(1000);
                 if (token.IsCancellationRequested)
                 {
-                    return;
+                    throw new TaskCanceledException();
                 }
             }
             Result = new Random().Next(1, 999);
