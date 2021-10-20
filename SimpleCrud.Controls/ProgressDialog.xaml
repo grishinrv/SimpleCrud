@@ -19,8 +19,6 @@
             
             <helpers:BindingProxy x:Key="progressDialog" Data="{Binding 
                 RelativeSource={RelativeSource AncestorType=controls:ProgressDialog, Mode=FindAncestor}}" />
-            <helpers:BindingProxy x:Key="activityControl" Data="{Binding 
-                RelativeSource={RelativeSource AncestorType=controls:ActivityControl, Mode=FindAncestor}}" />
             
         </ResourceDictionary>
     </controls:BaseActivityDialog.Resources>
@@ -42,9 +40,9 @@
                     UpdateSourceTrigger=PropertyChanged,
                     Converter={StaticResource BooleanToVisibilityConverter},
                     Source={StaticResource progressDialog}}"
-                Command="{Binding Data.DataContext.CancelJobCommand, 
+                Command="{Binding Data.CancelJobCommand, 
                     Mode=OneTime,
-                    Source={StaticResource activityControl}}"/>
+                    Source={StaticResource progressDialog}}"/>
         
         <Button x:Name="PART_ProcessErrorButton"
                 Content="{Binding Data.ProcessErrorButtonText, 

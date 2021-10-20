@@ -120,6 +120,9 @@
                                                   AutoCloseOnSuccess="{Binding DataContext.AutoCloseProgressDialogOnSuccess,
                                                     Mode=OneWay, 
                                                     UpdateSourceTrigger=PropertyChanged,
+                                                    RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"
+                                                  CancelJobCommand="{Binding CancelJobCommand,
+                                                    Mode=OneTime,
                                                     RelativeSource={RelativeSource FindAncestor, AncestorType=local:ActivityControl}}"/>
                         </Grid>
 

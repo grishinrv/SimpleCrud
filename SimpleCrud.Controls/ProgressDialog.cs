@@ -122,6 +122,10 @@ namespace SimpleCrud.Controls
             nameof(ProcessErrorCommand), typeof(ICommand), typeof(ProgressDialog),
             new PropertyMetadata(default(ICommand)));
 
+        public static readonly DependencyProperty CancelJobCommandProperty = DependencyProperty.Register(
+            nameof(CancelJobCommand), typeof(ICommand), typeof(ProgressDialog),
+            new PropertyMetadata(default(ICommand)));
+
         public static readonly DependencyProperty ProcessErrorButtonTextProperty = DependencyProperty.Register(
             nameof(ProcessErrorButtonText), typeof(string), typeof(ProgressDialog),
             new PropertyMetadata(default(string)));
@@ -183,6 +187,13 @@ namespace SimpleCrud.Controls
         {
             get { return (string)GetValue(ErrorTextProperty); }
             set { SetValue(ErrorTextProperty, value); }
+        }
+
+
+        public ICommand CancelJobCommand
+        {
+            get { return (ICommand)GetValue(CancelJobCommandProperty); }
+            set { SetValue(CancelJobCommandProperty, value); }
         }
 
         public double Progress
