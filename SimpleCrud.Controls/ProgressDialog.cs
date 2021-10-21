@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.ValueBoxes;
@@ -42,6 +43,10 @@ namespace SimpleCrud.Controls
                 return;
 
             JobCompletionStatus jobStatus = (JobCompletionStatus)e.NewValue;
+#if DEBUG
+            Debug.WriteLine($"Job status changed: {JobCompletionStatusBoxes.Box(jobStatus)}");
+#endif
+            
             switch (jobStatus)
             {
                 case JobCompletionStatus.InProgress:
@@ -87,7 +92,9 @@ namespace SimpleCrud.Controls
             SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
             bool closeOnSuccess = (bool)GetValue(AutoCloseOnSuccessProperty);
             if (closeOnSuccess)
+            {
                 SetValue(VisibilityProperty, VisibilityBoxes.CollapsedBox);
+            }
             else
                 SetValue(ShowCloseButtonProperty, BooleanBoxes.TrueBox);
         }
