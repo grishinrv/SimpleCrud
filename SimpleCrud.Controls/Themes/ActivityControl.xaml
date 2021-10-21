@@ -49,26 +49,22 @@
                             <Grid.ColumnDefinitions>
                                 <!-- three central columns will be used for dialogs -->
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <!--  the main tab content  -->
                             <ContentControl x:Name="PART_Content"
                                             Grid.Row="0"
-                                            Grid.RowSpan="5"
+                                            Grid.RowSpan="3"
                                             Grid.Column="0"
-                                            Grid.ColumnSpan="5"
+                                            Grid.ColumnSpan="3"
                                             FocusVisualStyle="{x:Null}"
                                             IsTabStop="False"
                                             UseLayoutRounding="True"
@@ -79,9 +75,9 @@
                             <Grid x:Name="PART_OverlayBox"
                                   Style="{StaticResource OverlayGridStyle}"
                                   Grid.Row="0"
-                                  Grid.RowSpan="5"
+                                  Grid.RowSpan="3"
                                   Grid.Column="0"
-                                  Grid.ColumnSpan="5"
+                                  Grid.ColumnSpan="3"
                                   Panel.ZIndex="4"
                                   Background="Black"
                                   FocusVisualStyle="{x:Null}"
@@ -99,19 +95,17 @@
                             </Grid>
 
                             <!--  active dialog container  -->
-                            <Grid x:Name="PART_DialogContainer"
+                            <!--Grid x:Name="PART_DialogContainer"
                                   Grid.Row="1"
-                                  Grid.RowSpan="3"
                                   Grid.Column="1"
-                                  Grid.ColumnSpan="3"
                                   Panel.ZIndex="5"
-                                  FocusVisualStyle="{x:Null}" />
+                                  FocusVisualStyle="{x:Null}" /-->
 
                             <local:ProgressDialog x:Name="PART_ProgressDialog"
                                                   Grid.Row="1"
-                                                  Grid.RowSpan="3"
                                                   Grid.Column="1"
-                                                  Grid.ColumnSpan="3"
+                                                  Width="500"
+                                                  Height="350"
                                                   Panel.ZIndex="6"
                                                   Title="{Binding ProgressContext.JobTitle,
                                                     Mode=OneWay, 
