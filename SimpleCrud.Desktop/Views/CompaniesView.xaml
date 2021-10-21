@@ -16,6 +16,7 @@
         <controls:ActivityControl.ProgressContext>
             <components:ProgressContext CancellationTokenSource="{Binding CancellationTokenSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                                         JobData="{Binding CurrentJob}"
+                                        FinishJobOnSuccess="{Binding AutoCloseProgressDialogOnSuccess, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                         ProgressStream="{Binding Path=ProgressStream, UpdateSourceTrigger=PropertyChanged}"/>
         </controls:ActivityControl.ProgressContext>
         <StackPanel Orientation="Vertical">

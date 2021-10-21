@@ -92,9 +92,7 @@ namespace SimpleCrud.Controls
             SetValue(IsJobInProgressProperty, BooleanBoxes.FalseBox);
             bool closeOnSuccess = (bool)GetValue(AutoCloseOnSuccessProperty);
             if (closeOnSuccess)
-            {
                 SetValue(VisibilityProperty, VisibilityBoxes.CollapsedBox);
-            }
             else
                 SetValue(ShowCloseButtonProperty, BooleanBoxes.TrueBox);
         }

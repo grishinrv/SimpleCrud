@@ -34,6 +34,9 @@ namespace SimpleCrud.Controls.Components
             nameof(JobStatus), typeof(JobCompletionStatus), typeof(ProgressContext),
             new FrameworkPropertyMetadata( JobCompletionStatusBoxes.DefaultBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnJobStatusChanged));
 
+        public static readonly DependencyProperty FinishJobOnSuccessProperty = DependencyProperty.Register(
+            nameof(FinishJobOnSuccess), typeof(bool), typeof(ProgressContext), new PropertyMetadata(BooleanBoxes.FalseBox));
+
         #endregion
 
         #region callbacks
@@ -58,7 +61,11 @@ namespace SimpleCrud.Controls.Components
                     try
                     {
                         await job;
-                        status = JobCompletionStatus.CompetedSuccessfully;
+                        bool shouldFinish = (bool)context.GetValue(FinishJobOnSuccessProperty);
+                        if (shouldFinish)
+                            status = JobCompletionStatus.Default;
+                        else
+                            status = JobCompletionStatus.CompetedSuccessfully;
                     }
                     catch (TaskCanceledException)
                     {
@@ -135,6 +142,11 @@ namespace SimpleCrud.Controls.Components
             set { SetValue(JobStatusProperty, JobCompletionStatusBoxes.Box(value)); }
         }
 
+        public bool FinishJobOnSuccess
+        {
+            get { return (bool)GetValue(FinishJobOnSuccessProperty); }
+            set { SetValue(FinishJobOnSuccessProperty, BooleanBoxes.Box(value)); }
+        }
         #endregion
     }
 }
