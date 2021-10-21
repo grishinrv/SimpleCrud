@@ -57,7 +57,8 @@ namespace SimpleCrud.Controls.Components
                     Exception error = null;
                     try
                     {
-                        status = await context.Execute(job);
+                        await job;
+                        status = JobCompletionStatus.CompetedSuccessfully;
                     }
                     catch (TaskCanceledException)
                     {
@@ -92,14 +93,6 @@ namespace SimpleCrud.Controls.Components
             {
                 d.SetValue(JobDataProperty, null);
             }
-        }
-        
-        private async Task<JobCompletionStatus> Execute(Task task)
-        {
-            await task;
-            if (task.IsCanceled)
-                return JobCompletionStatus.Cancelled;
-            return JobCompletionStatus.CompetedSuccessfully;
         }
 
         #endregion
